@@ -1,0 +1,19 @@
+{
+  "name": "chitchat",
+  "version": "1.0.0",
+  "description": "ChitChat - realtime chat app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lilla Németh",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lilla-nemeth/ChitChat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lilla-nemeth/ChitChat/issues"
+  },
+  "homepage": "https://github.com/lilla-nemeth/ChitChat#readme"
+}
