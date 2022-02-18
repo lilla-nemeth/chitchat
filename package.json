@@ -4,7 +4,8 @@
   "description": "ChitChat - realtime chat app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index",
+    "dev": "nodemon index"
   },
   "author": "Lilla Németh",
   "license": "ISC",
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/lilla-nemeth/ChitChat/issues"
   },
-  "homepage": "https://github.com/lilla-nemeth/ChitChat#readme"
+  "homepage": "https://github.com/lilla-nemeth/ChitChat#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "socket.io": "^4.4.1",
+    "sugar": "^2.0.6"
+  }
 }
