@@ -22,5 +22,8 @@
     "nodemon": "^2.0.15",
     "socket.io": "^4.4.1",
     "sugar": "^2.0.6"
+  },
+  "devDependencies": {
+    "react-router-dom": "^6.2.1"
   }
 }
