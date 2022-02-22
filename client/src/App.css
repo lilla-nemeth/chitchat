@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+
 html,
 body,
 div,
@@ -125,17 +128,17 @@ table {
 
 /* Main colors of the App */
 .first-color {
-	background: #2f3c4f;
+	background: rgb(47, 60, 79);
 }
 
 .second-color {
-	background: #506f86;
+	background: rgb(80, 111, 134);
 }
 
 .third-color {
-	background: #fbb040;
+	background: rgb(251, 176, 64);
 }
 
 .fourth-color {
-	background: #de703c;
+	background: rgb(222, 112, 60);
 }
