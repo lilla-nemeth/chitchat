@@ -1,19 +1,20 @@
 import './App.css';
-import Home from './Home';
-import Chat from './Chat';
+import Home from './components/Home';
+import Chat from './components/Chat';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
 	return (
-		// <BrowserRouter>
-		// 	<Routes>
-		// 		<Route path="/" element={<Home />} />
-		// 		<Route path="chat" element={<Chat />} />
-		// 	</Routes>
-		// </BrowserRouter>
 		<>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="chat" element={<Chat />} />
+				</Routes>
+			</BrowserRouter>
+
 			{/* <Chat /> */}
-			<Home />
+			{/* <Home /> */}
 		</>
 	);
 }

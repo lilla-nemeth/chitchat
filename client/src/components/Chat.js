@@ -1,12 +1,13 @@
 import React from 'react';
+import { Main, Wrapper } from '../Style';
 
 function Chat() {
 	return (
-		<main>
-			<section>
+		<Main>
+			<Wrapper>
 				<h2>Chat</h2>
-			</section>
-		</main>
+			</Wrapper>
+		</Main>
 	);
 }
 
