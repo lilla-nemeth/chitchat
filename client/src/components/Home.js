@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Main, Wrapper, Form, Logo, Label, LabelName, Input, ButtonContainer, Button } from '../Style';
+import { Main, Wrapper, Form, Logo, Label, LabelName, Input, ButtonContainer, Button, StyledLink } from '../Style';
 
 function Home() {
 	return (
 		<Main>
-			<Wrapper>
+			<Wrapper primary>
 				<Logo>ChitChat</Logo>
 				<Form>
 					<Label>
@@ -18,11 +17,11 @@ function Home() {
 						<Input type="text" value="room" name="room" />
 					</Label>
 					<ButtonContainer>
-						<Link to="/chat">
+						<StyledLink to="/chat">
 							<Button primary type="submit" value="submit" name="submit">
 								Join
 							</Button>
-						</Link>
+						</StyledLink>
 					</ButtonContainer>
 				</Form>
 			</Wrapper>

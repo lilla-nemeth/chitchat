@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 // Global css variables?
 
 const Main = styled.main`
@@ -12,10 +12,12 @@ const Main = styled.main`
 
 const Wrapper = styled.section`
 	background: #2f3c4f;
-	padding: 2em 2.5em;
 	width: 30vw;
 	border-radius: 2.5em;
+	padding: 2em 2.5em;
 `;
+// height: 90vh;
+// padding: ${(props) => (props.primary ? '2em 2.5em' : '0')};
 // border-radius: 2.5em 2.5em 2.5em 0em;
 
 const Form = styled.form`
@@ -69,4 +71,74 @@ const Button = styled.button`
 	font-family: 'Nunito', sans-serif;
 `;
 
-export { Main, Wrapper, Form, Label, LabelName, Input, Logo, ButtonContainer, Button };
+const LeaveButton = styled.button`
+	background: #fbb040;
+	color: #2f3c4f;
+	border: none;
+	border-radius: 2px;
+	padding: 1em 1.5em;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	font-size: 1em;
+	font-family: 'Nunito', sans-serif;
+`;
+
+// Link from react-router-dom:
+const StyledLink = styled(Link)`
+	color: ${(props) => (props.primary ? '#2f3c4f' : '#fbb040')};
+	text-decoration: none;
+`;
+
+const ChatRoomContainer = styled.div`
+	display: flex;
+	width: 70vw;
+	height: inherit;
+	border-radius: 2.5em;
+	height: 85vh;
+`;
+// padding: 2em 2.5em;
+
+const UserContainer = styled.div`
+	flex: 1;
+	background: #2f3c4f;
+	border-radius: 2.5em 0 0 2.5em;
+`;
+// border-right: 0.1em solid rgb(222, 112, 60, 0.4);
+// background: white;
+
+const MessageContainer = styled.div`
+	flex: 2;
+	background: white;
+	border-radius: 0 2.5em 2.5em 0;
+`;
+// border-left: 0.1em solid rgb(222, 112, 60, 0.4);
+
+const UserBox = styled.div`
+	background: #fbb040;
+	height: 10vh;
+	width: 20vw;
+	justify-content: space-between;
+	margin: 2em;
+	padding: 0.5em;
+`;
+// border-bottom: 0.07em solid #fbb040;
+// border-top: 0.07em solid #fbb040;
+
+export {
+	Main,
+	Wrapper,
+	Form,
+	Label,
+	LabelName,
+	Input,
+	Logo,
+	ButtonContainer,
+	Button,
+	LeaveButton,
+	StyledLink,
+	ChatRoomContainer,
+	UserContainer,
+	UserBox,
+	MessageContainer,
+};
