@@ -12,9 +12,6 @@ function App() {
 					<Route path="chat" element={<Chat />} />
 				</Routes>
 			</BrowserRouter>
-
-			{/* <Chat /> */}
-			{/* <Home /> */}
 		</>
 	);
 }
