@@ -1,5 +1,21 @@
 import React from 'react';
-import { Main, Wrapper, Form, Logo, Label, LabelName, Input, ButtonContainer, Button, StyledLink } from '../Style';
+import {
+	Main,
+	Wrapper,
+	Form,
+	Logo,
+	Label,
+	LabelName,
+	Input,
+	ButtonContainer,
+	Button,
+	RoomContainer,
+	RoomButton,
+	RoomIcon,
+	StyledLink,
+} from '../Style';
+
+const chatRooms = ['Chill', 'Debate', 'Geek', 'Sport', 'Food', 'Music'];
 
 function Home() {
 	return (
@@ -13,9 +29,13 @@ function Home() {
 					</Label>
 					<Label>
 						<LabelName>Room</LabelName>
-						{/* It has to be a list: */}
-						<Input type="text" value="room" name="room" />
 					</Label>
+					{/* <Input type="text" value="room" name="room" /> */}
+					<RoomContainer>
+						{chatRooms.map((room) => (
+							<RoomButton>{room}</RoomButton>
+						))}
+					</RoomContainer>
 					<ButtonContainer>
 						<StyledLink to="/chat">
 							<Button primary type="submit" value="submit" name="submit">
