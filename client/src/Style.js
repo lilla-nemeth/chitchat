@@ -12,10 +12,10 @@ const Main = styled.main`
 
 const Wrapper = styled.section`
 	background: #2f3c4f;
-	width: 30vw;
 	border-radius: 2.5em;
 	padding: 2em 2.5em;
 `;
+// width: 30vw;
 // height: 90vh;
 // padding: ${(props) => (props.primary ? '2em 2.5em' : '0')};
 // border-radius: 2.5em 2.5em 2.5em 0em;
@@ -23,8 +23,8 @@ const Wrapper = styled.section`
 const Form = styled.form`
 	padding: 2em 2.5em;
 	display: flex;
-	flex-direction: column;
 	font-family: 'Nunito', sans-serif;
+	flex-direction: column;
 `;
 
 const Label = styled.label`
@@ -71,6 +71,37 @@ const Button = styled.button`
 	font-family: 'Nunito', sans-serif;
 `;
 
+const RoomContainer = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+`;
+// width: 40vw;
+// justify-content: space-between;
+
+const RoomButton = styled.button`
+	background: #fff;
+	border: none;
+	width: 6em;
+	height: 6em;
+	border-radius: 2px;
+	color: #000;
+	display: flex;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	margin: 0.5em;
+	flex-wrap: wrap;
+`;
+// margin-top: 0.5em;
+// margin-bottom: 0.5em;
+
+const RoomIcon = styled.div`
+	color: #fff;
+`;
+
+// Chat room part:
 const LeaveButton = styled.button`
 	background: #fbb040;
 	color: #2f3c4f;
@@ -135,6 +166,9 @@ export {
 	Logo,
 	ButtonContainer,
 	Button,
+	RoomContainer,
+	RoomButton,
+	RoomIcon,
 	LeaveButton,
 	StyledLink,
 	ChatRoomContainer,
