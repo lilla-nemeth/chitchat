@@ -11,6 +11,7 @@ const Main = styled.main`
 `;
 
 const Wrapper = styled.section`
+	font-family: 'Nunito', sans-serif;
 	background: #2f3c4f;
 	border-radius: 2.5em;
 	padding: 2em 2.5em;
@@ -23,14 +24,7 @@ const Wrapper = styled.section`
 const Form = styled.form`
 	padding: 2em 2.5em;
 	display: flex;
-	font-family: 'Nunito', sans-serif;
 	flex-direction: column;
-`;
-
-const InputContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	padding: 1em 0 1.5em;
 `;
 
 const Label = styled.label`
@@ -41,13 +35,13 @@ const Label = styled.label`
 const Input = styled.input`
 	padding: 1em 1.5em;
 	font-size: 1em;
-	font-family: 'Nunito', sans-serif;
+	border: none;
 `;
 
 const InputArea = styled.textarea`
 	padding: 1em 1.5em;
 	font-size: 1em;
-	font-family: 'Nunito', sans-serif;
+	border: none;
 `;
 // rows: 1;
 // cols: 4;
@@ -76,7 +70,6 @@ const ButtonStyle = styled.button`
 	justify-content: center;
 	width: 100%;
 	font-size: 1em;
-	font-family: 'Nunito', sans-serif;
 `;
 
 const RoomContainer = styled.div`
@@ -118,6 +111,7 @@ const StyledLink = styled(Link)`
 `;
 
 const ChatRoom = styled.div`
+	font-family: 'Nunito', sans-serif;
 	display: flex;
 	width: 70vw;
 	height: inherit;
@@ -158,9 +152,19 @@ const MessageWrapper = styled.div`
 `;
 
 const PartnerContainer = styled.div`
+	display: flex;
 	flex: 1;
 	background: green;
 	margin-bottom: 1em;
+`;
+
+const Partner = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+	text-align: center;
+	background: grey;
 `;
 
 const MessageContainer = styled.div`
@@ -180,21 +184,31 @@ const MessageInputContainer = styled.div`
 	justify-content: center;
 `;
 
+const MessageInput = styled.div`
+	flex: 2;
+	background: purple;
+`;
+
+const MessageButton = styled.div`
+	flex: 1;
+	background: cyan;
+`;
+
 const UserBox = styled.div`
 	background: #fbb040;
 	height: 10vh;
-	width: 20vw;
-	justify-content: space-between;
-	margin: 2em;
-	padding: 0.5em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 `;
+// width: 20vw;
 
 export {
 	Main,
 	Wrapper,
 	Form,
 	Label,
-	InputContainer,
 	Input,
 	InputArea,
 	Logo,
@@ -209,8 +223,11 @@ export {
 	UserBox,
 	MessageWrapper,
 	PartnerContainer,
+	Partner,
 	MessageContainer,
 	MessageInputContainer,
+	MessageInput,
+	MessageButton,
 	RoomNameContainer,
 	UsersContainer,
 };

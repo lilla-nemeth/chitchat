@@ -11,8 +11,11 @@ import {
 	RoomNameContainer,
 	MessageWrapper,
 	PartnerContainer,
+	Partner,
 	MessageContainer,
 	MessageInputContainer,
+	MessageInput,
+	MessageButton,
 } from '../Style';
 
 function Chat() {
@@ -21,15 +24,24 @@ function Chat() {
 			<ChatRoom>
 				<UserWrapper>
 					<RoomNameContainer>{/* RoomComponent */}</RoomNameContainer>
-					<UsersContainer>{/* <User /> */}</UsersContainer>
+					<UsersContainer>
+						<User />
+					</UsersContainer>
 				</UserWrapper>
 				<MessageWrapper>
-					<PartnerContainer>{/* <ButtonComponent to={'/'} name={'Leave'} /> */}</PartnerContainer>
+					<PartnerContainer>
+						<Partner>Partner's name</Partner>
+						<ButtonComponent to={'/'} name={'Leave'} />
+					</PartnerContainer>
 					<MessageContainer></MessageContainer>
 					<MessageInputContainer>
-						{/* <TextArea labelName={false} value={'Type your message'} /> */}
-						{/* <TextInput labelName={false} value={'Type your message'} />
-						<ButtonComponent to={false} name={'Send'} /> */}
+						<MessageInput>
+							<TextInput value={'Type your message'} />
+							{/* <TextArea labelName={false} value={'Type your message'} /> */}
+						</MessageInput>
+						<MessageButton>
+							<ButtonComponent to={false} name={'Send'} />
+						</MessageButton>
 					</MessageInputContainer>
 				</MessageWrapper>
 			</ChatRoom>
