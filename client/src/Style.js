@@ -27,21 +27,29 @@ const Form = styled.form`
 	flex-direction: column;
 `;
 
-const Label = styled.label`
-	color: #fff;
+const InputContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 1em 0 1em;
 `;
 
-const LabelName = styled.p`
+const Label = styled.label`
 	padding: 0.5em 0 0.5em;
+	color: #fff;
 `;
 
 const Input = styled.input`
 	padding: 1em 1.5em;
 	font-size: 1em;
 	font-family: 'Nunito', sans-serif;
+`;
+
+const InputArea = styled.textarea`
+	padding: 1em 1.5em;
+	font-size: 1em;
+	font-family: 'Nunito', sans-serif;
+	rows: 6;
+	cols: 10;
 `;
 
 const Logo = styled.h2`
@@ -102,18 +110,6 @@ const RoomIcon = styled.div`
 `;
 
 // Chat room part:
-const LeaveButton = styled.button`
-	background: #fbb040;
-	color: #2f3c4f;
-	border: none;
-	border-radius: 2px;
-	padding: 1em 1.5em;
-	cursor: pointer;
-	display: flex;
-	justify-content: center;
-	font-size: 1em;
-	font-family: 'Nunito', sans-serif;
-`;
 
 // Link from react-router-dom:
 const StyledLink = styled(Link)`
@@ -160,16 +156,16 @@ export {
 	Main,
 	Wrapper,
 	Form,
+	InputContainer,
 	Label,
-	LabelName,
 	Input,
+	InputArea,
 	Logo,
 	ButtonContainer,
 	Button,
 	RoomContainer,
 	RoomButton,
 	RoomIcon,
-	LeaveButton,
 	StyledLink,
 	ChatRoomContainer,
 	UserContainer,

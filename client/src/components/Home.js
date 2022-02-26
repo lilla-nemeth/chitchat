@@ -1,19 +1,7 @@
 import React from 'react';
-import {
-	Main,
-	Wrapper,
-	Form,
-	Logo,
-	Label,
-	LabelName,
-	Input,
-	ButtonContainer,
-	Button,
-	RoomContainer,
-	RoomButton,
-	RoomIcon,
-	StyledLink,
-} from '../Style';
+import JoinLeaveButton from './generic/JoinLeaveButton';
+import { Main, Wrapper, Form, Logo, InputContainer, Label, RoomContainer, RoomButton, RoomIcon } from '../Style';
+import TextInput from './generic/TextInput';
 
 const chatRooms = ['Chill', 'Debate', 'Geek', 'Sport', 'Food', 'Music'];
 
@@ -23,26 +11,17 @@ function Home() {
 			<Wrapper primary>
 				<Logo>ChitChat</Logo>
 				<Form>
-					<Label>
-						<LabelName>Username</LabelName>
-						<Input type="text" value="username" name="username" />
-					</Label>
-					<Label>
-						<LabelName>Room</LabelName>
-					</Label>
-					{/* <Input type="text" value="room" name="room" /> */}
+					<TextInput labelName={'Username'} value={'username'} />
+					{/* change this: */}
+					<InputContainer>
+						<Label>Room</Label>
+					</InputContainer>
 					<RoomContainer>
 						{chatRooms.map((room) => (
 							<RoomButton>{room}</RoomButton>
 						))}
 					</RoomContainer>
-					<ButtonContainer>
-						<StyledLink to="/chat">
-							<Button primary type="submit" value="submit" name="submit">
-								Join
-							</Button>
-						</StyledLink>
-					</ButtonContainer>
+					<JoinLeaveButton primary={true} to={'/chat'} name={'Join'} />
 				</Form>
 			</Wrapper>
 		</Main>
