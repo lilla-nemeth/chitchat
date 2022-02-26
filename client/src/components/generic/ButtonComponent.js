@@ -5,13 +5,13 @@ function ButtonComponent(props) {
 
 	return (
 		<>
-			<ButtonContainer>
-				<StyledLink to={to}>
-					<ButtonStyle primary={primary} type="submit" value="submit" name="submit">
-						{name}
-					</ButtonStyle>
-				</StyledLink>
-			</ButtonContainer>
+			{/* <ButtonContainer> */}
+			<StyledLink to={to}>
+				<ButtonStyle primary={primary} type="submit" value="submit" name="submit">
+					{name}
+				</ButtonStyle>
+			</StyledLink>
+			{/* </ButtonContainer> */}
 		</>
 	);
 }
