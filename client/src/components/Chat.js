@@ -1,46 +1,38 @@
 import React from 'react';
 import User from './generic/User';
-import JoinLeaveButton from './generic/JoinLeaveButton';
-
+import ButtonComponent from './generic/ButtonComponent';
+import TextArea from './generic/TextArea';
+import TextInput from './generic/TextInput';
 import {
 	Main,
-	Wrapper,
-	ButtonContainer,
-	Button,
-	StyledLink,
-	ChatRoomContainer,
-	UserContainer,
-	UserBox,
-	Label,
-	Input,
+	ChatRoom,
+	UserWrapper,
+	UsersContainer,
+	RoomNameContainer,
+	MessageWrapper,
+	PartnerContainer,
 	MessageContainer,
+	MessageInputContainer,
 } from '../Style';
-import TextArea from './generic/TextArea';
 
 function Chat() {
 	return (
 		<Main>
-			<ChatRoomContainer>
-				<UserContainer>
-					<User />
-				</UserContainer>
-				<MessageContainer>
-					{/* 
-					<Label>
-						<Input type="text" value="username" name="username" required />
-					</Label>
-					<ButtonContainer>
-						<StyledLink to="/chat">
-							<Button primary type="submit" value="submit" name="submit">
-								Send
-							</Button>
-						</StyledLink>
-					</ButtonContainer>
-					 */}
-					<JoinLeaveButton to={'/'} name={'Leave'} />
-					<TextArea labelName={false} value={'Type your message'} />
-				</MessageContainer>
-			</ChatRoomContainer>
+			<ChatRoom>
+				<UserWrapper>
+					<RoomNameContainer>{/* RoomComponent */}</RoomNameContainer>
+					<UsersContainer>{/* <User /> */}</UsersContainer>
+				</UserWrapper>
+				<MessageWrapper>
+					<PartnerContainer>{/* <ButtonComponent to={'/'} name={'Leave'} /> */}</PartnerContainer>
+					<MessageContainer></MessageContainer>
+					<MessageInputContainer>
+						{/* <TextArea labelName={false} value={'Type your message'} /> */}
+						{/* <TextInput labelName={false} value={'Type your message'} />
+						<ButtonComponent to={false} name={'Send'} /> */}
+					</MessageInputContainer>
+				</MessageWrapper>
+			</ChatRoom>
 		</Main>
 	);
 }

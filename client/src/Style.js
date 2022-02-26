@@ -30,7 +30,7 @@ const Form = styled.form`
 const InputContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	padding: 1em 0 1em;
+	padding: 1em 0 1.5em;
 `;
 
 const Label = styled.label`
@@ -48,9 +48,9 @@ const InputArea = styled.textarea`
 	padding: 1em 1.5em;
 	font-size: 1em;
 	font-family: 'Nunito', sans-serif;
-	rows: 6;
-	cols: 10;
 `;
+// rows: 1;
+// cols: 4;
 
 const Logo = styled.h2`
 	color: #fff;
@@ -65,7 +65,7 @@ const ButtonContainer = styled.div`
 	padding: 1em 0;
 `;
 
-const Button = styled.button`
+const ButtonStyle = styled.button`
 	background: ${(props) => (props.primary ? 'transparent' : '#fbb040')};
 	color: ${(props) => (props.primary ? '#fbb040' : '#2f3c4f')};
 	border: ${(props) => (props.primary ? '2px solid #fbb040' : '#2f3c4f')};
@@ -99,7 +99,7 @@ const RoomButton = styled.button`
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	margin: 0.5em;
+	margin-right: 1em;
 	flex-wrap: wrap;
 `;
 // margin-top: 0.5em;
@@ -117,7 +117,7 @@ const StyledLink = styled(Link)`
 	text-decoration: none;
 `;
 
-const ChatRoomContainer = styled.div`
+const ChatRoom = styled.div`
 	display: flex;
 	width: 70vw;
 	height: inherit;
@@ -126,20 +126,59 @@ const ChatRoomContainer = styled.div`
 `;
 // padding: 2em 2.5em;
 
-const UserContainer = styled.div`
+const UserWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
 	flex: 1;
 	background: #2f3c4f;
 	border-radius: 2.5em 0 0 2.5em;
+	padding: 2em;
 `;
-// border-right: 0.1em solid rgb(222, 112, 60, 0.4);
-// background: white;
 
-const MessageContainer = styled.div`
+const RoomNameContainer = styled.div`
+	flex: 1;
+	background: red;
+	margin-bottom: 1em;
+`;
+// border: 4px solid red;
+const UsersContainer = styled.div`
+	flex: 5.5;
+	background: yellow;
+	margin-top: 1em;
+`;
+// border: 4px solid yellow;
+
+const MessageWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
 	flex: 2;
 	background: white;
 	border-radius: 0 2.5em 2.5em 0;
+	padding: 2em;
 `;
-// border-left: 0.1em solid rgb(222, 112, 60, 0.4);
+
+const PartnerContainer = styled.div`
+	flex: 1;
+	background: green;
+	margin-bottom: 1em;
+`;
+
+const MessageContainer = styled.div`
+	flex: 4;
+	background: aquamarine;
+	margin-top: 1em;
+	margin-bottom: 1em;
+`;
+
+const MessageInputContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+	background: red;
+	margin-top: 1em;
+	align-items: center;
+	justify-content: center;
+`;
 
 const UserBox = styled.div`
 	background: #fbb040;
@@ -149,26 +188,29 @@ const UserBox = styled.div`
 	margin: 2em;
 	padding: 0.5em;
 `;
-// border-bottom: 0.07em solid #fbb040;
-// border-top: 0.07em solid #fbb040;
 
 export {
 	Main,
 	Wrapper,
 	Form,
-	InputContainer,
 	Label,
+	InputContainer,
 	Input,
 	InputArea,
 	Logo,
 	ButtonContainer,
-	Button,
+	ButtonStyle,
 	RoomContainer,
 	RoomButton,
 	RoomIcon,
 	StyledLink,
-	ChatRoomContainer,
-	UserContainer,
+	ChatRoom,
+	UserWrapper,
 	UserBox,
+	MessageWrapper,
+	PartnerContainer,
 	MessageContainer,
+	MessageInputContainer,
+	RoomNameContainer,
+	UsersContainer,
 };
