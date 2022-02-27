@@ -35,8 +35,10 @@ const Label = styled.label`
 const Input = styled.input`
 	padding: 1em 1.5em;
 	font-size: 1em;
-	border: none;
+	// border: 0.1em solid #ddd;
 `;
+// border: none;
+// background: #eee;
 
 const InputArea = styled.textarea`
 	padding: 1em 1.5em;
@@ -80,23 +82,44 @@ const RoomContainer = styled.div`
 // width: 40vw;
 // justify-content: space-between;
 
-const RoomButton = styled.button`
+const RoomButtonStyle = styled.button`
 	background: #fff;
 	border: none;
-	width: 6em;
-	height: 6em;
+	width: 10em;
+	height: 10em;
 	border-radius: 2px;
 	color: #000;
 	display: flex;
+	flex-direction: column;
 	text-align: center;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
 	margin-right: 1em;
 	flex-wrap: wrap;
+	margin-bottom: 2.5em;
 `;
 // margin-top: 0.5em;
 // margin-bottom: 0.5em;
+
+const RoomButtonIcon = styled.div`
+	flex: 1;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	text-align: center;
+`;
+// background: red;
+
+const RoomButtonText = styled.div`
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+`;
+// background: lightblue;
+// align-items: flex-start;
 
 const RoomIcon = styled.div`
 	color: #fff;
@@ -113,7 +136,7 @@ const StyledLink = styled(Link)`
 const ChatRoom = styled.div`
 	font-family: 'Nunito', sans-serif;
 	display: flex;
-	width: 70vw;
+	width: 80vw;
 	height: inherit;
 	border-radius: 2.5em;
 	height: 85vh;
@@ -153,10 +176,10 @@ const MessageWrapper = styled.div`
 
 const PartnerContainer = styled.div`
 	display: flex;
-	flex: 1;
 	background: green;
 	margin-bottom: 1em;
 `;
+// flex: 1;
 
 const Partner = styled.div`
 	display: flex;
@@ -177,21 +200,21 @@ const MessageContainer = styled.div`
 const MessageInputContainer = styled.div`
 	display: flex;
 	flex-direction: row;
-	flex: 1;
 	background: red;
 	margin-top: 1em;
 	align-items: center;
 	justify-content: center;
 `;
+// flex: 1;
 
 const MessageInput = styled.div`
-	flex: 2;
+	flex: 1;
 	background: purple;
 `;
 
 const MessageButton = styled.div`
-	flex: 1;
 	background: cyan;
+	flex: 1;
 `;
 
 const UserBox = styled.div`
@@ -215,7 +238,9 @@ export {
 	ButtonContainer,
 	ButtonStyle,
 	RoomContainer,
-	RoomButton,
+	RoomButtonStyle,
+	RoomButtonText,
+	RoomButtonIcon,
 	RoomIcon,
 	StyledLink,
 	ChatRoom,

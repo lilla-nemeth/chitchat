@@ -1,8 +1,8 @@
 import React from 'react';
 import User from './generic/User';
 import ButtonComponent from './generic/ButtonComponent';
-import TextArea from './generic/TextArea';
 import TextInput from './generic/TextInput';
+import TextArea from './generic/TextArea';
 import {
 	Main,
 	ChatRoom,
@@ -23,7 +23,7 @@ function Chat() {
 		<Main>
 			<ChatRoom>
 				<UserWrapper>
-					<RoomNameContainer>{/* RoomComponent */}</RoomNameContainer>
+					<RoomNameContainer>RoomName</RoomNameContainer>
 					<UsersContainer>
 						<User />
 					</UsersContainer>
