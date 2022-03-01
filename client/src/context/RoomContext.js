@@ -1,15 +1,15 @@
 import React, { createContext, useState } from "react";
-import { ReactComponent as ChillIcon1 } from "../assets/icons/chill01.svg";
-import { ReactComponent as DebateIcon1 } from "../assets/icons/debate01.svg";
-import { ReactComponent as DebateIcon2 } from "../assets/icons/debate02.svg";
-import { ReactComponent as GameIcon1 } from "../assets/icons/game01.svg";
-import { ReactComponent as SportIcon1 } from "../assets/icons/sport01.svg";
-import { ReactComponent as SportIcon2 } from "../assets/icons/sport02.svg";
-import { ReactComponent as SportIcon3 } from "../assets/icons/sport03.svg";
-import { ReactComponent as SportIcon4 } from "../assets/icons/sport04.svg";
-import { ReactComponent as SportIcon5 } from "../assets/icons/sport05.svg";
-import { ReactComponent as TechIcon1 } from "../assets/icons/tech01.svg";
-import { ReactComponent as TechIcon2 } from "../assets/icons/tech02.svg";
+import ChillIcon01 from "../assets/icons/ChillIcon01";
+import DebateIcon01 from "../assets/icons/DebateIcon01";
+import DebateIcon02 from "../assets/icons/DebateIcon02";
+import TechIcon01 from "../assets/icons/TechIcon01";
+import TechIcon02 from "../assets/icons/TechIcon02";
+import GameIcon01 from "../assets/icons/GameIcon01";
+import SportIcon01 from "../assets/icons/SportIcon01";
+import SportIcon02 from "../assets/icons/SportIcon02";
+import SportIcon03 from "../assets/icons/SportIcon03";
+import SportIcon04 from "../assets/icons/SportIcon04";
+import SportIcon05 from "../assets/icons/SportIcon05";
 
 export const RoomContext = createContext();
 
@@ -17,33 +17,33 @@ const chatRooms = [
   {
     id: "1",
     name: "Chill",
-    icon: <ChillIcon1 />,
+    icon: <ChillIcon01 />,
   },
   {
     id: "2",
     name: "Debate",
-    // icon: <DebateIcon1 />,
-    icon: <DebateIcon2 />,
+    // icon: <DebateIcon01 />,
+    icon: <DebateIcon02 />,
   },
   {
     id: "3",
     name: "Tech",
-    // icon: <TechIcon1 />,
-    icon: <TechIcon2 />,
+    // icon: <TechIcon01 />,
+    icon: <TechIcon02 />,
   },
   {
     id: "4",
     name: "Game",
-    icon: <GameIcon1 />,
+    icon: <GameIcon01 />,
   },
   {
     id: "5",
     name: "Sport",
-    icon: <SportIcon1 />,
-    // icon: <SportIcon2 />,
-    // icon: <SportIcon3 />,
-    // icon: <SportIcon4 />,
-    // icon: <SportIcon5 />,
+    // icon: <SportIcon01 />,
+    icon: <SportIcon02 />,
+    // icon: <SportIcon03 />,
+    // icon: <SportIcon04 />,
+    // icon: <SportIcon05 />,
   },
 ];
 
