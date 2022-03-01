@@ -1,3 +1,6 @@
 {
-	"recommendations": ["burkeholland.simple-react-snippets"]
+  "recommendations": [
+    "burkeholland.simple-react-snippets",
+    "esbenp.prettier-vscode"
+  ]
 }
