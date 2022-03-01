@@ -1,11 +1,13 @@
-import { UserBox } from '../../Style';
+import { UserBox } from "../../Style";
 
-function User() {
-	return (
-		<>
-			<UserBox>Username</UserBox>
-		</>
-	);
+function User(props) {
+  const { username } = props;
+
+  return (
+    <>
+      <UserBox>{username}</UserBox>
+    </>
+  );
 }
 
 export default User;
