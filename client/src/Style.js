@@ -97,12 +97,13 @@ const RoomContainer = styled.div`
 //   justify-content: flex-start;
 
 const RoomButtonStyle = styled.button`
-  background: #fff;
+  background: rgb(80, 111, 134);
+  fill: rgb(251, 176, 64);
+  color: rgb(251, 176, 64);
   border: none;
   width: 10em;
   height: 10em;
   border-radius: 0.2em;
-  color: #000;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -111,11 +112,6 @@ const RoomButtonStyle = styled.button`
   cursor: pointer;
   margin-bottom: 2.5em;
 `;
-// flex-flow: column wrap;
-// flex-wrap: wrap;
-// margin-right: 1em;
-// margin-top: 0.5em;
-// margin-bottom: 0.5em;
 
 const RoomButtonIcon = styled.div`
   flex: 1;
@@ -123,7 +119,10 @@ const RoomButtonIcon = styled.div`
   align-items: flex-end;
   justify-content: center;
   text-align: center;
+  width: 50px;
+  height: 50px;
 `;
+// fill: rgb(251, 176, 64);
 
 const RoomButtonText = styled.div`
   flex: 1;
@@ -131,12 +130,6 @@ const RoomButtonText = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-`;
-// background: lightblue;
-// align-items: flex-start;
-
-const RoomIcon = styled.div`
-  color: #fff;
 `;
 
 // Chat room part:
@@ -285,7 +278,6 @@ export {
   RoomButtonStyle,
   RoomButtonText,
   RoomButtonIcon,
-  RoomIcon,
   StyledLink,
   ChatRoom,
   UserWrapper,

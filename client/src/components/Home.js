@@ -30,7 +30,7 @@ function Home() {
             onChange={(e) => setUsername(e.target.value)}
           />
 
-          <Label>Room</Label>
+          <Label>Rooms</Label>
           <RoomContainer>
             {rooms.map((room) => (
               <RoomButton
