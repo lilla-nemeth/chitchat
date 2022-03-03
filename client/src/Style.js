@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 // Global css variables?
 
@@ -24,7 +24,7 @@ const Form = styled.form`
 `;
 
 const Label = styled.label`
-  padding: 0.5em 0 0.5em;
+  padding: 1.5em 0 0.5em;
   color: #fff;
 `;
 
@@ -87,6 +87,14 @@ const ButtonStyle = styled.button`
   font-size: 1em;
 `;
 
+const SendIconStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 1.5em;
+  height: 1.5em;
+`;
+
 const RoomContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -94,12 +102,31 @@ const RoomContainer = styled.div`
   width: 40vw;
   justify-content: space-between;
 `;
-//   justify-content: flex-start;
 
-const RoomButtonStyle = styled.button`
+// const RoomButtonActiveStyle = styled(RoomButtonStyle)`
+//   background: rgb(80, 147, 197);
+//   fill: rgb(251, 176, 64);
+//   color: rgb(251, 176, 64);
+// `;
+
+const RoomButtonIcon = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  width: 5em;
+  height: 5em;
+`;
+
+const RoomButtonRadio = styled.input.attrs({ type: "radio" })`
+  cursor: pointer;
+`;
+
+const RoomButtonStyle = styled.label`
   background: rgb(80, 111, 134);
-  fill: rgb(251, 176, 64);
-  color: rgb(251, 176, 64);
+  fill: #fff;
+  color: #fff;
   border: none;
   width: 10em;
   height: 10em;
@@ -113,23 +140,37 @@ const RoomButtonStyle = styled.button`
   margin-bottom: 2.5em;
 `;
 
-const RoomButtonIcon = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  text-align: center;
-  width: 50px;
-  height: 50px;
-`;
-// fill: rgb(251, 176, 64);
-
-const RoomButtonText = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+const RoomButtonText = styled.span`
+  ${(props) => {
+    switch (props.$mode) {
+      case "dark":
+        return css`
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          background-color: black;
+          color: white;
+          ${RoomButtonRadio}:checked + && {
+            color: blue;
+          }
+        `;
+      default:
+        return css`
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          background-color: white;
+          color: black;
+          ${RoomButtonRadio}:checked + && {
+            color: red;
+          }
+        `;
+    }
+  }}
 `;
 
 // Chat room part:
@@ -276,6 +317,7 @@ export {
   ButtonStyle,
   RoomContainer,
   RoomButtonStyle,
+  RoomButtonRadio,
   RoomButtonText,
   RoomButtonIcon,
   StyledLink,
@@ -295,4 +337,5 @@ export {
   MessageUsername,
   MessageTimetamp,
   MessageText,
+  SendIconStyle,
 };
