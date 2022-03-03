@@ -71,7 +71,7 @@ function Chat() {
                 onChange={handleChange}
               />
               <MessageButton>
-                <ButtonComponent to={false} name={"Send"} />
+                <ButtonComponent to={false} name={"Send"} isSend={true} />
               </MessageButton>
             </InputContainer>
           </Form>

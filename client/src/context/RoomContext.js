@@ -33,12 +33,12 @@ const chatRooms = [
   },
   {
     id: "4",
-    name: "Game",
+    name: "Games",
     icon: <GameIcon01 />,
   },
   {
     id: "5",
-    name: "Sport",
+    name: "Sports",
     // icon: <SportIcon01 />,
     icon: <SportIcon02 />,
     // icon: <SportIcon03 />,
