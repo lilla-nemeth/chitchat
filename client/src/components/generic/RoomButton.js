@@ -1,31 +1,20 @@
-import {
-  RoomButtonStyle,
-  RoomButtonRadio,
-  RoomButtonIcon,
-  RoomButtonText,
-} from "../../Style";
+import { RoomButtonStyle, RadioButton, RoomButtonIcon, RoomButtonText, RoomButtonInner, HiddenRadioButton } from '../../Style';
 
 function RoomButton(props) {
-  const { roomName, roomIcon, id, name, value, checked, onChange } = props;
+	const { defaultChecked, roomName, roomIcon, id, name, value, checked, onChange } = props;
 
-  return (
-    <>
-      <RoomButtonStyle>
-        <RoomButtonRadio
-          defaultChecked
-          type="radio"
-          id={id}
-          name={name}
-          value={value}
-          checked={checked}
-          onChange={onChange}
-        />
-        {/* <RoomButtonText $mode="dark">{roomName}</RoomButtonText> */}
-        <RoomButtonText>{roomName}</RoomButtonText>
-        <RoomButtonIcon>{roomIcon}</RoomButtonIcon>
-      </RoomButtonStyle>
-    </>
-  );
+	return (
+		<>
+			<RadioButton defaultChecked={defaultChecked} type='radio' id={id} name={name} value={value} checked={checked} onChange={onChange} />
+			<RoomButtonInner>
+				<RoomButtonStyle>
+					<RoomButtonIcon>{roomIcon}</RoomButtonIcon>
+					<RoomButtonText>{roomName}</RoomButtonText>
+				</RoomButtonStyle>
+			</RoomButtonInner>
+			{/* <RoomButtonText $mode="dark">{roomName}</RoomButtonText> */}
+		</>
+	);
 }
 
 export default RoomButton;
