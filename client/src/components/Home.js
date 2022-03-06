@@ -1,15 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ButtonComponent from './generic/ButtonComponent';
 import RoomButton from './generic/RoomButton';
-import { RoomContext } from '../context/RoomContext';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../Style';
 import TextInput from './generic/TextInput';
 
 let DEBUG = true;
 
 function Home() {
-	const { rooms, setRooms } = useContext(RoomContext);
 	const [username, setUsername] = useState('');
 	const [selectedRoom, setSelectedRoom] = useState();
 	const navigate = useNavigate();
@@ -41,7 +39,7 @@ function Home() {
 
 					<Label>Rooms</Label>
 					<RoomContainer>
-						{rooms.map((room) => (
+						{/* {rooms.map((room) => (
 							<RoomButton
 								key={room.id}
 								roomName={room.name}
@@ -54,7 +52,7 @@ function Home() {
 									setSelectedRoom(e.target.value);
 								}}
 							></RoomButton>
-						))}
+						))} */}
 					</RoomContainer>
 					{disabled ? (
 						<ButtonComponent primary={true} to={false} name={'Join'} />
