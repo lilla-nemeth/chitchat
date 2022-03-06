@@ -1,0 +1,29 @@
+{
+	"name": "chitchat",
+	"version": "1.0.0",
+	"description": "ChitChat - realtime chat app",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server",
+		"dev": "nodemon server"
+	},
+	"author": "Lilla Németh",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/lilla-nemeth/ChitChat.git"
+	},
+	"bugs": {
+		"url": "https://github.com/lilla-nemeth/ChitChat/issues"
+	},
+	"homepage": "https://github.com/lilla-nemeth/ChitChat#readme",
+	"dependencies": {
+		"express": "^4.17.3",
+		"nodemon": "^2.0.15",
+		"socket.io": "^4.4.1",
+		"sugar": "^2.0.6"
+	},
+	"devDependencies": {
+		"react-router-dom": "^6.2.2"
+	}
+}
