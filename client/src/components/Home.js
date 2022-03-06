@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import ButtonComponent from './generic/ButtonComponent';
 import RoomButton from './generic/RoomButton';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../Style';
@@ -8,6 +9,9 @@ import TextInput from './generic/TextInput';
 let DEBUG = true;
 
 function Home() {
+	const rooms = useSelector((state) => state.roomReducer);
+	const dispatch = useDispatch();
+
 	const [username, setUsername] = useState('');
 	const [selectedRoom, setSelectedRoom] = useState();
 	const navigate = useNavigate();
@@ -19,7 +23,7 @@ function Home() {
 
 		navigate('/chat');
 	};
-	// if (DEBUG) console.log(rooms);
+	if (DEBUG) console.log(rooms);
 	// if (DEBUG) console.log(selectedRoom);
 	// if (DEBUG) console.log(disabled);
 
