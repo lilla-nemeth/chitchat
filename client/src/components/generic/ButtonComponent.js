@@ -1,26 +1,19 @@
-import { StyledLink, ButtonStyle, SendIconStyle } from '../../Style';
-import SendIcon from '../../assets/icons/SendIcon';
+import { ButtonStyle, ButtonIconStyle } from '../../Style';
 
 function ButtonComponent(props) {
-	const { to, primary, name, isSend } = props;
+	const { primary, name, isIcon, iconComponent } = props;
 
 	return (
 		<>
-			{isSend ? (
-				<StyledLink to={to}>
-					<ButtonStyle primary={primary} type='submit' value='submit' name='submit'>
-						<SendIconStyle>
-							<SendIcon />
-						</SendIconStyle>
-						{name}
-					</ButtonStyle>
-				</StyledLink>
+			{isIcon ? (
+				<ButtonStyle primary={primary} type='submit' value='submit' name='submit'>
+					<ButtonIconStyle>{iconComponent}</ButtonIconStyle>
+					{name}
+				</ButtonStyle>
 			) : (
-				<StyledLink to={to}>
-					<ButtonStyle primary={primary} type='submit' value='submit' name='submit'>
-						{name}
-					</ButtonStyle>
-				</StyledLink>
+				<ButtonStyle primary={primary} type='submit' value='submit' name='submit'>
+					{name}
+				</ButtonStyle>
 			)}
 		</>
 	);

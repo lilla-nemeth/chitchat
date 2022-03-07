@@ -87,7 +87,7 @@ const ButtonStyle = styled.button`
 	font-size: 1em;
 `;
 
-const SendIconStyle = styled.div`
+const ButtonIconStyle = styled.div`
 	display: flex;
 	justify-content: center;
 	text-align: center;
@@ -390,6 +390,6 @@ export {
 	MessageUsername,
 	MessageTimetamp,
 	MessageText,
-	SendIconStyle,
+	ButtonIconStyle,
 	// HiddenRadioButton,
 };
