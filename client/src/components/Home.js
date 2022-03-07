@@ -8,7 +8,7 @@ import TextInput from './generic/TextInput';
 
 let DEBUG = false;
 
-function Home() {
+const Home = () => {
 	const [username, setUsername] = useState('');
 	const rooms = useSelector((state) => state.roomReducer.rooms);
 	const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
@@ -62,6 +62,6 @@ function Home() {
 			</Wrapper>
 		</Main>
 	);
-}
+};
 
 export default Home;
