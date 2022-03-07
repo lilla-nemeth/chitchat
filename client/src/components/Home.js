@@ -1,47 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectRoom } from '../actions/roomActions';
+import { useSelector } from 'react-redux';
 import ButtonComponent from './generic/ButtonComponent';
 import RoomButton from './generic/RoomButton';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../Style';
 import TextInput from './generic/TextInput';
 
-let DEBUG = true;
+let DEBUG = false;
 
 function Home() {
 	const [username, setUsername] = useState('');
+	const rooms = useSelector((state) => state.roomReducer.rooms);
+	const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
 
-	// const [selectedRoom, setSelectedRoom] = useState();
 	const navigate = useNavigate();
 
 	const disabled = !username;
 
-	const rooms = useSelector((state) => state.roomReducer.rooms);
-
-	// const selectedRoom = useSelector((state, id) => {
-	// 	let roomId = id.match.params.room_id;
-
-	// 	return {
-	// 		room: state.rooms.find((room) => room.id === roomId),
-	// 	};
-	// });
-
-	let roomArray = Object.values(rooms);
-
-	const dispatch = useDispatch();
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// dispatch(selectRoom(e));
-		// if (DEBUG) console.log(dispatch);
-
-		navigate('/chat');
+		navigate(`chat/${selectedRoom}`);
 	};
 
-	// if (DEBUG) console.log(rooms);
-	// if (DEBUG) console.log(roomArray);
+	if (DEBUG) console.log(rooms);
+	if (DEBUG) console.log(rooms[0].id);
 
 	return (
 		<Main>
@@ -56,31 +39,25 @@ function Home() {
 						onChange={(e) => setUsername(e.target.value)}
 						required={true}
 					/>
-
 					<Label>Rooms</Label>
 					<RoomContainer>
-						{roomArray.map((room) => (
+						{rooms.map((room) => (
 							<RoomButton
 								key={room.id}
 								roomName={room.name}
 								roomIcon={room.icon}
 								id={room.id}
 								name={'selectedRoom'}
-								value={room.name}
+								value={room.id}
 								defaultChecked={room.name === 'Chill'}
-								// checked={'selectedRoom' === room.name}
 								onChange={(e) => {
-									// setSelectedRoom(e.target.value);
-									// console.log(room.name);
+									setSelectedRoom(e.target.value);
+									if (DEBUG) console.log(selectedRoom);
 								}}
 							></RoomButton>
 						))}
 					</RoomContainer>
-					{disabled ? (
-						<ButtonComponent primary={true} to={false} name={'Join'} />
-					) : (
-						<ButtonComponent primary={false} to={'/chat'} name={'Join'} />
-					)}
+					{disabled ? <ButtonComponent primary={true} name={'Join'} /> : <ButtonComponent primary={false} name={'Join'} />}
 				</Form>
 			</Wrapper>
 		</Main>
