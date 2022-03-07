@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import User from './generic/User';
 import ButtonComponent from './generic/ButtonComponent';
 import TextInput from './generic/TextInput';
 import TextArea from './generic/TextArea';
 import Message from './generic/Message';
 import SendIcon from '../assets/icons/SendIcon';
-
+import { useParams } from 'react-router-dom';
+import ActiveRoomComponent from './generic/ActiveRoomComponent';
 import {
 	Main,
 	Form,
 	ChatRoom,
 	UserWrapper,
 	UsersContainer,
-	RoomNameContainer,
+	ActiveRoomContainer,
 	MessageWrapper,
 	HeaderContainer,
 	Header,
@@ -23,8 +25,12 @@ import {
 	StyledLink,
 } from '../Style';
 
-function Chat() {
+let DEBUG = true;
+
+const Chat = () => {
+	const { id } = useParams();
 	const [message, setMessage] = useState('');
+	const selectedRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.id === id));
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -34,19 +40,15 @@ function Chat() {
 		setMessage(e.target.value);
 	};
 
-	// function findRoomById(paramsId, roomArr) {
-	// 	roomArr.find((room) => {
-	// 		if (room.id === paramsId) {
-	// 			return paramsId;
-	// 		}
-	// 	});
-	// }
+	if (DEBUG) console.log('selectedRoom', selectedRoom);
 
 	return (
 		<Main>
 			<ChatRoom>
 				<UserWrapper>
-					<RoomNameContainer>RoomName</RoomNameContainer>
+					<ActiveRoomContainer>
+						<ActiveRoomComponent roomIcon={selectedRoom.icon} roomName={selectedRoom.name}></ActiveRoomComponent>
+					</ActiveRoomContainer>
 					<UsersContainer>
 						<User username={'Morzsa'} />
 					</UsersContainer>
@@ -76,6 +78,6 @@ function Chat() {
 			</ChatRoom>
 		</Main>
 	);
-}
+};
 
 export default Chat;

@@ -110,7 +110,7 @@ const RoomContainer = styled.div`
 // `;
 
 const RoomButtonIcon = styled.div`
-	flex: 1;
+	flex: 2;
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
@@ -130,8 +130,8 @@ const RoomButtonStyle = styled.label`
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	margin-bottom: 2.5em;
 `;
+// margin-bottom: 2.5em;
 // background: rgb(80, 111, 134);
 // fill: #fff;
 // color: #fff;
@@ -166,6 +166,13 @@ const RoomButtonText = styled.span`
 //     background-color: red;
 //   }
 // `;
+const RoomButtonWrapper = styled.div`
+	display: flex;
+`;
+
+const RadioButtonContainer = styled.div`
+	flex: 1;
+`;
 
 const RadioButton = styled.input.attrs({
 	type: 'radio',
@@ -173,16 +180,17 @@ const RadioButton = styled.input.attrs({
 	cursor: pointer;
 	width: 25px;
 	height: 25px;
+	position: absolute;
 `;
-// position: absolute;
 
 // opacity: 0;
 
-const RoomButtonInner = styled.div`
+const RoomButtonContainer = styled.div`
 	${(props) => {
 		switch (props.$mode) {
 			case 'dark':
 				return css`
+					flex: 1;
 					background: rgb(251, 176, 64);
 					fill: #fff;
 					color: #fff;
@@ -203,6 +211,7 @@ const RoomButtonInner = styled.div`
 				`;
 			default:
 				return css`
+					flex: 1;
 					background: rgb(80, 111, 134);
 					fill: #fff;
 					color: #fff;
@@ -251,16 +260,41 @@ const UserWrapper = styled.div`
 	padding: 2em;
 `;
 
-const RoomNameContainer = styled.div`
+const ActiveRoomContainer = styled.div`
+	display: flex;
+	flex: 1;
+	margin-bottom: 1em;
+	background: rgb(80, 147, 197);
+`;
+// align-items: center;
+// text-align: center;
+// justify-content: center;
+
+const ActiveRoomWrapper = styled.div`
+	display: flex;
+	flex: auto;
+	fill: #fff;
+	color: #fff;
+	justify-content: space-between;
+`;
+
+const ActiveRoomIcon = styled.div`
+	display: flex;
+	flex: 1;
+`;
+// width: 4em;
+// height: 4em;
+
+const ActiveRoomText = styled.div`
+	flex: 1;
+	display: flex;
 	align-items: center;
 	text-align: center;
 	justify-content: center;
-	display: flex;
-	flex: 1;
-	background: red;
-	margin-bottom: 1em;
+	font-size: 1.5em;
 `;
-// border: 4px solid red;
+// background: red;
+
 const UsersContainer = styled.div`
 	flex: 5.5;
 	margin-top: 1em;
@@ -369,7 +403,9 @@ export {
 	ButtonStyle,
 	RoomContainer,
 	RoomButtonStyle,
-	RoomButtonInner,
+	RoomButtonWrapper,
+	RoomButtonContainer,
+	RadioButtonContainer,
 	RadioButton,
 	RoomButtonText,
 	RoomButtonIcon,
@@ -383,7 +419,10 @@ export {
 	MessageContainer,
 	InputContainer,
 	MessageButton,
-	RoomNameContainer,
+	ActiveRoomContainer,
+	ActiveRoomWrapper,
+	ActiveRoomIcon,
+	ActiveRoomText,
 	UsersContainer,
 	BubbleStyle,
 	MessageMeta,
