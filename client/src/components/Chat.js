@@ -28,9 +28,9 @@ import {
 let DEBUG = true;
 
 const Chat = () => {
-	const { id } = useParams();
+	const { room_name, username } = useParams();
 	const [message, setMessage] = useState('');
-	const selectedRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.id === id));
+	const selectedRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.name === room_name));
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -40,7 +40,9 @@ const Chat = () => {
 		setMessage(e.target.value);
 	};
 
-	if (DEBUG) console.log('selectedRoom', selectedRoom);
+	// if (DEBUG) console.log('selectedRoom', selectedRoom);
+	if (DEBUG) console.log('room_name', room_name);
+	if (DEBUG) console.log('username', username);
 
 	return (
 		<Main>
@@ -50,7 +52,7 @@ const Chat = () => {
 						<ActiveRoomComponent roomIcon={selectedRoom.icon} roomName={selectedRoom.name}></ActiveRoomComponent>
 					</ActiveRoomContainer>
 					<UsersContainer>
-						<User username={'Morzsa'} />
+						<User username={username} />
 					</UsersContainer>
 				</UserWrapper>
 				<MessageWrapper>
