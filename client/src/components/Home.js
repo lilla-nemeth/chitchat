@@ -11,7 +11,7 @@ let DEBUG = false;
 const Home = () => {
 	const [username, setUsername] = useState('');
 	const rooms = useSelector((state) => state.roomReducer.rooms);
-	const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
+	const [selectedRoom, setSelectedRoom] = useState(rooms[0].name);
 
 	const navigate = useNavigate();
 
@@ -20,11 +20,11 @@ const Home = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		navigate(`chat/${selectedRoom}`);
+		navigate(`chat/${selectedRoom}/${username}`);
 	};
 
 	if (DEBUG) console.log(rooms);
-	if (DEBUG) console.log(rooms[0].id);
+	if (DEBUG) console.log(rooms[0].name);
 
 	return (
 		<Main>
@@ -48,10 +48,11 @@ const Home = () => {
 								roomIcon={room.icon}
 								id={room.id}
 								name={'selectedRoom'}
-								value={room.id}
+								value={room.name}
 								defaultChecked={room.name === 'Chill'}
 								onChange={(e) => {
 									setSelectedRoom(e.target.value);
+
 									if (DEBUG) console.log(selectedRoom);
 								}}
 							></RoomButton>

@@ -143,6 +143,7 @@ const RoomButtonText = styled.span`
 	justify-content: center;
 	text-align: center;
 	color: white;
+	text-transform: capitalize;
 `;
 
 // const HiddenRadioButton = styled.input.attrs({
@@ -292,6 +293,7 @@ const ActiveRoomText = styled.div`
 	text-align: center;
 	justify-content: center;
 	font-size: 1.5em;
+	text-transform: capitalize;
 `;
 // background: red;
 

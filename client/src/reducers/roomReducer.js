@@ -14,29 +14,29 @@ const initState = {
 	rooms: [
 		{
 			id: '1',
-			name: 'Chill',
+			name: 'chill',
 			icon: <ChillIcon01 />,
 		},
 		{
 			id: '2',
-			name: 'Debate',
+			name: 'debate',
 			// icon: <DebateIcon01 />,
 			icon: <DebateIcon02 />,
 		},
 		{
 			id: '3',
-			name: 'Tech',
+			name: 'tech',
 			// icon: <TechIcon01 />,
 			icon: <TechIcon02 />,
 		},
 		{
 			id: '4',
-			name: 'Games',
+			name: 'games',
 			icon: <GameIcon01 />,
 		},
 		{
 			id: '5',
-			name: 'Sports',
+			name: 'sports',
 			// icon: <SportIcon01 />,
 			icon: <SportIcon02 />,
 			// icon: <SportIcon03 />,
@@ -47,16 +47,6 @@ const initState = {
 };
 
 const roomReducer = (state = initState, action) => {
-	if (action.type === 'SELECT_ROOM') {
-		let oneRoom = state.rooms.filter((room) => {
-			return action.id !== room.id;
-		});
-
-		return {
-			...state,
-			rooms: oneRoom,
-		};
-	}
 	return state;
 };
 
