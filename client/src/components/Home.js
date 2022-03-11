@@ -49,7 +49,7 @@ const Home = () => {
 								id={room.id}
 								name={'selectedRoom'}
 								value={room.name}
-								defaultChecked={room.name === 'Chill'}
+								defaultChecked={room.name === 'chill'}
 								onChange={(e) => {
 									setSelectedRoom(e.target.value);
 

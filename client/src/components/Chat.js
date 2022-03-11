@@ -29,20 +29,51 @@ let DEBUG = true;
 
 const Chat = () => {
 	const { room_name, username } = useParams();
-	const [message, setMessage] = useState('');
+	const [messageInput, setMessageInput] = useState('');
+	const [showMessage, setShowMessage] = useState(false);
+	const [sentMessage, setSentMessage] = useState([]);
 	const selectedRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.name === room_name));
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		// At the beginning the messages are invisible:
+		setShowMessage(true);
+
+		// add new message to sentMessage array:
+		createMessage(messageInput);
+
+		// clear messageInput:
+		setMessageInput('');
 	};
 
 	const handleChange = (e) => {
-		setMessage(e.target.value);
+		setMessageInput(e.target.value);
 	};
 
 	// if (DEBUG) console.log('selectedRoom', selectedRoom);
-	if (DEBUG) console.log('room_name', room_name);
-	if (DEBUG) console.log('username', username);
+	// if (DEBUG) console.log('room_name', room_name);
+	// if (DEBUG) console.log('username', username);
+
+	function createMessage(input) {
+		let newMessage = input;
+
+		setSentMessage([...sentMessage, newMessage]);
+
+		console.log(sentMessage);
+		return sentMessage;
+	}
+
+	// messageInput
+	// function displayMessage() {
+	// 	let display = [];
+
+	// 	sentMessage.forEach((message) => {
+	// 		display.push(<>{message}</>);
+	// 	});
+	// 	console.log(display);
+	// 	return display;
+	// }
 
 	return (
 		<Main>
@@ -65,12 +96,12 @@ const Chat = () => {
 						</StyledLink>
 					</HeaderContainer>
 					<MessageContainer>
-						<Message primary={true} username={'Morzsa'} timestamp={'10:20 AM Today'} text={'Hello!'}></Message>
-						<Message primary={false} username={'Bodri'} timestamp={'10:20 AM Today'} text={'How are you?'}></Message>
+						{/* {() => displayMessage()} */}
+						{/* {showMessage && <Message primary={true} username={username} timestamp={'10:20 AM Today'} text={sentMessage}></Message>} */}
 					</MessageContainer>
 					<Form onSubmit={handleSubmit}>
 						<InputContainer>
-							<TextInput primary={false} value={message} placeholder={'Type your message'} onChange={handleChange} />
+							<TextInput primary={false} value={messageInput} placeholder={'Type your message'} onChange={handleChange} required={true} />
 							<MessageButton>
 								<ButtonComponent to={false} name={'Send'} isIcon={true} iconComponent={<SendIcon />} />
 							</MessageButton>
