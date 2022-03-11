@@ -8,6 +8,7 @@ import Message from './generic/Message';
 import SendIcon from '../assets/icons/SendIcon';
 import { useParams } from 'react-router-dom';
 import ActiveRoomComponent from './generic/ActiveRoomComponent';
+import { createTimestamp } from '../Helperfunctions';
 import {
 	Main,
 	Form,
@@ -30,15 +31,11 @@ let DEBUG = true;
 const Chat = () => {
 	const { room_name, username } = useParams();
 	const [messageInput, setMessageInput] = useState('');
-	const [showMessage, setShowMessage] = useState(false);
 	const [sentMessage, setSentMessage] = useState([]);
 	const selectedRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.name === room_name));
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		// At the beginning the messages are invisible:
-		setShowMessage(true);
 
 		// add new message to sentMessage array:
 		createMessage(messageInput);
@@ -56,24 +53,14 @@ const Chat = () => {
 	// if (DEBUG) console.log('username', username);
 
 	function createMessage(input) {
+		// let timestamp = createTimestamp();
 		let newMessage = input;
 
 		setSentMessage([...sentMessage, newMessage]);
 
-		console.log(sentMessage);
+		if (DEBUG) console.log(sentMessage);
 		return sentMessage;
 	}
-
-	// messageInput
-	// function displayMessage() {
-	// 	let display = [];
-
-	// 	sentMessage.forEach((message) => {
-	// 		display.push(<>{message}</>);
-	// 	});
-	// 	console.log(display);
-	// 	return display;
-	// }
 
 	return (
 		<Main>
@@ -96,8 +83,11 @@ const Chat = () => {
 						</StyledLink>
 					</HeaderContainer>
 					<MessageContainer>
-						{/* {() => displayMessage()} */}
-						{/* {showMessage && <Message primary={true} username={username} timestamp={'10:20 AM Today'} text={sentMessage}></Message>} */}
+						{sentMessage.map((message) => {
+							// key={} - uuid/date?
+							// change timestamp
+							return <Message primary={true} username={username} timestamp={'10:20 AM Today'} text={message}></Message>;
+						})}
 					</MessageContainer>
 					<Form onSubmit={handleSubmit}>
 						<InputContainer>
