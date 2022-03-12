@@ -26,8 +26,9 @@ const Home = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		dispatch(createUser(uuidv4(), selectedRoom, username, createTimestamp()));
-		if (DEBUG) console.log(dispatch(createUser(uuidv4(), selectedRoom, username, createTimestamp())));
+		// TODO: format the timestamp:
+		dispatch(createUser(uuidv4(), selectedRoom, username, createTimestamp('%Y-%m-%d {hh}:{mm}')));
+		if (DEBUG) console.log(dispatch(createUser(uuidv4(), selectedRoom, username, createTimestamp('%Y-%m-%d {hh}:{mm}'))));
 
 		navigate(`chat/${selectedRoom}/${username}`);
 	};

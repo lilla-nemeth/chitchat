@@ -87,7 +87,16 @@ const Chat = () => {
 					</HeaderContainer>
 					<MessageContainer>
 						{sentMessage.map((message) => {
-							return <Message key={uuidv4()} primary={true} username={username} timestamp={createTimestamp()} text={message}></Message>;
+							return (
+								<Message
+									key={uuidv4()}
+									primary={true}
+									username={username}
+									// TODO: format the timestamp:
+									timestamp={createTimestamp('{hh}:{mm}')}
+									text={message}
+								></Message>
+							);
 						})}
 					</MessageContainer>
 					<Form onSubmit={handleSubmit}>
