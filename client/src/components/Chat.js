@@ -30,12 +30,11 @@ import {
 let DEBUG = true;
 
 const Chat = () => {
-	// get the users from state
-	// loop the usernames to UsersContainer
 	const { room_id, username } = useParams();
+	const selectedRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.id === room_id));
+	const users = useSelector((state) => state.userReducer.users);
 	const [messageInput, setMessageInput] = useState('');
 	const [sentMessage, setSentMessage] = useState([]);
-	const selectedRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.id === room_id));
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -52,6 +51,7 @@ const Chat = () => {
 	};
 
 	// if (DEBUG) console.log('selectedRoom', selectedRoom);
+	if (DEBUG) console.log('users', users);
 	// if (DEBUG) console.log('room_name', room_name);
 	// if (DEBUG) console.log('username', username);
 
@@ -73,7 +73,9 @@ const Chat = () => {
 						<ActiveRoomComponent roomIcon={selectedRoom.icon} roomName={selectedRoom.name}></ActiveRoomComponent>
 					</ActiveRoomContainer>
 					<UsersContainer>
-						<User username={username} />
+						{users.map((user) => {
+							return <User key={user.id} username={user.username} />;
+						})}
 					</UsersContainer>
 				</UserWrapper>
 				<MessageWrapper>

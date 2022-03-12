@@ -4,15 +4,16 @@ const initState = {
 
 const userReducer = (state = initState, action) => {
 	if (action.type === 'CREATE_USER') {
-		let newUser = state.users.push({
+		let newUser = {
 			id: action.id,
 			roomId: action.roomId,
 			username: action.username,
 			timestamp: action.timestamp,
-		});
+		};
+
 		return {
 			...state,
-			users: [...state.users, newUser],
+			users: [newUser],
 		};
 	}
 	return state;
