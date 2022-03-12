@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ButtonComponent from './generic/ButtonComponent';
 import RoomButton from './generic/RoomButton';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../Style';
 import TextInput from './generic/TextInput';
+import { createUser } from '../actions/userActions';
+import { createTimestamp } from '../Helperfunctions';
+import { v4 as uuidv4 } from 'uuid';
 
-let DEBUG = false;
+let DEBUG = true;
 
 const Home = () => {
-	const [username, setUsername] = useState('');
+	// TODO: change the harcoded username at the end of the project
+	// const [username, setUsername] = useState('');
+	const [username, setUsername] = useState('username');
 	const rooms = useSelector((state) => state.roomReducer.rooms);
-	const [selectedRoom, setSelectedRoom] = useState(rooms[0].name);
+	const dispatch = useDispatch();
+	const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
 
 	const navigate = useNavigate();
 
@@ -20,11 +26,11 @@ const Home = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
+		dispatch(createUser(uuidv4(), selectedRoom, username, createTimestamp()));
+		if (DEBUG) console.log(dispatch(createUser(uuidv4(), selectedRoom, username, createTimestamp())));
+
 		navigate(`chat/${selectedRoom}/${username}`);
 	};
-
-	if (DEBUG) console.log(rooms);
-	if (DEBUG) console.log(rooms[0].name);
 
 	return (
 		<Main>
@@ -48,7 +54,7 @@ const Home = () => {
 								roomIcon={room.icon}
 								id={room.id}
 								name={'selectedRoom'}
-								value={room.name}
+								value={room.id}
 								defaultChecked={room.name === 'chill'}
 								onChange={(e) => {
 									setSelectedRoom(e.target.value);

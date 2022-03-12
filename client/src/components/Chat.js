@@ -9,6 +9,7 @@ import SendIcon from '../assets/icons/SendIcon';
 import { useParams } from 'react-router-dom';
 import ActiveRoomComponent from './generic/ActiveRoomComponent';
 import { createTimestamp } from '../Helperfunctions';
+import { v4 as uuidv4 } from 'uuid';
 import {
 	Main,
 	Form,
@@ -29,10 +30,12 @@ import {
 let DEBUG = true;
 
 const Chat = () => {
-	const { room_name, username } = useParams();
+	// get the users from state
+	// loop the usernames to UsersContainer
+	const { room_id, username } = useParams();
 	const [messageInput, setMessageInput] = useState('');
 	const [sentMessage, setSentMessage] = useState([]);
-	const selectedRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.name === room_name));
+	const selectedRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.id === room_id));
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -84,9 +87,7 @@ const Chat = () => {
 					</HeaderContainer>
 					<MessageContainer>
 						{sentMessage.map((message) => {
-							// key={} - uuid/date?
-							// change timestamp
-							return <Message primary={true} username={username} timestamp={'10:20 AM Today'} text={message}></Message>;
+							return <Message key={uuidv4()} primary={true} username={username} timestamp={createTimestamp()} text={message}></Message>;
 						})}
 					</MessageContainer>
 					<Form onSubmit={handleSubmit}>
