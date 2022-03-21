@@ -85,7 +85,6 @@ const Chat = () => {
           </HeaderContainer>
 
           <MessageContainer>
-            {/* only map the array, if the array is not empty */}
             {sentMessage.map((message) => {
               return (
                 <>
@@ -105,6 +104,7 @@ const Chat = () => {
             <InputContainer>
               <TextInput
                 primary={false}
+                name={'Message'}
                 value={messageInput}
                 placeholder={'Type your message'}
                 onChange={handleChange}
