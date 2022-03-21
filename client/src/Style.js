@@ -44,10 +44,12 @@ const MessageButton = styled.div`
 `;
 
 const Input = styled.input`
-  padding: 1em 1.5em;
+  padding: 1.3em 1.5em;
   font-size: 1em;
   flex: 8;
   border-radius: 0.2em 0 0 0.2em;
+  border: none;
+  background: ${(props) => (props.primary ? '#fff' : 'rgb(0, 0, 0, 0.1)')};
 `;
 // border: 0.15em solid rgb(80, 111, 134, 0.4);
 
@@ -78,7 +80,7 @@ const ButtonStyle = styled.button`
   background: ${(props) => (props.primary ? 'transparent' : '#fbb040')};
   color: ${(props) => (props.primary ? '#fbb040' : '#2f3c4f')};
   border: ${(props) => (props.primary ? '0.15em solid #fbb040' : '#2f3c4f')};
-  padding: 0.8em 1.5em;
+  padding: 1em 1.5em;
   border-radius: 2px;
   cursor: pointer;
   display: flex;
@@ -86,6 +88,7 @@ const ButtonStyle = styled.button`
   width: 100%;
   font-size: 1em;
 `;
+// padding: 0.8em 1.5em;
 // padding: ${(props) => (props.primary ? '1em 1.5em' : '0.8em 1.5em')};
 // padding: 1em 1.5em;
 
@@ -102,6 +105,8 @@ const RoomContainer = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  padding: 0 0 2.5em;
+  width: 60em;
 `;
 // width: 40vw;
 
@@ -265,7 +270,7 @@ const ActiveRoomContainer = styled.div`
   display: flex;
   flex: 1;
   margin-bottom: 1em;
-  background: rgb(80, 147, 197);
+  border: 2px solid rgb(80, 147, 197);
 `;
 // align-items: center;
 // text-align: center;
@@ -282,9 +287,8 @@ const ActiveRoomWrapper = styled.div`
 const ActiveRoomIcon = styled.div`
   display: flex;
   flex: 1;
+  height: 7em;
 `;
-// width: 4em;
-// height: 4em;
 
 const ActiveRoomText = styled.div`
   flex: 1;
@@ -317,7 +321,7 @@ const HeaderContainer = styled.div`
   display: flex;
   margin-bottom: 1em;
   padding-bottom: 1em;
-  border-bottom: 0.1em solid rgb(80, 111, 134, 0.4);
+  border-bottom: 0.1em solid rgb(0, 0, 0, 0.1); ;
 `;
 // border: 1px solid black;
 
@@ -352,6 +356,8 @@ const BubbleStyle = styled.div`
   flex-direction: column;
   background: rgb(80, 111, 134, 0.4);
   align-self: flex-start;
+  width: fill-available;
+  margin-right: 2em;
 `;
 // width: 20vw;
 // align-self: ${(props) => (props.primary ? "flex-start" : "flex-end")};

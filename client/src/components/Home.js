@@ -31,7 +31,7 @@ const Home = () => {
         uuidv4(),
         selectedRoom,
         username,
-        createTimestamp('%Y-%m-%d %R %p');
+        createTimestamp('%Y-%m-%d %R %p')
       )
     );
     // if (DEBUG)
@@ -56,6 +56,7 @@ const Home = () => {
         <Form primary onSubmit={handleSubmit}>
           <TextInput
             primary={true}
+            name={'Username'}
             labelName={'Username'}
             value={username}
             placeholder={'Username'}
