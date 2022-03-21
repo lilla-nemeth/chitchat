@@ -4,7 +4,7 @@ import {
   MessageTimetamp,
   MessageMeta,
   MessageUsername,
-} from "../../Style";
+} from '../../Style';
 
 function Message(props) {
   const { primary, timestamp, text, username } = props;
