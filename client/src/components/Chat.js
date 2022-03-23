@@ -35,6 +35,7 @@ const Chat = () => {
   const selectedRoom = useSelector((state) =>
     state.roomReducer.rooms.find((room) => room.id === room_id)
   );
+  // TODO: select user by id, now it uses the whole users array
   const users = useSelector((state) => state.userReducer.users);
   const [messageInput, setMessageInput] = useState('');
   const [sentMessage, setSentMessage] = useState([]);
@@ -69,6 +70,7 @@ const Chat = () => {
             ></ActiveRoomComponent>
           </ActiveRoomContainer>
           <UsersContainer>
+            {/* TODO: remove this map (it will not be necessary) */}
             {users.map((user) => {
               return <User key={user.id} username={user.username} />;
             })}
@@ -92,7 +94,7 @@ const Chat = () => {
                     key={uuidv4()}
                     primary={true}
                     username={username}
-                    timestamp={createTimestamp('%R %p')}
+                    timestamp={createTimestamp('%r')}
                     text={message}
                   ></Message>
                 </>
