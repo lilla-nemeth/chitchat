@@ -5,7 +5,7 @@ import ButtonComponent from './generic/ButtonComponent';
 import RoomButton from './generic/RoomButton';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../Style';
 import TextInput from './generic/TextInput';
-import { createUser } from '../actions/userActions';
+import { joinUser } from '../actions/userActions';
 import { createTimestamp } from '../Helperfunctions';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -27,24 +27,28 @@ const Home = () => {
     e.preventDefault();
 
     dispatch(
-      createUser(
-        uuidv4(),
+      joinUser(
+        // TODO: instead of uuid, the user's id will be the socket.id from the server
+        // uuidv4(),
+        null,
         selectedRoom,
         username,
-        createTimestamp('%Y-%m-%d %R %p')
+        createTimestamp('%Y-%m-%d %r')
       )
     );
-    // if (DEBUG)
-    //   console.log(
-    //     dispatch(
-    //       createUser(
-    //         uuidv4(),
-    //         selectedRoom,
-    //         username,
-    //         createTimestamp('%Y-%m-%d %R %p')
-    //       )
-    //     )
-    //   );
+    if (DEBUG)
+      console.log(
+        dispatch(
+          joinUser(
+            // TODO: instead of uuid, the user's id will be the socket.id from the server
+            // uuidv4(),
+            null,
+            selectedRoom,
+            username,
+            createTimestamp('%Y-%m-%d %r')
+          )
+        )
+      );
 
     navigate(`chat/${selectedRoom}/${username}`);
   };
