@@ -32,7 +32,7 @@ Run the server
 npm run dev
 ```
 
-Server is running on port 3002
+Server is running on port 3003
 </br></br>
 
 ### Client

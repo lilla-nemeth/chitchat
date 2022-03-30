@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+// generic components:
 import User from './generic/User';
 import ButtonComponent from './generic/ButtonComponent';
 import TextInput from './generic/TextInput';
 import TextArea from './generic/TextArea';
 import Message from './generic/Message';
-import SendIcon from '../assets/icons/SendIcon';
-import { useParams } from 'react-router-dom';
 import ActiveRoomComponent from './generic/ActiveRoomComponent';
-import { createTimestamp, scrollToBottom } from '../Helperfunctions';
-import { v4 as uuidv4 } from 'uuid';
+// styled components:
 import {
 	Main,
 	Form,
@@ -27,25 +27,34 @@ import {
 	Logo,
 	StyledLink,
 } from '../Style';
+// icons:
+import SendIcon from '../assets/icons/SendIcon';
+// redux actions:
 import { addMessage } from '../actions';
+// helper functions:
+import { createTimestamp, scrollToBottom } from '../Helperfunctions';
 
 let DEBUG = true;
 
 const Chat = () => {
 	const { room_id, username } = useParams();
 	const selectedRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.id === room_id));
-	// TODO: users - it uses the whole userReducer state (arr)
 	const users = useSelector((state) => state.userReducer);
+	const dispatch = useDispatch();
 	const [messageInput, setMessageInput] = useState('');
 	const [sentMessage, setSentMessage] = useState([]);
 	const messageEndRef = useRef(null);
-	const dispatch = useDispatch();
+
 	const timestamp = createTimestamp('{time}');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		scrollToBottom(messageEndRef);
+
+		// TODO: fix this later, each message in the array should receive timestamp,
+		dispatch(addMessage(sentMessage, username, timestamp));
+		// if (DEBUG) console.log(dispatch(addMessage(sentMessage, username, timestamp)));
 
 		// clear messageInput:
 		setMessageInput('');
@@ -59,15 +68,6 @@ const Chat = () => {
 	// if (DEBUG) console.log('users', users);
 	// if (DEBUG) console.log('room_name', room_name);
 	// if (DEBUG) console.log('username', username);
-
-	const dispatchMessage = (user, time) => {
-		const addSentMessage = [...sentMessage, messageInput];
-
-		setSentMessage(addSentMessage);
-
-		dispatch(addMessage(sentMessage, user, time));
-		// if (DEBUG) console.log(dispatch(addMessage(sentMessage, user, time)));
-	};
 
 	return (
 		<Main>
@@ -92,7 +92,6 @@ const Chat = () => {
 							<ButtonComponent name={'Leave'} />
 						</StyledLink>
 					</HeaderContainer>
-
 					<MessageContainer>
 						{sentMessage.map((message) => {
 							return (
@@ -119,8 +118,7 @@ const Chat = () => {
 									name={'Send'}
 									isIcon={true}
 									iconComponent={<SendIcon />}
-									// onClick={() => setSentMessage([...sentMessage, messageInput])}
-									onClick={() => dispatchMessage(username, timestamp)}
+									onClick={() => setSentMessage([...sentMessage, messageInput])}
 								/>
 							</MessageButton>
 						</InputContainer>
