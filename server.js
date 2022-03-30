@@ -1,22 +1,34 @@
 const express = require('express');
-const { createServer } = require('http');
-const { Server } = require('socket.io');
+const app = express();
+const server = require('http').Server(app);
+const cors = require('cors');
+const io = require('socket.io')(server, {
+	cors: {
+		origin: ['http://localhost:3000'],
+	},
+});
 const path = require('path');
 
-const app = express();
-const httpServer = createServer(app);
-const io = new Server(httpServer);
+const PORT = 3003 || process.env.PORT;
 
-const PORT = 3002 || process.env.PORT;
+const users = [];
 
-// Connects with the client
+app.use(cors());
+
+app.get('/', (req, res) => {
+	res.send('test');
+});
+
+// Connects with client
 io.on('connection', (socket) => {
-  //   socket.on('join', ({ username, room }, callback) => {});
-  //   socket.on('sendMessage', (message) => {});
-  //   socket.on('disconnect', () => {});
+	console.log('socket.id:', socket.id);
+
+	socket.on('addUser', (object) => {
+		console.log(object);
+	});
 });
 
 // Access to static folder
 app.use(express.static(path.join(__dirname, 'client')));
 
-httpServer.listen(PORT, () => console.log(`server is running or ${PORT}`));
+server.listen(PORT, () => console.log(`server is running or ${PORT}`));

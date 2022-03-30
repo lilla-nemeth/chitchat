@@ -1,32 +1,38 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+// generic components:
 import ButtonComponent from './generic/ButtonComponent';
 import RoomButton from './generic/RoomButton';
-import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../Style';
 import TextInput from './generic/TextInput';
+// styled components:
+import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../Style';
+// redux actions:
 import { addUser } from '../actions';
+// helper functions:
 import { createTimestamp } from '../Helperfunctions';
-import { v4 as uuidv4 } from 'uuid';
 
 let DEBUG = false;
 
 const Home = () => {
-	const [username, setUsername] = useState('username');
 	// const [username, setUsername] = useState('');
+	const [username, setUsername] = useState('username');
 	const rooms = useSelector((state) => state.roomReducer.rooms);
 	const dispatch = useDispatch();
 	const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
-
 	const navigate = useNavigate();
+
+	const timestamp = createTimestamp('%Y-%m-%d %r');
+	// const timestamp = createTimestamp('{time}');
 
 	const disabled = !username;
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		dispatch(addUser(selectedRoom, username, createTimestamp('%Y-%m-%d %r')));
-		// if (DEBUG) console.log(dispatch(addUser(selectedRoom, username, createTimestamp('%Y-%m-%d %r'))));
+		dispatch(addUser(selectedRoom, username, timestamp));
+		// if (DEBUG) console.log(dispatch(addUser(selectedRoom, username, timestamp)));
 
 		navigate(`chat/${selectedRoom}/${username}`);
 	};
