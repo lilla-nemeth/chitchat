@@ -26,7 +26,7 @@ import {
 	MessageButton,
 	Logo,
 	StyledLink,
-} from '../Style';
+} from '../style';
 // icons:
 import SendIcon from '../assets/icons/SendIcon';
 // redux actions:

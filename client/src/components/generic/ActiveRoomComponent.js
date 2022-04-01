@@ -1,4 +1,4 @@
-import { ActiveRoomWrapper, ActiveRoomIcon, ActiveRoomText } from '../../Style';
+import { ActiveRoomWrapper, ActiveRoomIcon, ActiveRoomText } from '../../style';
 
 function ActiveRoomComponent(props) {
 	const { roomName, roomIcon } = props;
