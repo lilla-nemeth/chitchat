@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
 	console.log('socket.id:', socket.id);
 
-	socket.on('addUser', (object) => {
+	socket.on('joinRoom', (object) => {
 		console.log(object);
 	});
 });

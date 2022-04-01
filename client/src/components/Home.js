@@ -7,7 +7,7 @@ import ButtonComponent from './generic/ButtonComponent';
 import RoomButton from './generic/RoomButton';
 import TextInput from './generic/TextInput';
 // styled components:
-import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../Style';
+import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../style';
 // redux actions:
 import { addUser } from '../actions';
 // helper functions:

@@ -23,4 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # remove this later:
-socketNotes.js
+notes.js
