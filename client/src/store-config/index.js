@@ -1,19 +1,26 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+// composeWithDevToolsDevelopmentOnly
+import { composeWithDevTools } from '@redux-devtools/extension';
 import createSagaMiddleware from 'redux-saga';
 import allReducers from '../reducers';
 import setupSocket from '../sockets';
 // TODO: import here the created custom saga middleware
 
+let DEBUG = true;
+
 const configureStore = () => {
 	const sagaMiddleware = createSagaMiddleware();
 
-	const store = createStore(
-		allReducers,
-		compose(applyMiddleware(sagaMiddleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-		// applyMiddleware(sagaMiddleware)
-	);
+	const store = createStore(allReducers, composeWithDevTools(applyMiddleware(sagaMiddleware)));
 
+	// The only way to update the state is to call
+	// store.dispatch() and pass in an action object.
+	// the sagaMiddleware will use it (below)
 	const socket = setupSocket(store.dispatch);
+
+	// and after I can get the updated state with:
+	// store.getState()
+
 	// TODO: sagaMiddleware.run(customSagaMiddleware, {socket})
 
 	return store;

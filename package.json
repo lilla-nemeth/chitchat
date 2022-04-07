@@ -24,7 +24,7 @@
 		"socket.io": "^4.4.1"
 	},
 	"devDependencies": {
-		"react-router-dom": "^6.2.2"
+		"react-router-dom": "^6.3.0"
 	},
 	"engines": {
 		"node": "16.13.0",
