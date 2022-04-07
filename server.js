@@ -21,10 +21,10 @@ app.get('/', (req, res) => {
 
 // Connects with client
 io.on('connection', (socket) => {
-	console.log('socket.id:', socket.id);
+	// console.log('socket.id:', socket.id);
 
-	socket.on('joinRoom', (object) => {
-		console.log(object);
+	socket.on('joinRoom', (roomId, username, timestamp) => {
+		console.log(roomId, username, timestamp);
 	});
 });
 
