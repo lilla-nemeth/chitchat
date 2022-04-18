@@ -9,21 +9,16 @@ import setupSocket from '../sockets';
 let DEBUG = true;
 
 const configureStore = () => {
-	const sagaMiddleware = createSagaMiddleware();
+  const sagaMiddleware = createSagaMiddleware();
 
-	const store = createStore(allReducers, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+  const store = createStore(
+    allReducers,
+    composeWithDevTools(applyMiddleware(sagaMiddleware))
+  );
 
-	// The only way to update the state is to call
-	// store.dispatch() and pass in an action object.
-	// the sagaMiddleware will use it (below)
-	const socket = setupSocket(store.dispatch);
+  // TODO: redux saga?
 
-	// and after I can get the updated state with:
-	// store.getState()
-
-	// TODO: sagaMiddleware.run(customSagaMiddleware, {socket})
-
-	return store;
+  return store;
 };
 
 export default configureStore;
