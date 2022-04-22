@@ -24,7 +24,6 @@ export const addMessage = (message, author, timestamp) => ({
   },
 });
 
-// TODO: delete from here and messageReducer, if I don't use it
 export const messageReceived = (message, author, timestamp) => ({
   type: types.MESSAGE_RECEIVED,
   payload: {

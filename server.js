@@ -23,22 +23,23 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   // console.log('socket.id:', socket.id);
 
-  // welcome current user:
-  socket.emit('message', 'Welcome to ChitChat!');
-
-  // broadcast when user connects:
-  socket.broadcast.emit('message', 'A user joined the chat');
-
-  //////////////////////////////////////////////////////////
-
   socket.on('joinUser', (user) => {
     console.log(user);
   });
 
+  // // welcome current user:
+  // socket.emit('message', 'Welcome to ChitChat!');
+
+  // // broadcast when user connects:
+  // socket.broadcast.emit('message', 'A user joined the chat');
+
+  //////////////////////////////////////////////////////////
+
   // listen for chatMessage
-  socket.on('chatMessage', (sentMessage) => {
+  socket.on('chatMessage', (addMessage) => {
     // emit chatMessage to everyone:
-    io.emit('sentMessage', sentMessage);
+    io.emit('sentMessage', addMessage);
+    // socket.emit('sentMessage', message, username, timestamp);
   });
 
   ////////////////////////////////////////////////////////////
