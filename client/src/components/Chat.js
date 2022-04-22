@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-// generic components:
+// generic components
 import User from './generic/User';
 import ButtonComponent from './generic/ButtonComponent';
 import TextInput from './generic/TextInput';
 import TextArea from './generic/TextArea';
 import Message from './generic/Message';
 import ActiveRoomComponent from './generic/ActiveRoomComponent';
-// styled components:
+// styled components
 import {
   Main,
   Form,
@@ -27,82 +27,82 @@ import {
   Logo,
   StyledLink,
 } from '../style';
-// icons:
+// icon
 import SendIcon from '../assets/icons/SendIcon';
-// redux actions:
-import { addMessage, receivedMessage } from '../actions';
-// helper functions:
-import {
-  createTimestamp,
-  scrollToBottom,
-  changeActionType,
-} from '../Helperfunctions';
+// redux actions
+import { addMessage, messageReceived } from '../actions';
+// helper functions
+import { createTimestamp, scrollToBottom } from '../Helperfunctions';
 
-let DEBUG = false;
+let DEBUG = true;
 
 const Chat = (props) => {
   const { socket } = props;
 
+  const messageEndRef = useRef(null);
   const { room_id, username } = useParams();
-  const selectedRoom = useSelector((state) =>
+
+  const activeRoom = useSelector((state) =>
     state.roomReducer.rooms.find((room) => room.id === room_id)
   );
-  // all users:
-  const users = useSelector((state) => state.userReducer);
+  const users = useSelector(
+    (state) => state.userReducer
+    // state.userReducer.find((user) => user.roomId === room_id)
+    // state.userReducer.find((user) => user.roomId === activeRoom.id)
+  );
+
+  const messages = useSelector((state) => state.messageReducer);
   const dispatch = useDispatch();
+
   const [messageInput, setMessageInput] = useState('');
   const [sentMessage, setSentMessage] = useState([]);
-  const [statusMessage, setStatusMessage] = useState('');
   const [receivedMessage, setReceivedMessage] = useState();
-  const messageEndRef = useRef(null);
 
   const timestamp = createTimestamp('{time}');
 
   const disabled = !messageInput;
 
-  if (DEBUG) console.log(socket);
-
-  // socket.on('connect', () => {
-  //   // message from server
-  // });
-
-  socket.on('message', (message) => {
-    console.log(message);
-    setStatusMessage(message);
-  });
-
-  // chatMessage from server
-  socket.on('sentMessage', (sentMessage) => {
-    const message = changeActionType(sentMessage);
-    setReceivedMessage(message);
-    console.log('receivedMessage', receivedMessage);
-    // console.log('message', message);
-  });
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    scrollToBottom(messageEndRef);
+    // get status message from server
+    // socket.on('message', (message) => {
+    //   setStatusMessage(message);
+    // });
 
-    // TODO: fix this later, each message in the array should receive timestamp,
     // emit chatMessage to the server
     socket.emit(
       'chatMessage',
       dispatch(addMessage(sentMessage, username, timestamp))
+      // sentMessage,
+      // username,
+      // timestamp
     );
+
+    // get chatMessage from server
+    socket.on('sentMessage', (addMessage) => {
+      setReceivedMessage(addMessage);
+    });
+
     // clear messageInput:
     setMessageInput('');
+
+    scrollToBottom(messageEndRef);
   };
 
   const handleChange = (e) => {
     setMessageInput(e.target.value);
   };
 
-  // if (DEBUG) console.log('selectedRoom', selectedRoom);
+  // if (DEBUG) console.log('socket - Chat', socket);
   // if (DEBUG) console.log('users', users);
-  // if (DEBUG) console.log('room_name', room_name);
+  // if (DEBUG) console.log('activeRoom', activeRoom);
+  // if (DEBUG) console.log('activeRoom id', activeRoom.id);
   // if (DEBUG) console.log('username', username);
-  if (DEBUG) console.log('socket from Chat component', socket);
+
+  if (DEBUG) console.log('sentMessage', sentMessage);
+  if (DEBUG) console.log('messages', messages);
+  if (DEBUG) console.log('receivedMessage', receivedMessage);
 
   return (
     <Main>
@@ -110,14 +110,15 @@ const Chat = (props) => {
         <UserWrapper>
           <ActiveRoomContainer>
             <ActiveRoomComponent
-              roomIcon={selectedRoom.icon}
-              roomName={selectedRoom.name}
+              roomIcon={activeRoom.icon}
+              roomName={activeRoom.name}
             ></ActiveRoomComponent>
           </ActiveRoomContainer>
           <UsersContainer>
-            {/* TODO: users array should only list (map) those users, where roomId matches with the url params room_id */}
             {users.map((user) => {
-              return <User key={user.id} username={user.username} />;
+              if (user.roomId === activeRoom.id) {
+                return <User key={user.id} username={user.username} />;
+              }
             })}
           </UsersContainer>
         </UserWrapper>
@@ -131,16 +132,20 @@ const Chat = (props) => {
             </StyledLink>
           </HeaderContainer>
           <MessageContainer>
+            {/* TODO: put a ternary here, which message should loop (statusMessage or messages from server)
+            or add the status messages via addMessage(...)
+            */}
             {/* {statusMessage} */}
-            {sentMessage.map((message) => {
+            {messages.map((msg) => {
               return (
                 <>
                   <Message
+                    // TODO: fix the key
                     key={uuidv4()}
                     primary={true}
-                    username={username}
-                    timestamp={timestamp}
-                    text={message}
+                    username={msg.author}
+                    timestamp={msg.timestamp}
+                    text={msg.message}
                   ></Message>
                 </>
               );
@@ -158,13 +163,15 @@ const Chat = (props) => {
                 required={true}
               />
               <MessageButton>
-                {/* TODO: create disabled button here */}
+                {/* TODO: button - disabled*/}
                 <ButtonComponent
                   to={false}
                   name={'Send'}
                   isIcon={true}
                   iconComponent={<SendIcon />}
-                  onClick={() => setSentMessage([...sentMessage, messageInput])}
+                  // onClick={() => setSentMessage([...sentMessage, messageInput])}
+                  // TODO: fix - scrollToBottom is not perfect
+                  onClick={() => setSentMessage(messageInput)}
                 />
               </MessageButton>
             </InputContainer>
