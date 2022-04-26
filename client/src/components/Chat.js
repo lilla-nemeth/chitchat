@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 // generic components
 import User from './generic/User';
 import ButtonComponent from './generic/ButtonComponent';
@@ -11,175 +10,161 @@ import Message from './generic/Message';
 import ActiveRoomComponent from './generic/ActiveRoomComponent';
 // styled components
 import {
-  Main,
-  Form,
-  ChatRoom,
-  UserWrapper,
-  UsersContainer,
-  ActiveRoomContainer,
-  MessageWrapper,
-  HeaderContainer,
-  Header,
-  MessageContainer,
-  MessageRef,
-  InputContainer,
-  MessageButton,
-  Logo,
-  StyledLink,
+	Main,
+	Form,
+	ChatRoom,
+	UserWrapper,
+	UsersContainer,
+	ActiveRoomContainer,
+	MessageWrapper,
+	HeaderContainer,
+	Header,
+	MessageContainer,
+	MessageRef,
+	InputContainer,
+	MessageButton,
+	Logo,
+	StyledLink,
 } from '../style';
 // icon
 import SendIcon from '../assets/icons/SendIcon';
 // redux actions
-import { addMessage, messageReceived } from '../actions';
+import { addUser, addMessage, messageReceived } from '../actions';
 // helper functions
 import { createTimestamp, scrollToBottom } from '../Helperfunctions';
+// socket.io
+import { io } from 'socket.io-client';
 
 let DEBUG = true;
 
-const Chat = (props) => {
-  const { socket } = props;
+const socket = io('http://localhost:3003');
 
-  const messageEndRef = useRef(null);
-  const { room_id, username } = useParams();
+const Chat = () => {
+	const messageEndRef = useRef(null);
+	const { room_id, username } = useParams();
 
-  const activeRoom = useSelector((state) =>
-    state.roomReducer.rooms.find((room) => room.id === room_id)
-  );
-  const users = useSelector(
-    (state) => state.userReducer
-    // state.userReducer.find((user) => user.roomId === room_id)
-    // state.userReducer.find((user) => user.roomId === activeRoom.id)
-  );
+	const activeRoom = useSelector((state) => state.roomReducer.rooms.find((room) => room.id === room_id));
+	const users = useSelector(
+		(state) => state.userReducer
+		// state.userReducer.find((user) => user.roomId === room_id)
+		// state.userReducer.find((user) => user.roomId === activeRoom.id)
+	);
 
-  const messages = useSelector((state) => state.messageReducer);
-  const dispatch = useDispatch();
+	const messages = useSelector((state) => state.messageReducer);
+	const dispatch = useDispatch();
 
-  const [messageInput, setMessageInput] = useState('');
-  const [sentMessage, setSentMessage] = useState([]);
-  const [receivedMessage, setReceivedMessage] = useState();
+	const [messageInput, setMessageInput] = useState('');
+	const [statusMessage, setStatusMessage] = useState('');
+	const [receivedMessage, setReceivedMessage] = useState();
 
-  const timestamp = createTimestamp('{time}');
+	const timestamp = createTimestamp('{time}');
 
-  const disabled = !messageInput;
+	const disabled = !messageInput;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+	useEffect(() => {
+		scrollToBottom(messageEndRef);
+	}, [messages]);
 
-    // get status message from server
-    // socket.on('message', (message) => {
-    //   setStatusMessage(message);
-    // });
+	useEffect(() => {
+		// TODO: fix this
+		socket.emit('joinUser', dispatch(addUser(room_id, username, timestamp)));
+	}, []);
 
-    // emit chatMessage to the server
-    socket.emit(
-      'chatMessage',
-      dispatch(addMessage(sentMessage, username, timestamp))
-      // sentMessage,
-      // username,
-      // timestamp
-    );
+	const handleSubmit = (e) => {
+		e.preventDefault();
 
-    // get chatMessage from server
-    socket.on('sentMessage', (addMessage) => {
-      setReceivedMessage(addMessage);
-    });
+		// emit chatMessage to the server
+		socket.emit('chatMessage', dispatch(addMessage(messageInput, username, timestamp)));
 
-    // clear messageInput:
-    setMessageInput('');
+		// clear messageInput:
+		setMessageInput('');
+	};
 
-    scrollToBottom(messageEndRef);
-  };
+	// TODO: fix this, it's not perfect
+	// socket.on('message', (message) => {
+	// 	dispatch(messageReceived(message, username, timestamp));
+	// });
 
-  const handleChange = (e) => {
-    setMessageInput(e.target.value);
-  };
+	// get chatMessage from server
+	socket.on('sentMessage', (addMessage) => {
+		setReceivedMessage(addMessage);
+	});
 
-  // if (DEBUG) console.log('socket - Chat', socket);
-  // if (DEBUG) console.log('users', users);
-  // if (DEBUG) console.log('activeRoom', activeRoom);
-  // if (DEBUG) console.log('activeRoom id', activeRoom.id);
-  // if (DEBUG) console.log('username', username);
+	// get status message from server
+	// socket.on('message', (message) => {
+	// 	// TODO: fix this, it's not perfect
+	// 	// dispatch(messageReceived(message, username, timestamp));
+	// 	setStatusMessage(message);
+	// });
 
-  if (DEBUG) console.log('sentMessage', sentMessage);
-  if (DEBUG) console.log('messages', messages);
-  if (DEBUG) console.log('receivedMessage', receivedMessage);
+	const handleChange = (e) => {
+		setMessageInput(e.target.value);
+	};
 
-  return (
-    <Main>
-      <ChatRoom>
-        <UserWrapper>
-          <ActiveRoomContainer>
-            <ActiveRoomComponent
-              roomIcon={activeRoom.icon}
-              roomName={activeRoom.name}
-            ></ActiveRoomComponent>
-          </ActiveRoomContainer>
-          <UsersContainer>
-            {users.map((user) => {
-              if (user.roomId === activeRoom.id) {
-                return <User key={user.id} username={user.username} />;
-              }
-            })}
-          </UsersContainer>
-        </UserWrapper>
-        <MessageWrapper>
-          <HeaderContainer>
-            <Header>
-              <Logo>ChitChat</Logo>
-            </Header>
-            <StyledLink to={'/'}>
-              <ButtonComponent name={'Leave'} />
-            </StyledLink>
-          </HeaderContainer>
-          <MessageContainer>
-            {/* TODO: put a ternary here, which message should loop (statusMessage or messages from server)
+	// if (DEBUG) console.log('socket - Chat', socket);
+	// if (DEBUG) console.log('users', users);
+	// if (DEBUG) console.log('activeRoom', activeRoom);
+	// if (DEBUG) console.log('activeRoom id', activeRoom.id);
+	// if (DEBUG) console.log('username', username);
+	if (DEBUG) console.log('messages', messages);
+	if (DEBUG) console.log('statusMessage', statusMessage);
+	if (DEBUG) console.log('receivedMessage', receivedMessage);
+	if (DEBUG) console.log('messages length', messages.length);
+
+	return (
+		<Main>
+			<ChatRoom>
+				<UserWrapper>
+					<ActiveRoomContainer>
+						<ActiveRoomComponent roomIcon={activeRoom.icon} roomName={activeRoom.name}></ActiveRoomComponent>
+					</ActiveRoomContainer>
+					<UsersContainer>
+						{users.map((user) => {
+							if (user.roomId === activeRoom.id) {
+								return <User key={user.id} username={user.username} />;
+							}
+						})}
+					</UsersContainer>
+				</UserWrapper>
+				<MessageWrapper>
+					<HeaderContainer>
+						<Header>
+							<Logo>ChitChat</Logo>
+						</Header>
+						<StyledLink to={'/'}>
+							<ButtonComponent name={'Leave'} />
+						</StyledLink>
+					</HeaderContainer>
+					<MessageContainer>
+						{/* TODO: put a ternary here, which message should loop (statusMessage or messages from server)
             or add the status messages via addMessage(...)
             */}
-            {/* {statusMessage} */}
-            {messages.map((msg) => {
-              return (
-                <>
-                  <Message
-                    // TODO: fix the key
-                    key={uuidv4()}
-                    primary={true}
-                    username={msg.author}
-                    timestamp={msg.timestamp}
-                    text={msg.message}
-                  ></Message>
-                </>
-              );
-            })}
-            <MessageRef ref={messageEndRef}></MessageRef>
-          </MessageContainer>
-          <Form onSubmit={handleSubmit}>
-            <InputContainer>
-              <TextInput
-                primary={false}
-                name={'Message'}
-                value={messageInput}
-                placeholder={'Type your message'}
-                onChange={handleChange}
-                required={true}
-              />
-              <MessageButton>
-                {/* TODO: button - disabled*/}
-                <ButtonComponent
-                  to={false}
-                  name={'Send'}
-                  isIcon={true}
-                  iconComponent={<SendIcon />}
-                  // onClick={() => setSentMessage([...sentMessage, messageInput])}
-                  // TODO: fix - scrollToBottom is not perfect
-                  onClick={() => setSentMessage(messageInput)}
-                />
-              </MessageButton>
-            </InputContainer>
-          </Form>
-        </MessageWrapper>
-      </ChatRoom>
-    </Main>
-  );
+						{/* {statusMessage} */}
+						{messages.map((msg) => {
+							return <Message key={msg.id} primary={true} username={msg.author} timestamp={msg.timestamp} text={msg.message}></Message>;
+						})}
+						<MessageRef ref={messageEndRef}></MessageRef>
+					</MessageContainer>
+					<Form onSubmit={handleSubmit}>
+						<InputContainer>
+							<TextInput
+								primary={false}
+								name={'Message'}
+								value={messageInput}
+								placeholder={'Type your message'}
+								onChange={handleChange}
+								required={true}
+							/>
+							<MessageButton>
+								{/* TODO: button - disabled*/}
+								<ButtonComponent to={false} name={'Send'} isIcon={true} iconComponent={<SendIcon />} />
+							</MessageButton>
+						</InputContainer>
+					</Form>
+				</MessageWrapper>
+			</ChatRoom>
+		</Main>
+	);
 };
 
 export default Chat;
