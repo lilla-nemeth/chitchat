@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // generic components
 import ButtonComponent from './generic/ButtonComponent';
 import RoomButton from './generic/RoomButton';
@@ -9,6 +9,7 @@ import TextInput from './generic/TextInput';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../style';
 // helper function
 import { createTimestamp } from '../Helperfunctions';
+import { messageReceived } from '../actions';
 
 let DEBUG = true;
 
@@ -18,6 +19,7 @@ const Home = () => {
 	const rooms = useSelector((state) => state.roomReducer.rooms);
 	const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const timestamp = createTimestamp('%Y-%m-%d %r');
 	// const timestamp = createTimestamp('{time}');
@@ -29,6 +31,8 @@ const Home = () => {
 
 		navigate(`chat/${selectedRoom}/${username}`);
 	};
+
+	// if (DEBUG) console.log('socket HOME', socket);
 
 	return (
 		<Main>

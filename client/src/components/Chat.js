@@ -32,7 +32,6 @@ import SendIcon from '../assets/icons/SendIcon';
 import { addUser, addMessage, messageReceived } from '../actions';
 // helper functions
 import { createTimestamp, scrollToBottom } from '../Helperfunctions';
-// socket.io
 import { io } from 'socket.io-client';
 
 let DEBUG = true;
@@ -62,13 +61,13 @@ const Chat = () => {
 	const disabled = !messageInput;
 
 	useEffect(() => {
-		scrollToBottom(messageEndRef);
-	}, [messages]);
-
-	useEffect(() => {
 		// TODO: fix this
 		socket.emit('joinUser', dispatch(addUser(room_id, username, timestamp)));
 	}, []);
+
+	useEffect(() => {
+		scrollToBottom(messageEndRef);
+	}, [messages]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -81,21 +80,21 @@ const Chat = () => {
 	};
 
 	// TODO: fix this, it's not perfect
-	// socket.on('message', (message) => {
-	// 	dispatch(messageReceived(message, username, timestamp));
-	// });
+	// get status message from server
+	socket.on('message', (message) => {
+		// TODO: fix this, somehow dispatch doesn't work in socket.on,
+		// when we listen from the server
+
+		dispatch(messageReceived(message, 'ChatBot', timestamp));
+		// console.log('welcome message', message);
+		// console.log('message', message);
+		// setStatusMessage(message);
+	});
 
 	// get chatMessage from server
 	socket.on('sentMessage', (addMessage) => {
 		setReceivedMessage(addMessage);
 	});
-
-	// get status message from server
-	// socket.on('message', (message) => {
-	// 	// TODO: fix this, it's not perfect
-	// 	// dispatch(messageReceived(message, username, timestamp));
-	// 	setStatusMessage(message);
-	// });
 
 	const handleChange = (e) => {
 		setMessageInput(e.target.value);
@@ -136,10 +135,6 @@ const Chat = () => {
 						</StyledLink>
 					</HeaderContainer>
 					<MessageContainer>
-						{/* TODO: put a ternary here, which message should loop (statusMessage or messages from server)
-            or add the status messages via addMessage(...)
-            */}
-						{/* {statusMessage} */}
 						{messages.map((msg) => {
 							return <Message key={msg.id} primary={true} username={msg.author} timestamp={msg.timestamp} text={msg.message}></Message>;
 						})}
