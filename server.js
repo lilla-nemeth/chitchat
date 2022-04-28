@@ -2,10 +2,8 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
-const cors = require('cors');
 const io = require('socket.io')(server, {
 	cors: {
-		// conncects to the client
 		origin: ['http://localhost:3000'],
 	},
 });
@@ -14,17 +12,11 @@ const PORT = 3003 || process.env.PORT;
 
 const users = [];
 
-app.use(cors());
-
-app.get('/', (req, res) => {
-	res.send('test');
-});
-
 // Connects with client
 io.on('connection', (socket) => {
 	// console.log('socket.id:', socket.id);
 
-	// TODO: I need the joined user object everywhere, outside of joinUser!
+	socket.emit('sendId', socket.id);
 
 	socket.on('joinUser', (user) => {
 		const userId = user.payload.id;
@@ -47,12 +39,15 @@ io.on('connection', (socket) => {
 	});
 
 	// listen for chatMessage
-	socket.on('chatMessage', (addMessage) => {
-		// TODO: create a redux action - get current user
+	socket.on('chatMessage', (message, users) => {
+		// const room = user.payload.roomId;
+		// console.log(message);
+		console.log(users);
+		// users.find((user) => user.id === message.userId);
+		// console.log(socket.id);
 
 		// emit chatMessage to everyone:
-		io.emit('sentMessage', addMessage);
-		// socket.emit('sentMessage', message, username, timestamp);
+		io.emit('sentMessage', message);
 	});
 
 	////////////////////////////////////////////////////////////

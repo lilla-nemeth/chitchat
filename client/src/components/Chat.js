@@ -60,9 +60,13 @@ const Chat = () => {
 
 	const disabled = !messageInput;
 
+	const botName = 'ChatBot';
+
 	useEffect(() => {
-		// TODO: fix this
-		socket.emit('joinUser', dispatch(addUser(room_id, username, timestamp)));
+		// TODO: fix this, it creates two users
+		// dispatch requires callback
+		socket.on('socketId', (id) => id);
+		socket.emit('joinUser', dispatch(addUser(socket.id, room_id, username, timestamp)));
 	}, []);
 
 	useEffect(() => {
@@ -73,7 +77,7 @@ const Chat = () => {
 		e.preventDefault();
 
 		// emit chatMessage to the server
-		socket.emit('chatMessage', dispatch(addMessage(messageInput, username, timestamp)));
+		socket.emit('chatMessage', dispatch(addMessage(socket.id, messageInput, username, timestamp)), users);
 
 		// clear messageInput:
 		setMessageInput('');
@@ -82,11 +86,8 @@ const Chat = () => {
 	// TODO: fix this, it's not perfect
 	// get status message from server
 	socket.on('message', (message) => {
-		// TODO: fix this, somehow dispatch doesn't work in socket.on,
-		// when we listen from the server
-
-		dispatch(messageReceived(message, 'ChatBot', timestamp));
-		// console.log('welcome message', message);
+		// listen from the server
+		dispatch(messageReceived(socket.id, message, botName, timestamp));
 		// console.log('message', message);
 		// setStatusMessage(message);
 	});
@@ -101,14 +102,15 @@ const Chat = () => {
 	};
 
 	// if (DEBUG) console.log('socket - Chat', socket);
+	// if (DEBUG) console.log('socket.id - Chat', socket.id);
 	// if (DEBUG) console.log('users', users);
 	// if (DEBUG) console.log('activeRoom', activeRoom);
 	// if (DEBUG) console.log('activeRoom id', activeRoom.id);
 	// if (DEBUG) console.log('username', username);
 	if (DEBUG) console.log('messages', messages);
-	if (DEBUG) console.log('statusMessage', statusMessage);
-	if (DEBUG) console.log('receivedMessage', receivedMessage);
-	if (DEBUG) console.log('messages length', messages.length);
+	// if (DEBUG) console.log('statusMessage', statusMessage);
+	// if (DEBUG) console.log('receivedMessage', receivedMessage);
+	// if (DEBUG) console.log('messages length', messages.length);
 
 	return (
 		<Main>
@@ -119,9 +121,7 @@ const Chat = () => {
 					</ActiveRoomContainer>
 					<UsersContainer>
 						{users.map((user) => {
-							if (user.roomId === activeRoom.id) {
-								return <User key={user.id} username={user.username} />;
-							}
+							return <User key={user.id} username={user.username} />;
 						})}
 					</UsersContainer>
 				</UserWrapper>

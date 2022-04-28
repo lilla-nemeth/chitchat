@@ -1,33 +1,34 @@
 import * as types from '../constants/actionTypes';
 
-let userId = 0;
 let messageId = 0;
 
 // add user
-export const addUser = (roomId, username, timestamp) => ({
+export const addUser = (id, roomId, username, timestamp) => ({
 	type: types.ADD_USER,
 	payload: {
-		id: userId++,
+		id,
 		roomId,
 		username,
 		timestamp,
 	},
 });
 
-export const addMessage = (message, author, timestamp) => ({
+export const addMessage = (userId, message, author, timestamp) => ({
 	type: types.ADD_MESSAGE,
 	payload: {
 		id: messageId++,
+		userId,
 		message,
 		author,
 		timestamp,
 	},
 });
 
-export const messageReceived = (message, author, timestamp) => ({
+export const messageReceived = (userId, message, author, timestamp) => ({
 	type: types.MESSAGE_RECEIVED,
 	payload: {
 		id: messageId++,
+		userId,
 		message,
 		author,
 		timestamp,

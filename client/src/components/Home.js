@@ -9,7 +9,7 @@ import TextInput from './generic/TextInput';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../style';
 // helper function
 import { createTimestamp } from '../Helperfunctions';
-import { messageReceived } from '../actions';
+import { addUser, messageReceived } from '../actions';
 
 let DEBUG = true;
 
