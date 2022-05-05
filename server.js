@@ -13,36 +13,31 @@ const PORT = 3003 || process.env.PORT;
 
 // Connects with client
 io.on('connection', (socket) => {
-  socket.on('joinRoom', (room, username, timestamp) => {
-    const user = userJoin(socket.id, room, username, timestamp);
-    socket.emit('socketId', socket.id);
+  // socket.on('joinRoom', (userData) => {
+  socket.on('joinRoom', (id, roomId, username, timestamp) => {
+    // const id = userData.payload.id;
+    // const roomId = userData.payload.roomId;
+    // const username = userData.payload.username;
+    // const timestamp = userData.payload.timestamp;
 
-    console.log('socketId', socket.id);
-    // console.log('user', user);
+    // console.log(id, roomId, username, timestamp);
 
-    // console.log('roomId', room);
-    // console.log('username', username);
-    // console.log('timestamp', timestamp);
-    // console.log('user', user);
-    console.log('roomId', user.room);
-    console.log('username', user.username);
-    console.log('timestamp', user.timestamp);
+    const user = userJoin(id, roomId, username, timestamp);
 
-    socket.broadcast.to(user.room).emit('usersList', user);
+    socket.join(user.roomId);
 
-    socket.join(user.room);
+    socket.emit('usersList', user);
+    // io.to(user.roomId).emit('usersList', user);
 
     socket.emit('message', 'Welcome to ChitChat!');
 
     socket.broadcast
-      .to(user.room)
+      .to(user.roomId)
       .emit('message', `${user.username} has joined the chat`);
-
-    // TODO: create a redux action - get room users
   });
 
   // listen for chatMessage
-  socket.on('chatMessage', (message, users) => {
+  socket.on('chatMessage', (message) => {
     // const room = user.payload.roomId;
     // console.log(message);
     // console.log(users);
@@ -50,16 +45,12 @@ io.on('connection', (socket) => {
     // console.log(socket.id);
 
     // emit chatMessage to everyone:
+    //TODO: change to this: io.to(user.room).emit(...)
     io.emit('sentMessage', message);
   });
 
-  ////////////////////////////////////////////////////////////
-
   socket.on('disconnect', () => {
-    // TODO: create a redux action - leave user
     io.emit('message', 'A user has left the chat');
-
-    // TODO: create a redux action - get room users
   });
 });
 
