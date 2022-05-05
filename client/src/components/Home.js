@@ -15,7 +15,7 @@ let DEBUG = true;
 
 const Home = () => {
   // const [username, setUsername] = useState('');
-  const [username, setUsername] = useState('username');
+  const [username, setUsername] = useState('chatUser');
   const rooms = useSelector((state) => state.roomReducer.rooms);
   const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
   const navigate = useNavigate();

@@ -51,12 +51,12 @@ const Chat = () => {
     // state.userReducer.find((user) => user.roomId === room_id)
     // state.userReducer.find((user) => user.roomId === activeRoom.id)
   );
-
   const messages = useSelector((state) => state.messageReducer);
+
   const dispatch = useDispatch();
 
   const [messageInput, setMessageInput] = useState('');
-  const [statusMessage, setStatusMessage] = useState('');
+  const [sentMessage, setSentMessage] = useState([]);
   const [receivedMessage, setReceivedMessage] = useState();
 
   const timestamp = createTimestamp('{time}');
@@ -64,25 +64,37 @@ const Chat = () => {
   const disabled = !messageInput;
 
   const botName = 'ChatBot';
-  let socketId;
 
+  // All received data from server should be in useEffect
   useEffect(() => {
-    socket.on('socketId', (socketId) => {
-      socketId = socketId;
-    });
-
-    // TODO: fix this, it creates two users
+    // TODO: fix this, I get the same user 2 times
     socket.emit(
       'joinRoom',
-      //   room_id,
-      //   username,
-      //   timestamp
-      dispatch(addUser(socketId, room_id, username, timestamp))
+      socket.id,
+      room_id,
+      username,
+      timestamp
+      // dispatch(addUser(socket.id, room_id, username, timestamp))
     );
-    console.log(socketId);
 
     socket.on('usersList', (user) => {
-      dispatch(updateUsers(user));
+      // console.log(
+      //   'user from backend',
+      //   user.id,
+      //   user.roomId,
+      //   user.username,
+      //   user.timestamp
+      // );
+      socket.emit(
+        'addUser',
+        dispatch(addUser(user.id, user.roomId, user.username, user.timestamp))
+      );
+    });
+
+    // TODO: fix this, I get the same message 4 times
+    // get status message from server
+    socket.on('message', (message) => {
+      dispatch(messageReceived(socket.id, message, botName, timestamp));
     });
   }, []);
 
@@ -96,26 +108,12 @@ const Chat = () => {
     // emit chatMessage to the server
     socket.emit(
       'chatMessage',
-      //   dispatch(addMessage(socket.id, messageInput, username, timestamp)),
-      socket.id,
-      messageInput,
-      username,
-      timestamp
+      dispatch(addMessage(socket.id, messageInput, username, timestamp))
     );
 
     // clear messageInput:
     setMessageInput('');
   };
-
-  // TODO: fix this, it's not perfect
-  // get status message from server
-  socket.on('message', (message) => {
-    // TODO: maybe I don't need to dispatch twice the addMessage, only when the client listens (socket.on... messageReceived)
-    // listen from the server
-    dispatch(messageReceived(socket.id, message, botName, timestamp));
-    // console.log('message', message);
-    // setStatusMessage(message);
-  });
 
   // get chatMessage from server
   socket.on('sentMessage', (addMessage) => {
@@ -126,16 +124,16 @@ const Chat = () => {
     setMessageInput(e.target.value);
   };
 
+  if (DEBUG) console.log('users', users);
+  // if (DEBUG) console.log('messages', messages);
+  // if (DEBUG) console.log('messages length', messages.length);
   // if (DEBUG) console.log('socket - Chat', socket);
   // if (DEBUG) console.log('socket.id - Chat', socket.id);
-  // if (DEBUG) console.log('users', users);
   // if (DEBUG) console.log('activeRoom', activeRoom);
   // if (DEBUG) console.log('activeRoom id', activeRoom.id);
   // if (DEBUG) console.log('username', username);
-  if (DEBUG) console.log('messages', messages);
   // if (DEBUG) console.log('statusMessage', statusMessage);
   // if (DEBUG) console.log('receivedMessage', receivedMessage);
-  // if (DEBUG) console.log('messages length', messages.length);
 
   return (
     <Main>
@@ -190,7 +188,7 @@ const Chat = () => {
                 {/* TODO: button - disabled*/}
                 <ButtonComponent
                   to={false}
-                  name={'Send'}
+                  // name={'Send'}
                   isIcon={true}
                   iconComponent={<SendIcon />}
                 />

@@ -1,6 +1,10 @@
 import * as types from '../constants/actionTypes';
 
-const userReducer = (state = [], action) => {
+const initState = {
+  users: [],
+};
+
+const userReducer = (state = initState.users, action) => {
   switch (action.type) {
     case types.ADD_USER:
       let newUser = {
