@@ -17,9 +17,9 @@ const Home = () => {
   // const [username, setUsername] = useState('');
   const [username, setUsername] = useState('chatUser');
   const rooms = useSelector((state) => state.roomReducer.rooms);
+  const dispatch = useDispatch();
   const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const timestamp = createTimestamp('%Y-%m-%d %r');
   // const timestamp = createTimestamp('{time}');
@@ -29,10 +29,10 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    dispatch(addUser(null, selectedRoom, username, timestamp));
+
     navigate(`chat/${selectedRoom}/${username}`);
   };
-
-  // if (DEBUG) console.log('socket HOME', socket);
 
   return (
     <Main>
