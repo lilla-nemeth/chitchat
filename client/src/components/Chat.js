@@ -33,11 +33,11 @@ import { addUser, updateUsers, addMessage, messageReceived } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
 import { scrollToBottom } from '../utils/scroll';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 let DEBUG = true;
 
-const socket = io('http://localhost:3003');
+// const socket = io('http://localhost:3003');
 
 const Chat = () => {
   const messageEndRef = useRef(null);
@@ -66,59 +66,69 @@ const Chat = () => {
   const botName = 'ChatBot';
 
   // All received data from server should be in useEffect
-  useEffect(() => {
-    // TODO: fix this, I get the same user 2 times
-    socket.emit(
-      'joinRoom',
-      socket.id,
-      room_id,
-      username,
-      timestamp
-      // dispatch(addUser(socket.id, room_id, username, timestamp))
-    );
+  // useEffect(() => {
 
-    socket.on('usersList', (user) => {
-      // console.log(
-      //   'user from backend',
-      //   user.id,
-      //   user.roomId,
-      //   user.username,
-      //   user.timestamp
-      // );
-      socket.emit(
-        'addUser',
-        dispatch(addUser(user.id, user.roomId, user.username, user.timestamp))
-      );
-    });
+  //   socket.emit(
+  //     'joinRoom',
+  //     socket.id,
+  //     room_id,
+  //     username,
+  //     timestamp
+  //     // dispatch(addUser(socket.id, room_id, username, timestamp))
+  //   );
 
-    // TODO: fix this, I get the same message 4 times
-    // get status message from server
-    socket.on('message', (message) => {
-      dispatch(messageReceived(socket.id, message, botName, timestamp));
-    });
-  }, []);
+  //   socket.on('usersList', (user) => {
+  //     // console.log(
+  //     //   'user from backend',
+  //     //   user.id,
+  //     //   user.roomId,
+  //     //   user.username,
+  //     //   user.timestamp
+  //     // );
+  //     socket.emit(
+  //       'addUser',
+  //       dispatch(addUser(user.id, user.roomId, user.username, user.timestamp))
+  //     );
+  //   });
+
+  //   // TODO: fix this, I get the same message 4 times
+  //   // get status message from server
+  //   socket.on('message', (message) => {
+  //     // TODO: maybe I should put this to emit:
+  //     dispatch(addMessage(socket.id, message, botName, timestamp));
+  //   });
+  // }, []);
 
   useEffect(() => {
     scrollToBottom(messageEndRef);
+
+    // get chatMessage from server
   }, [messages]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // emit chatMessage to the server
-    socket.emit(
-      'chatMessage',
-      dispatch(addMessage(socket.id, messageInput, username, timestamp))
-    );
+    // // emit chatMessage to the server
+    // socket.emit(
+    //   'chatMessage',
+    //   socket.id,
+    //   messageInput,
+    //   username,
+    //   timestamp
+    //   // dispatch(addMessage(socket.id, messageInput, username, timestamp))
+    // );
+
+    // socket.on('getMessage', (userId, message, username, timestamp) => {
+    //   // console.log('message from server', userId, message, username, timestamp);
+    //   socket.emit(
+    //     'receiveMessage',
+    //     dispatch(addMessage(userId, message, username, timestamp))
+    //   );
+    // });
 
     // clear messageInput:
     setMessageInput('');
   };
-
-  // get chatMessage from server
-  socket.on('sentMessage', (addMessage) => {
-    setReceivedMessage(addMessage);
-  });
 
   const handleChange = (e) => {
     setMessageInput(e.target.value);
