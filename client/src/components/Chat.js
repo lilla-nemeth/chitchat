@@ -67,7 +67,6 @@ const Chat = () => {
 
   // All received data from server should be in useEffect
   // useEffect(() => {
-
   //   socket.emit(
   //     'joinRoom',
   //     socket.id,
@@ -76,7 +75,6 @@ const Chat = () => {
   //     timestamp
   //     // dispatch(addUser(socket.id, room_id, username, timestamp))
   //   );
-
   //   socket.on('usersList', (user) => {
   //     // console.log(
   //     //   'user from backend',
@@ -90,7 +88,6 @@ const Chat = () => {
   //       dispatch(addUser(user.id, user.roomId, user.username, user.timestamp))
   //     );
   //   });
-
   //   // TODO: fix this, I get the same message 4 times
   //   // get status message from server
   //   socket.on('message', (message) => {

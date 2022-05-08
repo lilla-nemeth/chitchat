@@ -14,10 +14,20 @@ const PORT = 3003 || process.env.PORT;
 // Connects with client
 io.on('connection', (socket) => {
   // receives the addUser values from Home component
-  socket.on('sendUser', (id, roomId, username, timestamp) => {
+  // socket.on('sendUser', (id, roomId, username, timestamp) => {
+  socket.on('sendUser', (...message) => {
+    console.log(message);
+    // console.log(message);
+    // const id = socket.id;
+    const id = message[0].id;
+    const roomId = message[0].roomId;
+    const username = message[0].username;
+    const timestamp = message[0].timestamp;
+
     console.log(id, roomId, username, timestamp);
-    // TODO: fix this, I should send back to the client in the rigth form
-    socket.emit('joinUser', socket.id, roomId, username, timestamp);
+    // // TODO: fix this, I should send back to the client in the right form
+    socket.emit('joinUser', id, roomId, username, timestamp);
+    // console.log(id, roomId, username, timestamp);
   });
 });
 

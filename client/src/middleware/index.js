@@ -1,5 +1,7 @@
 import io from 'socket.io-client';
 
+let DEBUG = true;
+
 const socketMiddleware = (config) => {
   const socket = io(config.url);
 
@@ -9,10 +11,13 @@ const socketMiddleware = (config) => {
   return (store) => (next) => (action) => {
     if (!arelistenersMapped) {
       config.listeners.map((listener) => {
-        // 2. listen to the action from the server
-        socket.on(listener.message, (message) => {
-          // 3. dispatch the action
-          store.dispatch(listener.action(message));
+        // listen to the action from the server
+        // socket.on(listener.message, (message) => {
+        socket.on(listener.message, (...message) => {
+          // if (DEBUG) console.log(listener.message, message);
+          // dispatch the action
+          // console.log('message', message);
+          store.dispatch(listener.action(...message));
         });
       });
 
@@ -22,8 +27,9 @@ const socketMiddleware = (config) => {
     if (!areSubscribersMapped) {
       config.subscribers.map((subscriber) => {
         if (subscriber.type.includes(action.type)) {
-          // 1. emit action to the server
+          // emit action to the server
           socket.emit(subscriber.message, action.payload);
+          // if (DEBUG) console.log(subscriber.message, action.payload);
         }
       });
 
