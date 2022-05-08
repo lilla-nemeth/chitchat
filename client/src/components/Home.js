@@ -7,9 +7,11 @@ import RoomButton from './generic/RoomButton';
 import TextInput from './generic/TextInput';
 // styled components
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../style';
-// helper function
+// helper functions
 import { createTimestamp } from '../utils/timestamp';
 import { addUser, messageReceived } from '../actions';
+
+import { v4 as uuidv4 } from 'uuid';
 
 let DEBUG = true;
 
@@ -29,7 +31,7 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(addUser(null, selectedRoom, username, timestamp));
+    dispatch(addUser(uuidv4(), selectedRoom, username, timestamp));
 
     navigate(`chat/${selectedRoom}/${username}`);
   };
