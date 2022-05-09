@@ -10,7 +10,6 @@ const messageReducer = (state = initState.messages, action) => {
     case types.MESSAGE_RECEIVED:
       let newMessage = {
         id: action.payload.id,
-        userId: action.payload.userId,
         message: action.payload.message,
         author: action.payload.author,
         timestamp: action.payload.timestamp,

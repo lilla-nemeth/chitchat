@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 // composeWithDevToolsDevelopmentOnly
+import allReducers from '../reducers';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import socketMiddleware from '../middleware';
-import allReducers from '../reducers';
 import * as types from '../constants/actionTypes';
 import { addMessage, addUser, messageReceived, updateUsers } from '../actions';
 
@@ -14,14 +14,15 @@ const configureStore = () => {
     composeWithDevTools(
       applyMiddleware(
         socketMiddleware({
-          url: 'http://localhost:3003',
-          // listeners: when the server sends a message ('message')
-          // the middleware iterates through with map()
-          // and the client (socketMiddleware) dispatch the action (addUser)
-          listeners: [{ message: 'joinUser', action: addUser }],
-
-          // TODO: change the hard coded 'sendUser' to a variable later
-          subscribers: [{ message: 'sendUser', type: types.ADD_USER }],
+          url: 'http://localhost:3003/',
+          listeners: [
+            { message: 'joinUser', action: addUser },
+            { message: 'serverMessage', action: addMessage },
+          ],
+          subscribers: [
+            { message: 'sendUser', type: types.ADD_USER },
+            { message: 'chatMessage', type: types.ADD_MESSAGE },
+          ],
         })
       )
     )

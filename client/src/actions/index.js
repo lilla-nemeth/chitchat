@@ -1,8 +1,5 @@
 import * as types from '../constants/actionTypes';
 
-let messageId = 0;
-let userId = 0;
-
 // add user
 export const addUser = (id, roomId, username, timestamp) => ({
   type: types.ADD_USER,
@@ -14,22 +11,20 @@ export const addUser = (id, roomId, username, timestamp) => ({
   },
 });
 
-export const addMessage = (userId, message, author, timestamp) => ({
+export const addMessage = (id, message, author, timestamp) => ({
   type: types.ADD_MESSAGE,
   payload: {
-    id: messageId++,
-    userId,
+    id,
     message,
     author,
     timestamp,
   },
 });
 
-export const messageReceived = (userId, message, author, timestamp) => ({
+export const messageReceived = (id, message, author, timestamp) => ({
   type: types.MESSAGE_RECEIVED,
   payload: {
-    id: messageId++,
-    userId,
+    id,
     message,
     author,
     timestamp,
