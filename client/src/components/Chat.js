@@ -29,15 +29,16 @@ import {
 // icon
 import SendIcon from '../assets/icons/SendIcon';
 // redux actions
-import { addUser, updateUsers, addMessage, messageReceived } from '../actions';
+import { addUser, addMessage, updateUsers, messageReceived } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
 import { scrollToBottom } from '../utils/scroll';
-// import { io } from 'socket.io-client';
+import io from 'socket.io-client';
+import { v4 as uuidv4 } from 'uuid';
 
 let DEBUG = true;
 
-// const socket = io('http://localhost:3003');
+const socket = io('http://localhost:3003');
 
 const Chat = () => {
   const messageEndRef = useRef(null);
@@ -48,7 +49,7 @@ const Chat = () => {
   );
   const users = useSelector(
     (state) => state.userReducer
-    // state.userReducer.find((user) => user.roomId === room_id)
+    // (state) => state.userReducer.find((user) => user.roomId === room_id)
     // state.userReducer.find((user) => user.roomId === activeRoom.id)
   );
   const messages = useSelector((state) => state.messageReducer);
@@ -59,69 +60,23 @@ const Chat = () => {
   const [sentMessage, setSentMessage] = useState([]);
   const [receivedMessage, setReceivedMessage] = useState();
 
+  // const timestamp = createTimestamp('%Y-%m-%d %r');
   const timestamp = createTimestamp('{time}');
 
   const disabled = !messageInput;
 
-  const botName = 'ChatBot';
-
-  // All received data from server should be in useEffect
-  // useEffect(() => {
-  //   socket.emit(
-  //     'joinRoom',
-  //     socket.id,
-  //     room_id,
-  //     username,
-  //     timestamp
-  //     // dispatch(addUser(socket.id, room_id, username, timestamp))
-  //   );
-  //   socket.on('usersList', (user) => {
-  //     // console.log(
-  //     //   'user from backend',
-  //     //   user.id,
-  //     //   user.roomId,
-  //     //   user.username,
-  //     //   user.timestamp
-  //     // );
-  //     socket.emit(
-  //       'addUser',
-  //       dispatch(addUser(user.id, user.roomId, user.username, user.timestamp))
-  //     );
-  //   });
-  //   // TODO: fix this, I get the same message 4 times
-  //   // get status message from server
-  //   socket.on('message', (message) => {
-  //     // TODO: maybe I should put this to emit:
-  //     dispatch(addMessage(socket.id, message, botName, timestamp));
-  //   });
-  // }, []);
+  useEffect(() => {
+    dispatch(addUser(uuidv4(), room_id, username, timestamp));
+  }, []);
 
   useEffect(() => {
     scrollToBottom(messageEndRef);
-
-    // get chatMessage from server
   }, [messages]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // // emit chatMessage to the server
-    // socket.emit(
-    //   'chatMessage',
-    //   socket.id,
-    //   messageInput,
-    //   username,
-    //   timestamp
-    //   // dispatch(addMessage(socket.id, messageInput, username, timestamp))
-    // );
-
-    // socket.on('getMessage', (userId, message, username, timestamp) => {
-    //   // console.log('message from server', userId, message, username, timestamp);
-    //   socket.emit(
-    //     'receiveMessage',
-    //     dispatch(addMessage(userId, message, username, timestamp))
-    //   );
-    // });
+    dispatch(addMessage(uuidv4(), messageInput, username, timestamp));
 
     // clear messageInput:
     setMessageInput('');
@@ -132,7 +87,7 @@ const Chat = () => {
   };
 
   if (DEBUG) console.log('users', users);
-  // if (DEBUG) console.log('messages', messages);
+  if (DEBUG) console.log('messages', messages);
   // if (DEBUG) console.log('messages length', messages.length);
   // if (DEBUG) console.log('socket - Chat', socket);
   // if (DEBUG) console.log('socket.id - Chat', socket.id);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // generic components
@@ -9,9 +9,6 @@ import TextInput from './generic/TextInput';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../style';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
-import { addUser, messageReceived } from '../actions';
-
-import { v4 as uuidv4 } from 'uuid';
 
 let DEBUG = true;
 
@@ -30,8 +27,6 @@ const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    dispatch(addUser(uuidv4(), selectedRoom, username, timestamp));
 
     navigate(`chat/${selectedRoom}/${username}`);
   };
