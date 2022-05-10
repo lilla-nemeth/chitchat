@@ -5,6 +5,7 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 import socketMiddleware from '../middleware';
 import * as types from '../constants/actionTypes';
 import { addMessage, addUser, messageReceived, updateUsers } from '../actions';
+import logger from 'redux-logger';
 
 let DEBUG = true;
 
@@ -13,15 +14,18 @@ const configureStore = () => {
     allReducers,
     composeWithDevTools(
       applyMiddleware(
+        logger,
         socketMiddleware({
           url: 'http://localhost:3003/',
           listeners: [
-            { message: 'joinUser', action: addUser },
             { message: 'serverMessage', action: addMessage },
+            { message: 'joinUser', action: addUser },
+            // { message: 'chatMessage', action: messageReceived },
           ],
           subscribers: [
             { message: 'sendUser', type: types.ADD_USER },
-            { message: 'chatMessage', type: types.ADD_MESSAGE },
+            // TODO: fix this in the middleware, somehow it only uses the first action (ADD_USER)
+            { message: 'addMessage', type: types.ADD_MESSAGE },
           ],
         })
       )

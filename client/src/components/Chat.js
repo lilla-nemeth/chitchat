@@ -86,8 +86,8 @@ const Chat = () => {
     setMessageInput(e.target.value);
   };
 
-  if (DEBUG) console.log('users', users);
-  if (DEBUG) console.log('messages', messages);
+  // if (DEBUG) console.log('users', users);
+  // if (DEBUG) console.log('messages', messages);
   // if (DEBUG) console.log('messages length', messages.length);
   // if (DEBUG) console.log('socket - Chat', socket);
   // if (DEBUG) console.log('socket.id - Chat', socket.id);

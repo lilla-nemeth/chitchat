@@ -31,9 +31,6 @@ io.on('connection', (socket) => {
 
     socket.join(user.roomId);
 
-    // TODO: fix this
-    socket.to(user.roomId).emit('joinUser', id, roomId, username, timestamp);
-
     socket.emit(
       'serverMessage',
       uuidv4(),
@@ -53,12 +50,23 @@ io.on('connection', (socket) => {
         createTimestamp('{time}'),
         id
       );
+
+    // TODO: fix this
+    socket
+      .to(user.roomId)
+      .emit('joinUser', user.id, user.roomId, user.username, user.timestamp);
   });
 
-  socket.on('chatMessage', (...message) => {
-    // TODO: this socket.on doesn't work - fix this
+  socket.on('addMessage', (...message) => {
     console.log(message);
   });
+  //   // TODO: this socket.on doesn't work - fix this
+  //   // const id = message[0].id;
+  //   // const receivedMessage = message[0].message;
+  //   // const author = message[0].author;
+  //   // const timestamp = message[0].timestamp;
+  //   console.log(message);
+  //   // io.emit('chatMessage', id, receivedMessage, author, timestamp);
 
   // socket.on('disconnect', () => {
   //   // io.emit('message', 'A user has left the chat');

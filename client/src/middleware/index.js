@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
+import * as types from '../constants/actionTypes';
 
-let DEBUG = false;
+let DEBUG = true;
 
 const socketMiddleware = (config) => {
   const socket = io(config.url);
@@ -13,28 +14,29 @@ const socketMiddleware = (config) => {
       config.listeners.map((listener) => {
         // listen to the action from the server
         socket.on(listener.message, (...message) => {
-          // // dispatch the action
-          // if (DEBUG) console.log(listener.action(...message));
+          // dispatch the action
           store.dispatch(listener.action(...message));
+          // if (DEBUG) console.log(listener.action(...message));
         });
       });
-
       arelistenersMapped = true;
     }
 
     if (!areSubscribersMapped) {
       config.subscribers.map((subscriber) => {
-        if (subscriber.type.includes(action.type)) {
-          // emit action to the server
-          socket.emit(subscriber.message, action.payload);
-          // if (DEBUG) console.log(subscriber.message, action.payload);
-        }
-      });
+        // TODO: fix this!!!!!!!!!!!!!!!!, it only uses the first action (ADD_USER, addUser)
+        // if (subscriber.type.includes(action.type)) {
+        // emit action to the server
+        socket.emit(subscriber.message, action.payload);
 
+        if (DEBUG) console.log(subscriber.message, action.payload);
+      });
       areSubscribersMapped = true;
     }
 
     next(action);
+
+    // if (DEBUG) console.log('action', action);
   };
 };
 
