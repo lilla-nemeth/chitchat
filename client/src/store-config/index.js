@@ -17,10 +17,7 @@ const configureStore = () => {
         logger,
         socketMiddleware({
           url: 'http://localhost:3003/',
-          listeners: [
-            { message: types.ADD_USER, action: addUser },
-            { message: types.ADD_MESSAGE, action: addMessage },
-          ],
+          listeners: [{ message: 'sendMessage', action: addMessage }],
           subscribers: [types.ADD_USER, types.ADD_MESSAGE],
         })
       )

@@ -26,14 +26,13 @@ io.on('connection', (socket) => {
     const roomId = message[0].roomId;
     const username = message[0].username;
     const timestamp = message[0].timestamp;
-    console.log(message);
 
     const user = userJoin(id, roomId, username, timestamp);
 
     socket.join(user.roomId);
 
     socket.emit(
-      'ADD_MESSAGE',
+      'sendMessage',
       uuidv4(),
       'Welcome to ChitChat!',
       botName,
@@ -44,18 +43,13 @@ io.on('connection', (socket) => {
     socket.broadcast
       .to(user.roomId)
       .emit(
-        'ADD_MESSAGE',
+        'sendMessage',
         uuidv4(),
         `${user.username} has joined the chat`,
         botName,
         createTimestamp('{time}'),
         id
       );
-
-    // TODO: fix this
-    socket
-      .to(user.roomId)
-      .emit('ADD_USER', user.id, user.roomId, user.username, user.timestamp);
   });
 
   socket.on('ADD_MESSAGE', (...message) => {
