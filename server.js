@@ -21,18 +21,19 @@ const botName = 'ChatBot';
 
 // Connects with client
 io.on('connection', (socket) => {
-  socket.on('sendUser', (...message) => {
+  socket.on('ADD_USER', (...message) => {
     const id = message[0].id;
     const roomId = message[0].roomId;
     const username = message[0].username;
     const timestamp = message[0].timestamp;
+    console.log(message);
 
     const user = userJoin(id, roomId, username, timestamp);
 
     socket.join(user.roomId);
 
     socket.emit(
-      'serverMessage',
+      'ADD_MESSAGE',
       uuidv4(),
       'Welcome to ChitChat!',
       botName,
@@ -43,7 +44,7 @@ io.on('connection', (socket) => {
     socket.broadcast
       .to(user.roomId)
       .emit(
-        'serverMessage',
+        'ADD_MESSAGE',
         uuidv4(),
         `${user.username} has joined the chat`,
         botName,
@@ -54,12 +55,13 @@ io.on('connection', (socket) => {
     // TODO: fix this
     socket
       .to(user.roomId)
-      .emit('joinUser', user.id, user.roomId, user.username, user.timestamp);
+      .emit('ADD_USER', user.id, user.roomId, user.username, user.timestamp);
   });
 
-  socket.on('addMessage', (...message) => {
+  socket.on('ADD_MESSAGE', (...message) => {
     console.log(message);
   });
+
   //   // TODO: this socket.on doesn't work - fix this
   //   // const id = message[0].id;
   //   // const receivedMessage = message[0].message;

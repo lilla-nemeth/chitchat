@@ -18,15 +18,10 @@ const configureStore = () => {
         socketMiddleware({
           url: 'http://localhost:3003/',
           listeners: [
-            { message: 'serverMessage', action: addMessage },
-            { message: 'joinUser', action: addUser },
-            // { message: 'chatMessage', action: messageReceived },
+            { message: types.ADD_USER, action: addUser },
+            { message: types.ADD_MESSAGE, action: addMessage },
           ],
-          subscribers: [
-            { message: 'sendUser', type: types.ADD_USER },
-            // TODO: fix this in the middleware, somehow it only uses the first action (ADD_USER)
-            { message: 'addMessage', type: types.ADD_MESSAGE },
-          ],
+          subscribers: [types.ADD_USER, types.ADD_MESSAGE],
         })
       )
     )

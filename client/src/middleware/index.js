@@ -14,29 +14,19 @@ const socketMiddleware = (config) => {
       config.listeners.map((listener) => {
         // listen to the action from the server
         socket.on(listener.message, (...message) => {
-          // dispatch the action
+          // dispatch action
           store.dispatch(listener.action(...message));
-          // if (DEBUG) console.log(listener.action(...message));
         });
       });
       arelistenersMapped = true;
     }
 
-    if (!areSubscribersMapped) {
-      config.subscribers.map((subscriber) => {
-        // TODO: fix this!!!!!!!!!!!!!!!!, it only uses the first action (ADD_USER, addUser)
-        // if (subscriber.type.includes(action.type)) {
-        // emit action to the server
-        socket.emit(subscriber.message, action.payload);
-
-        if (DEBUG) console.log(subscriber.message, action.payload);
-      });
-      areSubscribersMapped = true;
+    if (config.subscribers.includes(action.type)) {
+      // emit action to server
+      socket.emit(action.type, action.payload);
     }
 
     next(action);
-
-    // if (DEBUG) console.log('action', action);
   };
 };
 
