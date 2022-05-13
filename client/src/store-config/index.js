@@ -22,7 +22,7 @@ const configureStore = () => {
             { message: 'serverMessage', action: addMessage },
             { message: 'receivedMessage', action: receivedMessage },
           ],
-          subscribers: [types.ADD_USER, types.ADD_MESSAGE],
+          subscribers: [types.ADD_USER, types.ADD_MESSAGE, types.UPDATE_USERS],
         })
       )
     )

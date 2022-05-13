@@ -29,7 +29,7 @@ import {
 // icon
 import SendIcon from '../assets/icons/SendIcon';
 // redux actions
-import { addUser, addMessage, updateUsers, messageReceived } from '../actions';
+import { addUser, addMessage, updateUsers } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
 import { scrollToBottom } from '../utils/scroll';
@@ -50,6 +50,9 @@ const Chat = () => {
     state.roomReducer.rooms.find((room) => room.id === room_id)
   );
   const users = useSelector((state) => state.userReducer);
+  // const currentUser = useSelector((state) =>
+  //   state.userReducer.find((user) => user.username === username)
+  // );
   const messages = useSelector((state) => state.messageReducer);
   const dispatch = useDispatch();
 

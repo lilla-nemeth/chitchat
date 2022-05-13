@@ -8,7 +8,12 @@ const io = require('socket.io')(server, {
   },
 });
 const { v4: uuidv4 } = require('uuid');
-const { userJoin, getRoomUsers, getMessageSender } = require('./utils/users');
+const {
+  joinUser,
+  getRoomUsers,
+  getMessageSender,
+  leaveUser,
+} = require('./utils/users');
 const { createTimestamp } = require('./utils/timestamp');
 // createTimestamp('%Y-%m-%d %r')
 // createTimestamp('{time}')
@@ -30,7 +35,7 @@ io.on('connection', (socket) => {
     // console.log(message);
     // console.log(id, roomId, username, timestamp);
 
-    const user = userJoin(id, roomId, username, timestamp);
+    const user = joinUser(id, roomId, username, timestamp);
 
     socket.join(user.roomId);
 
@@ -69,23 +74,29 @@ io.on('connection', (socket) => {
 
     const user = getMessageSender(userId);
 
-    // if the message contains userId (chatBot messages do not)
-    // TODO: fix this, each room users should receive each message once
     if (user) {
-      io.to(user.roomId).emit(
-        'receivedMessage',
-        id,
-        userId,
-        receivedMessage,
-        author,
-        timestamp
-      );
+      socket.broadcast
+        .to(user.roomId)
+        .emit(
+          'receivedMessage',
+          id,
+          userId,
+          receivedMessage,
+          author,
+          timestamp
+        );
     }
   });
 
-  // socket.on('disconnect', () => {
-  //   // io.emit('message', 'A user has left the chat');
-  // });
+  // TODO: fix this, it only should receive message, when the user clicks the Leave button (Chat component)
+  socket.on('UPDATE_USERS', (...message) => {
+    // console.log('update-users', message[0]);
+
+    console.log('update-users', message);
+
+    // const user = leaveUser();
+    // io.emit('message', 'A user has left the chat');
+  });
 });
 
 server.listen(PORT, () => console.log(`server is running or ${PORT}`));
