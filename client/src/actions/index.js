@@ -11,20 +11,22 @@ export const addUser = (id, roomId, username, timestamp) => ({
   },
 });
 
-export const addMessage = (id, message, author, timestamp) => ({
+export const addMessage = (id, userId, message, author, timestamp) => ({
   type: types.ADD_MESSAGE,
   payload: {
     id,
+    userId,
     message,
     author,
     timestamp,
   },
 });
 
-export const messageReceived = (id, message, author, timestamp) => ({
-  type: types.MESSAGE_RECEIVED,
+export const receivedMessage = (id, userId, message, author, timestamp) => ({
+  type: types.RECEIVED_MESSAGE,
   payload: {
     id,
+    userId,
     message,
     author,
     timestamp,

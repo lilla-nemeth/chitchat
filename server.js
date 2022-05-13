@@ -8,9 +8,10 @@ const io = require('socket.io')(server, {
   },
 });
 const { v4: uuidv4 } = require('uuid');
-const { userJoin, messageSender } = require('./utils/users');
+const { userJoin, getRoomUsers, getMessageSender } = require('./utils/users');
 const { createTimestamp } = require('./utils/timestamp');
 // createTimestamp('%Y-%m-%d %r')
+// createTimestamp('{time}')
 
 // Access to static folder
 app.use(express.static(path.join(__dirname, 'client')));
@@ -26,14 +27,17 @@ io.on('connection', (socket) => {
     const roomId = message[0].roomId;
     const username = message[0].username;
     const timestamp = message[0].timestamp;
+    // console.log(message);
+    // console.log(id, roomId, username, timestamp);
 
     const user = userJoin(id, roomId, username, timestamp);
 
     socket.join(user.roomId);
 
     socket.emit(
-      'sendMessage',
+      'serverMessage',
       uuidv4(),
+      null,
       'Welcome to ChitChat!',
       botName,
       createTimestamp('{time}'),
@@ -43,26 +47,41 @@ io.on('connection', (socket) => {
     socket.broadcast
       .to(user.roomId)
       .emit(
-        'sendMessage',
+        'serverMessage',
         uuidv4(),
+        null,
         `${user.username} has joined the chat`,
         botName,
         createTimestamp('{time}'),
         id
       );
+
+    io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
   });
 
   socket.on('ADD_MESSAGE', (...message) => {
-    console.log(message);
-  });
+    const id = message[0].id;
+    const userId = message[0].userId;
+    const receivedMessage = message[0].message;
+    const author = message[0].author;
+    const timestamp = message[0].timestamp;
+    // console.log(message);
 
-  //   // TODO: this socket.on doesn't work - fix this
-  //   // const id = message[0].id;
-  //   // const receivedMessage = message[0].message;
-  //   // const author = message[0].author;
-  //   // const timestamp = message[0].timestamp;
-  //   console.log(message);
-  //   // io.emit('chatMessage', id, receivedMessage, author, timestamp);
+    const user = getMessageSender(userId);
+
+    // if the message contains userId (chatBot messages do not)
+    // TODO: fix this, each room users should receive each message once
+    if (user) {
+      io.to(user.roomId).emit(
+        'receivedMessage',
+        id,
+        userId,
+        receivedMessage,
+        author,
+        timestamp
+      );
+    }
+  });
 
   // socket.on('disconnect', () => {
   //   // io.emit('message', 'A user has left the chat');
