@@ -1,5 +1,4 @@
 import io from 'socket.io-client';
-import * as types from '../constants/actionTypes';
 
 let DEBUG = true;
 
@@ -7,7 +6,6 @@ const socketMiddleware = (config) => {
   const socket = io(config.url);
 
   let arelistenersMapped = false;
-  let areSubscribersMapped = false;
 
   return (store) => (next) => (action) => {
     if (!arelistenersMapped) {
@@ -15,7 +13,7 @@ const socketMiddleware = (config) => {
         // listen to the action from the server
         socket.on(listener.message, (...message) => {
           // dispatch action
-          store.dispatch(listener.action(...message));
+          return store.dispatch(listener.action(...message));
         });
       });
       arelistenersMapped = true;

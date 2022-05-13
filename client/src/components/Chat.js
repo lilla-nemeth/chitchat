@@ -33,12 +33,14 @@ import { addUser, addMessage, updateUsers, messageReceived } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
 import { scrollToBottom } from '../utils/scroll';
-import io from 'socket.io-client';
+// uuid
 import { v4 as uuidv4 } from 'uuid';
+
+import io from 'socket.io-client';
 
 let DEBUG = true;
 
-const socket = io('http://localhost:3003');
+const socket = io('http://localhost:3003/');
 
 const Chat = () => {
   const messageEndRef = useRef(null);
@@ -47,13 +49,8 @@ const Chat = () => {
   const activeRoom = useSelector((state) =>
     state.roomReducer.rooms.find((room) => room.id === room_id)
   );
-  const users = useSelector(
-    (state) => state.userReducer
-    // (state) => state.userReducer.find((user) => user.roomId === room_id)
-    // state.userReducer.find((user) => user.roomId === activeRoom.id)
-  );
+  const users = useSelector((state) => state.userReducer);
   const messages = useSelector((state) => state.messageReducer);
-
   const dispatch = useDispatch();
 
   const [messageInput, setMessageInput] = useState('');
@@ -62,11 +59,13 @@ const Chat = () => {
 
   // const timestamp = createTimestamp('%Y-%m-%d %r');
   const timestamp = createTimestamp('{time}');
+  const uuid = uuidv4();
 
   const disabled = !messageInput;
 
   useEffect(() => {
-    dispatch(addUser(uuidv4(), room_id, username, timestamp));
+    // TODO: fix this - it shouldn't add new user each time when the page refresh
+    dispatch(addUser(socket.id, room_id, username, timestamp));
   }, []);
 
   useEffect(() => {
@@ -76,7 +75,7 @@ const Chat = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(addMessage(uuidv4(), messageInput, username, timestamp));
+    dispatch(addMessage(uuid, socket.id, messageInput, username, timestamp));
 
     // clear messageInput:
     setMessageInput('');
@@ -86,8 +85,8 @@ const Chat = () => {
     setMessageInput(e.target.value);
   };
 
-  // if (DEBUG) console.log('users', users);
-  // if (DEBUG) console.log('messages', messages);
+  if (DEBUG) console.log('users', users);
+  if (DEBUG) console.log('messages', messages);
   // if (DEBUG) console.log('messages length', messages.length);
   // if (DEBUG) console.log('socket - Chat', socket);
   // if (DEBUG) console.log('socket.id - Chat', socket.id);
