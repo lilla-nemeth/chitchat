@@ -50,9 +50,6 @@ const Chat = () => {
     state.roomReducer.rooms.find((room) => room.id === room_id)
   );
   const users = useSelector((state) => state.userReducer);
-  // const currentUser = useSelector((state) =>
-  //   state.userReducer.find((user) => user.username === username)
-  // );
   const messages = useSelector((state) => state.messageReducer);
   const dispatch = useDispatch();
 
@@ -67,6 +64,7 @@ const Chat = () => {
   const disabled = !messageInput;
 
   useEffect(() => {
+    // dispatch user
     dispatch(addUser(socket.id, room_id, username, timestamp));
   }, []);
 
@@ -77,6 +75,7 @@ const Chat = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // dispatch message with form submit
     dispatch(addMessage(uuid, socket.id, messageInput, username, timestamp));
 
     // clear messageInput:
@@ -86,17 +85,6 @@ const Chat = () => {
   const handleChange = (e) => {
     setMessageInput(e.target.value);
   };
-
-  if (DEBUG) console.log('users', users);
-  if (DEBUG) console.log('messages', messages);
-  // if (DEBUG) console.log('messages length', messages.length);
-  // if (DEBUG) console.log('socket - Chat', socket);
-  // if (DEBUG) console.log('socket.id - Chat', socket.id);
-  // if (DEBUG) console.log('activeRoom', activeRoom);
-  // if (DEBUG) console.log('activeRoom id', activeRoom.id);
-  // if (DEBUG) console.log('username', username);
-  // if (DEBUG) console.log('statusMessage', statusMessage);
-  // if (DEBUG) console.log('receivedMessage', receivedMessage);
 
   return (
     <Main>
@@ -121,12 +109,10 @@ const Chat = () => {
             </Header>
             <StyledLink
               to={'/'}
-              onClick={
-                () =>
-                  dispatch(
-                    removeUser(users.find((user) => user.username === username))
-                  )
-                // console.log(users.find((user) => user.username === username))
+              onClick={() =>
+                dispatch(
+                  removeUser(users.find((user) => user.username === username))
+                )
               }
             >
               <ButtonComponent name={'Leave'} />
