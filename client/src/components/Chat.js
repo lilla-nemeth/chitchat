@@ -29,7 +29,7 @@ import {
 // icon
 import SendIcon from '../assets/icons/SendIcon';
 // redux actions
-import { addUser, addMessage, updateUsers } from '../actions';
+import { addUser, addMessage, removeUser } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
 import { scrollToBottom } from '../utils/scroll';
@@ -67,7 +67,6 @@ const Chat = () => {
   const disabled = !messageInput;
 
   useEffect(() => {
-    // TODO: fix this - it shouldn't add new user each time when the page refresh
     dispatch(addUser(socket.id, room_id, username, timestamp));
   }, []);
 
@@ -120,7 +119,16 @@ const Chat = () => {
             <Header>
               <Logo>ChitChat</Logo>
             </Header>
-            <StyledLink to={'/'}>
+            <StyledLink
+              to={'/'}
+              onClick={
+                () =>
+                  dispatch(
+                    removeUser(users.find((user) => user.username === username))
+                  )
+                // console.log(users.find((user) => user.username === username))
+              }
+            >
               <ButtonComponent name={'Leave'} />
             </StyledLink>
           </HeaderContainer>

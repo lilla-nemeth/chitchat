@@ -13,10 +13,8 @@ import { createTimestamp } from '../utils/timestamp';
 let DEBUG = true;
 
 const Home = () => {
-  // const [username, setUsername] = useState('');
-  const [username, setUsername] = useState('chatUser');
+  const [username, setUsername] = useState('');
   const rooms = useSelector((state) => state.roomReducer.rooms);
-  const dispatch = useDispatch();
   const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
   const navigate = useNavigate();
 

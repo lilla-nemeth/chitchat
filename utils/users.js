@@ -16,17 +16,17 @@ const getMessageSender = (userId) => {
   return users.find((user) => user.id === userId);
 };
 
-// const leaveUser = (userId) => {
-//   const index = users.findIndex((user) => user.id === userId);
+const leaveUser = (userId) => {
+  const index = users.findIndex((user) => user.id === userId);
 
-//   if (index !== -1) {
-//     return users.splice(index, 1)[0];
-//   }
-// };
+  if (index !== -1) {
+    return users.splice(index, 1)[0];
+  }
+};
 
 module.exports = {
   joinUser,
   getRoomUsers,
   getMessageSender,
-  // leaveUser,
+  leaveUser,
 };
