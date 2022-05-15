@@ -61,7 +61,9 @@ io.on('connection', (socket) => {
         id
       );
 
+    // if (id != user.id) {
     io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
+    // }
   });
 
   socket.on('ADD_MESSAGE', (...message) => {
@@ -88,14 +90,26 @@ io.on('connection', (socket) => {
     }
   });
 
-  // TODO: fix this, it only should receive message, when the user clicks the Leave button (Chat component)
-  socket.on('UPDATE_USERS', (...message) => {
-    // console.log('update-users', message[0]);
+  socket.on('REMOVE_USER', (...message) => {
+    const id = message[0].users.id;
 
-    console.log('update-users', message);
+    const user = leaveUser(id);
 
-    // const user = leaveUser();
-    // io.emit('message', 'A user has left the chat');
+    if (user) {
+      socket.broadcast
+        .to(user.roomId)
+        .emit(
+          'serverMessage',
+          uuidv4(),
+          null,
+          `${user.username} has left the chat`,
+          botName,
+          createTimestamp('{time}'),
+          id
+        );
+
+      io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
+    }
   });
 });
 

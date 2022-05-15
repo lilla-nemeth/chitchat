@@ -34,8 +34,15 @@ export const receivedMessage = (id, userId, message, author, timestamp) => ({
 });
 
 // when the user joins or leaves the chat room
-export const updateUsers = (users) => ({
-  type: types.UPDATE_USERS,
+export const sendUsers = (users) => ({
+  type: types.SEND_USERS,
+  payload: {
+    users,
+  },
+});
+
+export const removeUser = (users) => ({
+  type: types.REMOVE_USER,
   payload: {
     users,
   },

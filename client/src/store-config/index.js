@@ -4,7 +4,7 @@ import allReducers from '../reducers';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import socketMiddleware from '../middleware';
 import * as types from '../constants/actionTypes';
-import { addMessage, addUser, receivedMessage, updateUsers } from '../actions';
+import { addMessage, receivedMessage, sendUsers, removeUser } from '../actions';
 import logger from 'redux-logger';
 
 let DEBUG = true;
@@ -18,11 +18,12 @@ const configureStore = () => {
         socketMiddleware({
           url: 'http://localhost:3003/',
           listeners: [
-            { message: 'sendUsersList', action: updateUsers },
+            { message: 'sendUsersList', action: sendUsers },
             { message: 'serverMessage', action: addMessage },
             { message: 'receivedMessage', action: receivedMessage },
+            { message: 'removeUser', action: removeUser },
           ],
-          subscribers: [types.ADD_USER, types.ADD_MESSAGE, types.UPDATE_USERS],
+          subscribers: [types.ADD_USER, types.ADD_MESSAGE, types.REMOVE_USER],
         })
       )
     )
