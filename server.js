@@ -27,13 +27,12 @@ const botName = 'ChatBot';
 
 // Connects with client
 io.on('connection', (socket) => {
+  // listens to addUser and sends back the user list
   socket.on('ADD_USER', (...message) => {
     const id = message[0].id;
     const roomId = message[0].roomId;
     const username = message[0].username;
     const timestamp = message[0].timestamp;
-    // console.log(message);
-    // console.log(id, roomId, username, timestamp);
 
     const user = joinUser(id, roomId, username, timestamp);
 
@@ -61,18 +60,16 @@ io.on('connection', (socket) => {
         id
       );
 
-    // if (id != user.id) {
     io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
-    // }
   });
 
+  // listens to addMessage and send back the message to room users
   socket.on('ADD_MESSAGE', (...message) => {
     const id = message[0].id;
     const userId = message[0].userId;
     const receivedMessage = message[0].message;
     const author = message[0].author;
     const timestamp = message[0].timestamp;
-    // console.log(message);
 
     const user = getMessageSender(userId);
 
@@ -90,12 +87,13 @@ io.on('connection', (socket) => {
     }
   });
 
+  // remove user, if leaves the room
   socket.on('REMOVE_USER', (...message) => {
     const id = message[0].users.id;
 
     const user = leaveUser(id);
 
-    if (user) {
+    if (user && id) {
       socket.broadcast
         .to(user.roomId)
         .emit(

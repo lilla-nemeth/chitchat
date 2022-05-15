@@ -3,7 +3,9 @@ const users = [];
 const joinUser = (id, roomId, username, timestamp) => {
   const user = { id, roomId, username, timestamp };
 
-  users.push(user);
+  if (id) {
+    users.push(user);
+  }
 
   return user;
 };
