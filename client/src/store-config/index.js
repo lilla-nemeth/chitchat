@@ -21,7 +21,6 @@ const configureStore = () => {
             { message: 'sendUsersList', action: sendUsers },
             { message: 'serverMessage', action: addMessage },
             { message: 'receivedMessage', action: receivedMessage },
-            { message: 'removeUser', action: removeUser },
           ],
           subscribers: [types.ADD_USER, types.ADD_MESSAGE, types.REMOVE_USER],
         })

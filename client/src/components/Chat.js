@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // generic components
 import User from './generic/User';
@@ -49,6 +49,7 @@ const Chat = () => {
   const activeRoom = useSelector((state) =>
     state.roomReducer.rooms.find((room) => room.id === room_id)
   );
+  const navigate = useNavigate();
   const users = useSelector((state) => state.userReducer);
   const messages = useSelector((state) => state.messageReducer);
   const dispatch = useDispatch();
@@ -86,6 +87,12 @@ const Chat = () => {
     setMessageInput(e.target.value);
   };
 
+  // const userLeave = (users) => {
+  //   return dispatch(
+  //     removeUser(users.find((user) => user.username === username))
+  //   );
+  // };
+
   return (
     <Main>
       <ChatRoom>
@@ -109,11 +116,14 @@ const Chat = () => {
             </Header>
             <StyledLink
               to={'/'}
+              // onClick={() => socket.disconnect()}
+              // onClick={() => userLeave(users)}
               onClick={() =>
                 dispatch(
                   removeUser(users.find((user) => user.username === username))
                 )
               }
+              // onClick={() => navigate('/')}
             >
               <ButtonComponent name={'Leave'} />
             </StyledLink>

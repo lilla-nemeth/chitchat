@@ -88,26 +88,48 @@ io.on('connection', (socket) => {
   });
 
   // remove user, if leaves the room
-  socket.on('REMOVE_USER', (...message) => {
-    const id = message[0].users.id;
 
-    const user = leaveUser(id);
+  // TODO: it works, but not so nice, disconnect should work on the client side too (Leave button)
+  socket.on('ADD_USER', (...message) => {
+    const id = message[0].id;
+    console.log(id);
 
-    if (user && id) {
-      socket.broadcast
-        .to(user.roomId)
-        .emit(
-          'serverMessage',
-          uuidv4(),
-          null,
-          `${user.username} has left the chat`,
-          botName,
-          createTimestamp('{time}'),
-          id
-        );
+    socket.on('disconnect', () => {
+      const user = leaveUser(id);
+      if (user) {
+        socket.broadcast
+          .to(user.roomId)
+          .emit(
+            'serverMessage',
+            uuidv4(),
+            null,
+            `${user.username} has left the chat`,
+            botName,
+            createTimestamp('{time}'),
+            id
+          );
+        io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
+      }
+    });
+    socket.on('REMOVE_USER', (...message) => {
+      if (message[0].users) {
+        const id = message[0].users.id;
+        const user = leaveUser(id);
 
-      io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
-    }
+        socket.broadcast
+          .to(user.roomId)
+          .emit(
+            'serverMessage',
+            uuidv4(),
+            null,
+            `${user.username} has left the chat`,
+            botName,
+            createTimestamp('{time}'),
+            id
+          );
+        io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
+      }
+    });
   });
 });
 
