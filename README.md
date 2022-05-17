@@ -2,7 +2,7 @@
 
 ## Description
 
-ChitChat is a chat application with Socket.io, Node.js, Express, JavaScript and React. UI is created with custom design. For styling I used Styled Components library.
+ChitChat is a chat application with rooms, created with JavaScript, React, Redux, Socket.io and Node.js. UI is made by custom design. For styling I used Styled Components library.
 
 ## Installing, running locally
 

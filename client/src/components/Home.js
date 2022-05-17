@@ -19,7 +19,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const timestamp = createTimestamp('%Y-%m-%d %r');
-  // const timestamp = createTimestamp('{time}');
+  // createTimestamp('{time}');
 
   const disabled = !username;
 
