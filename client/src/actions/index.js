@@ -11,6 +11,7 @@ export const addUser = (id, roomId, username, timestamp) => ({
   },
 });
 
+// add message
 export const addMessage = (id, userId, message, author, timestamp) => ({
   type: types.ADD_MESSAGE,
   payload: {
@@ -22,6 +23,7 @@ export const addMessage = (id, userId, message, author, timestamp) => ({
   },
 });
 
+// received chat message
 export const receivedMessage = (id, userId, message, author, timestamp) => ({
   type: types.RECEIVED_MESSAGE,
   payload: {
@@ -33,7 +35,7 @@ export const receivedMessage = (id, userId, message, author, timestamp) => ({
   },
 });
 
-// when the user joins or leaves the chat room
+// send user list
 export const sendUsers = (users) => ({
   type: types.SEND_USERS,
   payload: {
@@ -41,8 +43,9 @@ export const sendUsers = (users) => ({
   },
 });
 
-export const removeUser = (users) => ({
-  type: types.REMOVE_USER,
+// send user who leaves the room
+export const getUser = (users) => ({
+  type: types.GET_USER,
   payload: {
     users,
   },

@@ -14,9 +14,8 @@ const userReducer = (state = initState.users, action) => {
         timestamp: action.payload.timestamp,
       };
       return state.concat([newUser]);
+    case types.GET_USER:
     case types.SEND_USERS:
-      return action.payload.users;
-    case types.REMOVE_USER:
       return action.payload.users;
     default:
       return state;

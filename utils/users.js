@@ -1,11 +1,9 @@
 const users = [];
 
-const joinUser = (id, roomId, username, timestamp) => {
+const userJoin = (id, roomId, username, timestamp) => {
   const user = { id, roomId, username, timestamp };
 
-  if (id) {
-    users.push(user);
-  }
+  users.push(user);
 
   return user;
 };
@@ -18,7 +16,7 @@ const getMessageSender = (userId) => {
   return users.find((user) => user.id === userId);
 };
 
-const leaveUser = (userId) => {
+const userLeave = (userId) => {
   const index = users.findIndex((user) => user.id === userId);
 
   if (index !== -1) {
@@ -27,8 +25,8 @@ const leaveUser = (userId) => {
 };
 
 module.exports = {
-  joinUser,
+  userJoin,
   getRoomUsers,
   getMessageSender,
-  leaveUser,
+  userLeave,
 };

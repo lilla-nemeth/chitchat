@@ -29,7 +29,7 @@ import {
 // icon
 import SendIcon from '../assets/icons/SendIcon';
 // redux actions
-import { addUser, addMessage, removeUser } from '../actions';
+import { addUser, addMessage, getUser } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
 import { scrollToBottom } from '../utils/scroll';
@@ -66,6 +66,8 @@ const Chat = () => {
 
   useEffect(() => {
     // dispatch user
+    // TODO: change the client socket.id as user's id,
+    // it gives undefined, when the page refresh
     dispatch(addUser(socket.id, room_id, username, timestamp));
   }, []);
 
@@ -86,12 +88,6 @@ const Chat = () => {
   const handleChange = (e) => {
     setMessageInput(e.target.value);
   };
-
-  // const userLeave = (users) => {
-  //   return dispatch(
-  //     removeUser(users.find((user) => user.username === username))
-  //   );
-  // };
 
   return (
     <Main>
@@ -114,17 +110,7 @@ const Chat = () => {
             <Header>
               <Logo>ChitChat</Logo>
             </Header>
-            <StyledLink
-              to={'/'}
-              // onClick={() => socket.disconnect()}
-              // onClick={() => userLeave(users)}
-              onClick={() =>
-                dispatch(
-                  removeUser(users.find((user) => user.username === username))
-                )
-              }
-              // onClick={() => navigate('/')}
-            >
+            <StyledLink to={'/'} onClick={() => socket.end()}>
               <ButtonComponent name={'Leave'} />
             </StyledLink>
           </HeaderContainer>

@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
@@ -9,17 +8,14 @@ const io = require('socket.io')(server, {
 });
 const { v4: uuidv4 } = require('uuid');
 const {
-  joinUser,
+  userJoin,
   getRoomUsers,
   getMessageSender,
-  leaveUser,
+  userLeave,
 } = require('./utils/users');
 const { createTimestamp } = require('./utils/timestamp');
 // createTimestamp('%Y-%m-%d %r')
 // createTimestamp('{time}')
-
-// Access to static folder
-app.use(express.static(path.join(__dirname, 'client')));
 
 const PORT = 3003 || process.env.PORT;
 
@@ -27,14 +23,14 @@ const botName = 'ChatBot';
 
 // Connects with client
 io.on('connection', (socket) => {
-  // listens to addUser and sends back the user list
+  // listens to addUser and updates the user list
   socket.on('ADD_USER', (...message) => {
     const id = message[0].id;
     const roomId = message[0].roomId;
     const username = message[0].username;
     const timestamp = message[0].timestamp;
 
-    const user = joinUser(id, roomId, username, timestamp);
+    const user = userJoin(id, roomId, username, timestamp);
 
     socket.join(user.roomId);
 
@@ -42,10 +38,9 @@ io.on('connection', (socket) => {
       'serverMessage',
       uuidv4(),
       null,
-      'Welcome to ChitChat!',
+      `Welcome ${user.username}!`,
       botName,
-      createTimestamp('{time}'),
-      id
+      createTimestamp('{time}')
     );
 
     socket.broadcast
@@ -54,20 +49,19 @@ io.on('connection', (socket) => {
         'serverMessage',
         uuidv4(),
         null,
-        `${user.username} has joined the chat`,
+        `${user.username} has joined the room`,
         botName,
-        createTimestamp('{time}'),
-        id
+        createTimestamp('{time}')
       );
 
     io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
   });
 
-  // listens to addMessage and send back the message to room users
+  // listens to addMessage and send back the message to other room users
   socket.on('ADD_MESSAGE', (...message) => {
     const id = message[0].id;
     const userId = message[0].userId;
-    const receivedMessage = message[0].message;
+    const chatMessage = message[0].message;
     const author = message[0].author;
     const timestamp = message[0].timestamp;
 
@@ -76,26 +70,17 @@ io.on('connection', (socket) => {
     if (user) {
       socket.broadcast
         .to(user.roomId)
-        .emit(
-          'receivedMessage',
-          id,
-          userId,
-          receivedMessage,
-          author,
-          timestamp
-        );
+        .emit('receivedMessage', id, userId, chatMessage, author, timestamp);
     }
   });
 
-  // remove user, if leaves the room
-
-  // TODO: it works, but not so nice, disconnect should work on the client side too (Leave button)
+  // Disconnecting
   socket.on('ADD_USER', (...message) => {
     const id = message[0].id;
-    console.log(id);
 
     socket.on('disconnect', () => {
-      const user = leaveUser(id);
+      const user = userLeave(id);
+
       if (user) {
         socket.broadcast
           .to(user.roomId)
@@ -103,30 +88,11 @@ io.on('connection', (socket) => {
             'serverMessage',
             uuidv4(),
             null,
-            `${user.username} has left the chat`,
+            `${user.username} has left the room`,
             botName,
-            createTimestamp('{time}'),
-            id
+            createTimestamp('{time}')
           );
-        io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
-      }
-    });
-    socket.on('REMOVE_USER', (...message) => {
-      if (message[0].users) {
-        const id = message[0].users.id;
-        const user = leaveUser(id);
 
-        socket.broadcast
-          .to(user.roomId)
-          .emit(
-            'serverMessage',
-            uuidv4(),
-            null,
-            `${user.username} has left the chat`,
-            botName,
-            createTimestamp('{time}'),
-            id
-          );
         io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
       }
     });

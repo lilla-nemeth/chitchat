@@ -4,8 +4,8 @@ import allReducers from '../reducers';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import socketMiddleware from '../middleware';
 import * as types from '../constants/actionTypes';
-import { addMessage, receivedMessage, sendUsers, removeUser } from '../actions';
-import logger from 'redux-logger';
+import { addMessage, receivedMessage, sendUsers } from '../actions';
+// import logger from 'redux-logger';
 
 let DEBUG = true;
 
@@ -14,7 +14,7 @@ const configureStore = () => {
     allReducers,
     composeWithDevTools(
       applyMiddleware(
-        logger,
+        // logger,
         socketMiddleware({
           url: 'http://localhost:3003/',
           listeners: [
@@ -22,7 +22,7 @@ const configureStore = () => {
             { message: 'serverMessage', action: addMessage },
             { message: 'receivedMessage', action: receivedMessage },
           ],
-          subscribers: [types.ADD_USER, types.ADD_MESSAGE, types.REMOVE_USER],
+          subscribers: [types.ADD_USER, types.ADD_MESSAGE, types.GET_USER],
         })
       )
     )
