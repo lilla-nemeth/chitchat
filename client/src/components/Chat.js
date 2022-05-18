@@ -25,6 +25,7 @@ import {
   MessageButton,
   Logo,
   StyledLink,
+  ButtonContainer,
 } from '../style';
 // icon
 import SendIcon from '../assets/icons/SendIcon';
@@ -36,35 +37,32 @@ import { getCurrentUserId } from '../utils/users';
 import { scrollToBottom } from '../utils/scroll';
 // uuid
 import { v4 as uuidv4 } from 'uuid';
-
+// socket
 import io from 'socket.io-client';
 
 let DEBUG = true;
 
 const Chat = () => {
   const socket = io('http://localhost:3003/');
+  const uuid = uuidv4();
+  const timestamp = createTimestamp('{time}');
+  // const timestamp = createTimestamp('%Y-%m-%d %r');
 
   const messageEndRef = useRef(null);
   const { room_id, username } = useParams();
 
+  const [messageInput, setMessageInput] = useState('');
+
+  const users = useSelector((state) => state.userReducer);
+  const messages = useSelector((state) => state.messageReducer);
   const activeRoom = useSelector((state) =>
     state.roomReducer.rooms.find((room) => room.id === room_id)
   );
-  const navigate = useNavigate();
-  const users = useSelector((state) => state.userReducer);
-  const messages = useSelector((state) => state.messageReducer);
+
   const dispatch = useDispatch();
 
-  const [messageInput, setMessageInput] = useState('');
-  const [sentMessage, setSentMessage] = useState([]);
-  const [receivedMessage, setReceivedMessage] = useState();
-
-  // const timestamp = createTimestamp('%Y-%m-%d %r');
-  const timestamp = createTimestamp('{time}');
-  const uuid = uuidv4();
-
   useEffect(() => {
-    // dispatch user
+    // dispatch addUser action
     socket.on('connect', () => {
       dispatch(addUser(socket.id, room_id, username, timestamp));
     });
@@ -77,7 +75,7 @@ const Chat = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // dispatch message with form submit
+    // dispatch addMessage action
     dispatch(
       addMessage(
         uuid,
@@ -88,7 +86,6 @@ const Chat = () => {
       )
     );
 
-    // clear messageInput:
     setMessageInput('');
   };
 
@@ -117,9 +114,11 @@ const Chat = () => {
             <Header>
               <Logo>ChitChat</Logo>
             </Header>
-            <StyledLink to={'/'} onClick={() => socket.end()}>
-              <ButtonComponent name={'Leave'} />
-            </StyledLink>
+            <ButtonContainer>
+              <StyledLink to={'/'} onClick={() => socket.end()}>
+                <ButtonComponent name={'Leave'} />
+              </StyledLink>
+            </ButtonContainer>
           </HeaderContainer>
           <MessageContainer>
             {messages.map((msg) => {
