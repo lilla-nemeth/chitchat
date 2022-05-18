@@ -57,7 +57,6 @@ io.on('connection', (socket) => {
     io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
   });
 
-  // listens to addMessage and send back the message to other room users
   socket.on('ADD_MESSAGE', (...message) => {
     const id = message[0].id;
     const userId = message[0].userId;

@@ -29,9 +29,10 @@ import {
 // icon
 import SendIcon from '../assets/icons/SendIcon';
 // redux actions
-import { addUser, addMessage, getUser } from '../actions';
+import { addUser, addMessage } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
+import { getCurrentUserId } from '../utils/users';
 import { scrollToBottom } from '../utils/scroll';
 // uuid
 import { v4 as uuidv4 } from 'uuid';
@@ -40,9 +41,9 @@ import io from 'socket.io-client';
 
 let DEBUG = true;
 
-const socket = io('http://localhost:3003/');
-
 const Chat = () => {
+  const socket = io('http://localhost:3003/');
+
   const messageEndRef = useRef(null);
   const { room_id, username } = useParams();
 
@@ -62,13 +63,11 @@ const Chat = () => {
   const timestamp = createTimestamp('{time}');
   const uuid = uuidv4();
 
-  const disabled = !messageInput;
-
   useEffect(() => {
     // dispatch user
-    // TODO: change the client socket.id as user's id,
-    // it gives undefined, when the page refresh
-    dispatch(addUser(socket.id, room_id, username, timestamp));
+    socket.on('connect', () => {
+      dispatch(addUser(socket.id, room_id, username, timestamp));
+    });
   }, []);
 
   useEffect(() => {
@@ -79,7 +78,15 @@ const Chat = () => {
     e.preventDefault();
 
     // dispatch message with form submit
-    dispatch(addMessage(uuid, socket.id, messageInput, username, timestamp));
+    dispatch(
+      addMessage(
+        uuid,
+        getCurrentUserId(users, username),
+        messageInput,
+        username,
+        timestamp
+      )
+    );
 
     // clear messageInput:
     setMessageInput('');
@@ -139,12 +146,11 @@ const Chat = () => {
                 required={true}
               />
               <MessageButton>
-                {/* TODO: button - disabled*/}
                 <ButtonComponent
                   to={false}
-                  // name={'Send'}
                   isIcon={true}
                   iconComponent={<SendIcon />}
+                  // name={'Send'}
                 />
               </MessageButton>
             </InputContainer>
