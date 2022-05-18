@@ -1,25 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 // generic components
 import ButtonComponent from './generic/ButtonComponent';
 import RoomButton from './generic/RoomButton';
 import TextInput from './generic/TextInput';
 // styled components
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../style';
-// helper functions
-import { createTimestamp } from '../utils/timestamp';
 
 let DEBUG = true;
 
 const Home = () => {
-  const [username, setUsername] = useState('');
   const rooms = useSelector((state) => state.roomReducer.rooms);
-  const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
   const navigate = useNavigate();
 
-  const timestamp = createTimestamp('%Y-%m-%d %r');
-  // createTimestamp('{time}');
+  const [username, setUsername] = useState('');
+  const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
 
   const disabled = !username;
 
