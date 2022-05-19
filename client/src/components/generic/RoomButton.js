@@ -1,41 +1,49 @@
 import {
-	RoomButtonStyle,
-	RadioButtonContainer,
-	RadioButton,
-	RoomButtonIcon,
-	RoomButtonText,
-	RoomButtonContainer,
-	RoomButtonWrapper,
-	HiddenRadioButton,
+  RoomLabel,
+  RadioButton,
+  RoomIcon,
+  RoomText,
+  RoomButtonContainer,
+  RoomButtonWrapper,
 } from '../../style';
 
 function RoomButton(props) {
-	const { defaultChecked, roomName, roomIcon, id, name, value, checked, onChange } = props;
+  const {
+    htmlFor,
+    defaultChecked,
+    type,
+    roomName,
+    roomIcon,
+    id,
+    name,
+    value,
+    checked,
+    onChange,
+    className,
+  } = props;
 
-	return (
-		<>
-			<RoomButtonWrapper>
-				<RadioButtonContainer>
-					<RadioButton
-						defaultChecked={defaultChecked}
-						type='radio'
-						id={id}
-						name={name}
-						value={value}
-						checked={checked}
-						onChange={onChange}
-					/>
-				</RadioButtonContainer>
-				<RoomButtonContainer>
-					<RoomButtonStyle>
-						<RoomButtonIcon>{roomIcon}</RoomButtonIcon>
-						<RoomButtonText>{roomName}</RoomButtonText>
-					</RoomButtonStyle>
-				</RoomButtonContainer>
-				{/* <RoomButtonText $mode="dark">{roomName}</RoomButtonText> */}
-			</RoomButtonWrapper>
-		</>
-	);
+  return (
+    <>
+      <RoomButtonWrapper>
+        <RoomButtonContainer>
+          <RadioButton
+            type={type}
+            name={name}
+            id={id}
+            value={value}
+            checked={checked}
+            defaultChecked={defaultChecked}
+            onChange={onChange}
+            className={className}
+          />
+          <RoomLabel htmlFor={htmlFor}>
+            <RoomIcon>{roomIcon}</RoomIcon>
+            <RoomText>{roomName}</RoomText>
+          </RoomLabel>
+        </RoomButtonContainer>
+      </RoomButtonWrapper>
+    </>
+  );
 }
 
 export default RoomButton;

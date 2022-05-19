@@ -1,12 +1,12 @@
-function GameIcon01(props) {
-  const { height } = props;
+import { RoomIconSVG } from '../../style';
+
+function GameIcon01() {
   return (
-    <svg
+    <RoomIconSVG
       version='1.0'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 512.000000 512.000000'
       preserveAspectRatio='xMidYMid meet'
-      height={height}
     >
       <g
         transform='translate(0.000000,512.000000) scale(0.100000,-0.100000)'
@@ -92,7 +92,7 @@ m192 -780 c0 -21 17 -169 26 -230 l6 -43 -370 0 -369 0 8 43 c4 23 11 88 15
 -28 -505 0 -505 0 0 40 c0 27 6 42 18 49 11 7 187 11 489 11 l472 0 15 -22z'
         />
       </g>
-    </svg>
+    </RoomIconSVG>
   );
 }
 

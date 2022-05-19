@@ -49,6 +49,9 @@ const Input = styled.input`
   border-radius: 0.2em 0 0 0.2em;
   border: none;
   background: ${(props) => (props.primary ? '#fff' : 'rgb(0, 0, 0, 0.1)')};
+  &:focus {
+    outline: none;
+  }
 `;
 
 const InputArea = styled.textarea`
@@ -85,9 +88,19 @@ const ButtonStyle = styled.button`
   font-size: 1em;
 `;
 
-const sendButton = styled.button`
-  padding: 1em 1em;
+const SendButton = styled.button`
+  background: #fbb040;
+  color: #2f3c4f;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 1.15em 1.15em;
+  border: 0.15em solid #fbb040;
 `;
+//   font-size: 1em;
+//   border: ${(props) => (props.primary ? '0.15em solid #fbb040' : '#2f3c4f')};
 
 const ButtonIconStyle = styled.div`
   display: flex;
@@ -106,8 +119,9 @@ const RoomContainer = styled.div`
   width: 60em;
 `;
 
-const RoomButtonIcon = styled.div`
+const RoomIcon = styled.div`
   flex: 2;
+  fill: #2f3c4f;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -115,8 +129,80 @@ const RoomButtonIcon = styled.div`
   width: 5em;
   height: 5em;
 `;
+//   &:hover {
+//     fill: #fff;
+//   }
+// fill: #fbb040;
 
-const RoomButtonStyle = styled.label`
+// ::before {
+//   background: rgba(242, 198, 177);
+// }
+// ::after {
+//   background: rgb(80, 147, 197);
+// }
+// &:hover {
+//   background: rgb(80, 147, 197);
+// }
+// background: rgb(60, 80, 101);
+// background: rgba(242, 198, 177);
+
+const RoomText = styled.span`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #2f3c4f;
+  font-weight: 800;
+  text-transform: capitalize;
+`;
+
+const RoomButtonWrapper = styled.div`
+  display: flex;
+`;
+
+// fill: #fbb040;
+
+// width: 11em;
+// height: 11em;
+
+// transition: all 0.2s;
+// &:hover {
+//   fill: #fbb040;
+// }
+// &:checked {
+//   fill: #fbb040;
+// }
+// &:focus {
+//   fill: #fbb040;
+// }
+// &::before {
+//   transition: all 0.2s;
+// }
+
+// input[type='radio'] {
+//   position: absolute;
+//   opacity: 0;
+//   width: 11em;
+//   height: 11em;
+//   cursor: pointer;
+// }
+
+// input[type='radio'] + svg {
+//   transition: all 0.2s;
+// }
+
+// input[type='radio'] + input + svg {
+//   cursor: pointer;
+// }
+
+// input[class='rooms']:hover + svg,
+// input[class='rooms']:checked + svg,
+// input[class='rooms']:focus + svg {
+//   fill: rgb(0, 109, 217);
+// }
+
+const RoomLabel = styled.label`
   border: none;
   width: 10em;
   height: 10em;
@@ -129,83 +215,52 @@ const RoomButtonStyle = styled.label`
   cursor: pointer;
 `;
 
-const RoomButtonText = styled.span`
+const RoomButtonContainer = styled.div`
   flex: 1;
+  background: rgb(80, 111, 134);
+  fill: #fff;
+  color: #fff;
+  border: none;
+  width: 10em;
+  height: 10em;
+  border-radius: 0.2em;
   display: flex;
+  flex-direction: column;
+  text-align: center;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  color: white;
-  text-transform: capitalize;
+  cursor: pointer;
+  transition: all 0.1s;
+  &:hover {
+    background: rgb(80, 147, 197);
+  }
 `;
 
-const RoomButtonWrapper = styled.div`
-  display: flex;
-`;
-
-const RadioButtonContainer = styled.div`
-  flex: 1;
+const RoomIconSVG = styled.svg`
+  height: 5em;
 `;
 
 const RadioButton = styled.input.attrs({
   type: 'radio',
 })`
-  cursor: pointer;
-  width: 25px;
-  height: 25px;
   position: absolute;
+  cursor: pointer;
+  opacity: 0;
+  width: 11em;
+  height: 11em;
 `;
+// &:checked + ${RoomIconSVG} {
+//   fill: #fff;
+// }
 
-const RoomButtonContainer = styled.div`
-  ${(props) => {
-    switch (props.$mode) {
-      case 'dark':
-        return css`
-          flex: 1;
-          background: rgb(251, 176, 64);
-          fill: #fff;
-          color: #fff;
-          border: none;
-          width: 10em;
-          height: 10em;
-          border-radius: 0.2em;
-          display: flex;
-          flex-direction: column;
-          text-align: center;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          ${RadioButton}:checked + && {
-            background: blue;
-          }
-        `;
-      default:
-        return css`
-          flex: 1;
-          background: rgb(80, 111, 134);
-          fill: #fff;
-          color: #fff;
-          border: none;
-          width: 10em;
-          height: 10em;
-          border-radius: 0.2em;
-          display: flex;
-          flex-direction: column;
-          text-align: center;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          ${RadioButton}:checked + && {
-            background: rgb(80, 147, 197);
-          }
-        `;
-    }
-  }}
-`;
+// &:focus {
+//   background: olive;
+// }
+// ${RadioButton}:checked {
+//   background: #fff;
+// }
 
 // Chat room part:
-
-// React Link:
 const StyledLink = styled(Link)`
   color: ${(props) => (props.primary ? '#2f3c4f' : '#fbb040')};
   text-decoration: none;
@@ -240,8 +295,8 @@ const ActiveRoomWrapper = styled.div`
   fill: #fff;
   color: #fff;
   justify-content: space-between;
-  border-bottom: 0.15em solid rgb(80, 111, 134, 0.4);
 `;
+//   border-bottom: 0.15em solid rgb(80, 111, 134, 0.4);
 
 const ActiveRoomIcon = styled.div`
   display: flex;
@@ -356,14 +411,14 @@ export {
   Logo,
   ButtonContainer,
   ButtonStyle,
+  SendButton,
   RoomContainer,
-  RoomButtonStyle,
+  RoomLabel,
   RoomButtonWrapper,
   RoomButtonContainer,
-  RadioButtonContainer,
   RadioButton,
-  RoomButtonText,
-  RoomButtonIcon,
+  RoomText,
+  RoomIcon,
   StyledLink,
   ChatRoom,
   UserWrapper,
@@ -386,4 +441,5 @@ export {
   MessageTimetamp,
   MessageText,
   ButtonIconStyle,
+  RoomIconSVG,
 };

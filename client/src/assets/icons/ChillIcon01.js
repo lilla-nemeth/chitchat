@@ -1,12 +1,12 @@
-function ChillIcon01(props) {
-  const { height } = props;
+import { RoomIconSVG } from '../../style';
+
+function ChillIcon01() {
   return (
-    <svg
+    <RoomIconSVG
       version='1.0'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 512.000000 512.000000'
       preserveAspectRatio='xMidYMid meet'
-      height={height}
     >
       <g
         transform='translate(0.000000,512.000000) scale(0.100000,-0.100000)'
@@ -64,7 +64,7 @@ m364 -185 c110 -34 192 -85 281 -174 68 -68 89 -97 127 -176 57 -121 71 -181
         <path d='M512 258 l3 -83 85 0 85 0 3 83 3 82 -91 0 -91 0 3 -82z' />
         <path d='M3270 85 l0 -85 485 0 485 0 0 85 0 85 -485 0 -485 0 0 -85z' />
       </g>
-    </svg>
+    </RoomIconSVG>
   );
 }
 

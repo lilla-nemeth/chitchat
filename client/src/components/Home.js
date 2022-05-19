@@ -46,8 +46,11 @@ const Home = () => {
                 key={room.id}
                 roomName={room.name}
                 roomIcon={room.icon}
-                id={room.id}
+                className={'rooms'}
+                type={'radio'}
                 name={'selectedRoom'}
+                htmlFor={room.name}
+                id={room.id}
                 value={room.id}
                 defaultChecked={room.name === 'chill'}
                 onChange={(e) => {

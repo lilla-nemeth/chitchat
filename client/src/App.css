@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
 
 html,
 body,
@@ -118,7 +118,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
@@ -126,19 +126,31 @@ table {
   border-spacing: 0;
 }
 
+html {
+  overflow: auto;
+}
+
 /* Main colors of the App */
-.first-color {
+.color01 {
+  background: rgb(60, 80, 101);
+}
+
+.color02 {
   background: rgb(47, 60, 79);
 }
 
-.second-color {
-  background: rgb(80, 147, 197);
+.color03 {
+  background: rgba(185, 197, 207);
 }
 
-.third-color {
+.color04 {
   background: rgb(251, 176, 64);
 }
 
-.fourth-color {
-  background: rgb(222, 112, 60);
+.color05 {
+  background: rgba(242, 198, 177);
+}
+
+.color06 {
+  background: rgb(80, 147, 197);
 }

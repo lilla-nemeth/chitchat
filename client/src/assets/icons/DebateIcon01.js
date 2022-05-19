@@ -1,12 +1,12 @@
-function DebateIcon01(props) {
-  const { height } = props;
+import { RoomIconSVG } from '../../style';
+
+function DebateIcon01() {
   return (
-    <svg
+    <RoomIconSVG
       version='1.0'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 512.000000 512.000000'
       preserveAspectRatio='xMidYMid meet'
-      height={height}
     >
       <g
         transform='translate(0.000000,512.000000) scale(0.100000,-0.100000)'
@@ -125,7 +125,7 @@ c55 -19 152 -20 207 -1 l42 15 0 -27 c0 -38 32 -92 68 -117 21 -14 63 -26 119
 177 259 201 44 7 81 13 83 11 2 -1 18 -24 35 -52z'
         />
       </g>
-    </svg>
+    </RoomIconSVG>
   );
 }
 

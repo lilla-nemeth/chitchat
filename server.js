@@ -1,6 +1,9 @@
+const path = require('path');
+const http = require('http');
 const express = require('express');
+
 const app = express();
-const server = require('http').Server(app);
+const server = http.createServer(app);
 const io = require('socket.io')(server, {
   cors: {
     origin: 'http://localhost:3000',
@@ -15,9 +18,11 @@ const {
 } = require('./utils/users');
 const { createTimestamp } = require('./utils/timestamp');
 // createTimestamp('%Y-%m-%d %r')
-// createTimestamp('{time}')
 
-const PORT = 3003 || process.env.PORT;
+const PORT = 8080 || process.env.PORT;
+
+// TODO: use this for production:
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 const botName = 'ChatBot';
 

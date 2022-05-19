@@ -1,12 +1,12 @@
-function SportIcon04(props) {
-  const { height } = props;
+import { RoomIconSVG } from '../../style';
+
+function SportIcon04() {
   return (
-    <svg
+    <RoomIconSVG
       version='1.0'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 512.000000 512.000000'
       preserveAspectRatio='xMidYMid meet'
-      height={height}
     >
       <g
         transform='translate(0.000000,512.000000) scale(0.100000,-0.100000)'
@@ -70,7 +70,7 @@ l-146 -343 -383 0 -382 0 185 428 c101 235 254 590 340 790 168 389 188 424
 -97 96 -43 142 30 26 56 30 89 12z'
         />
       </g>
-    </svg>
+    </RoomIconSVG>
   );
 }
 

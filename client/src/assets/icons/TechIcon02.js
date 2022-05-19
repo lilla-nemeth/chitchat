@@ -1,12 +1,12 @@
-function TechIcon02(props) {
-  const { height } = props;
+import { RoomIconSVG } from '../../style';
+
+function TechIcon02() {
   return (
-    <svg
+    <RoomIconSVG
       version='1.0'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 512.000000 512.000000'
       preserveAspectRatio='xMidYMid meet'
-      height={height}
     >
       <g
         transform='translate(0.000000,512.000000) scale(0.100000,-0.100000)'
@@ -72,7 +72,7 @@ function TechIcon02(props) {
    0 -80 39 -80 80 0 41 39 80 80 80 19 0 40 -9 55 -25z'
         />
       </g>
-    </svg>
+    </RoomIconSVG>
   );
 }
 

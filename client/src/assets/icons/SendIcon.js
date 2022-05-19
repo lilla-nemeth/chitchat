@@ -1,12 +1,12 @@
-function SendIcon(props) {
-  const { height } = props;
+// import {  } from '../../style';
+
+function SendIcon() {
   return (
     <svg
       version='1.0'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 512.000000 512.000000'
       preserveAspectRatio='xMidYMid meet'
-      height={height}
     >
       <g
         transform='translate(0.000000,512.000000) scale(0.100000,-0.100000)'
