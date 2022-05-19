@@ -249,9 +249,6 @@ const RadioButton = styled.input.attrs({
   width: 11em;
   height: 11em;
 `;
-// &:checked + ${RoomIconSVG} {
-//   fill: #fff;
-// }
 
 // &:focus {
 //   background: olive;
