@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // generic components
 import User from './generic/User';
 import ButtonComponent from './generic/ButtonComponent';
+import SmallButton from './generic/SmallButton';
 import TextInput from './generic/TextInput';
 import TextArea from './generic/TextArea';
 import Message from './generic/Message';
@@ -43,7 +44,7 @@ import io from 'socket.io-client';
 let DEBUG = true;
 
 const Chat = () => {
-  const socket = io('http://localhost:3003/');
+  const socket = io('http://localhost:8080/');
   const uuid = uuidv4();
   const timestamp = createTimestamp('{time}');
   // const timestamp = createTimestamp('%Y-%m-%d %r');
@@ -116,7 +117,7 @@ const Chat = () => {
             </Header>
             <ButtonContainer>
               <StyledLink to={'/'} onClick={() => socket.end()}>
-                <ButtonComponent name={'Leave'} />
+                <SmallButton name={'Leave'} />
               </StyledLink>
             </ButtonContainer>
           </HeaderContainer>
@@ -145,7 +146,7 @@ const Chat = () => {
                 required={true}
               />
               <MessageButton>
-                <ButtonComponent
+                <SmallButton
                   to={false}
                   isIcon={true}
                   iconComponent={<SendIcon />}

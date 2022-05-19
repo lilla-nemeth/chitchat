@@ -16,7 +16,7 @@ const configureStore = () => {
       applyMiddleware(
         // logger,
         socketMiddleware({
-          url: 'http://localhost:3003/',
+          url: 'http://localhost:8080/',
           listeners: [
             { message: 'sendUsersList', action: sendUsers },
             { message: 'serverMessage', action: addMessage },
