@@ -7,15 +7,15 @@ import {
 } from '../../style';
 
 function Message(props) {
-  const { primary, timestamp, text, username } = props;
+  const { chatBot, timestamp, text, username } = props;
 
   return (
     <>
-      <MessageMeta primary={primary}>
+      <MessageMeta>
         <MessageUsername>{username}</MessageUsername>
         <MessageTimetamp>{timestamp}</MessageTimetamp>
       </MessageMeta>
-      <BubbleStyle primary={primary}>
+      <BubbleStyle chatBot={chatBot}>
         <MessageText>{text}</MessageText>
       </BubbleStyle>
     </>

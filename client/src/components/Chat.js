@@ -3,10 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // generic components
 import User from './generic/User';
-import ButtonComponent from './generic/ButtonComponent';
 import SmallButton from './generic/SmallButton';
 import TextInput from './generic/TextInput';
-import TextArea from './generic/TextArea';
 import Message from './generic/Message';
 import ActiveRoomComponent from './generic/ActiveRoomComponent';
 // styled components
@@ -21,7 +19,7 @@ import {
   HeaderContainer,
   Header,
   MessageContainer,
-  MessageRef,
+  Ref,
   InputContainer,
   MessageButton,
   Logo,
@@ -49,7 +47,7 @@ const Chat = () => {
   const timestamp = createTimestamp('{time}');
   // const timestamp = createTimestamp('%Y-%m-%d %r');
 
-  const messageEndRef = useRef(null);
+  const scrollRef = useRef(null);
   const { room_id, username } = useParams();
 
   const [messageInput, setMessageInput] = useState('');
@@ -70,8 +68,12 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    scrollToBottom(messageEndRef);
+    scrollToBottom(scrollRef);
   }, [messages]);
+
+  useEffect(() => {
+    scrollToBottom(scrollRef);
+  }, [users]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -104,10 +106,20 @@ const Chat = () => {
               roomName={activeRoom.name}
             ></ActiveRoomComponent>
           </ActiveRoomContainer>
-          <UsersContainer>
-            {users.map((user) => {
-              return <User key={user.id} username={user.username} />;
-            })}
+          <UsersContainer scrollVisible={users.length > 5}>
+            {users
+              .slice(0)
+              .reverse()
+              .map((user) => {
+                return (
+                  <User
+                    key={user.id}
+                    scrollVisible={users.length > 5}
+                    username={user.username}
+                  />
+                );
+              })}
+            <Ref ref={scrollRef}></Ref>
           </UsersContainer>
         </UserWrapper>
         <MessageWrapper>
@@ -117,7 +129,7 @@ const Chat = () => {
             </Header>
             <ButtonContainer>
               <StyledLink to={'/'} onClick={() => socket.end()}>
-                <SmallButton name={'Leave'} />
+                <SmallButton name={'Leave'} formButton={true} />
               </StyledLink>
             </ButtonContainer>
           </HeaderContainer>
@@ -126,14 +138,14 @@ const Chat = () => {
               return (
                 <Message
                   key={msg.id}
-                  primary={true}
+                  chatBot={msg.author === 'ChatBot'}
                   username={msg.author}
                   timestamp={msg.timestamp}
                   text={msg.message}
                 ></Message>
               );
             })}
-            <MessageRef ref={messageEndRef}></MessageRef>
+            <Ref ref={scrollRef}></Ref>
           </MessageContainer>
           <Form onSubmit={handleSubmit}>
             <InputContainer>
@@ -147,6 +159,7 @@ const Chat = () => {
               />
               <MessageButton>
                 <SmallButton
+                  formButton={true}
                   to={false}
                   isIcon={true}
                   iconComponent={<SendIcon />}

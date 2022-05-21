@@ -1,31 +1,33 @@
-import { SendButton, ButtonIconStyle } from '../../style';
+import { ChatSmallButton, ButtonIconStyle } from '../../style';
 
 function SmallButton(props) {
-  const { primary, name, isIcon, iconComponent, onClick } = props;
+  const { formButton, primary, name, isIcon, iconComponent, onClick } = props;
 
   return (
     <>
       {isIcon ? (
-        <SendButton
+        <ChatSmallButton
           onClick={onClick}
           primary={primary}
+          formButton={formButton}
           type='submit'
           value='submit'
           name='submit'
         >
           <ButtonIconStyle>{iconComponent}</ButtonIconStyle>
           {name}
-        </SendButton>
+        </ChatSmallButton>
       ) : (
-        <SendButton
+        <ChatSmallButton
           onClick={onClick}
           primary={primary}
+          formButton={formButton}
           type='submit'
           value='submit'
           name='submit'
         >
           {name}
-        </SendButton>
+        </ChatSmallButton>
       )}
     </>
   );
