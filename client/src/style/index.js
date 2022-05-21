@@ -1,18 +1,16 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-// Global css variables?
 
 const Main = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: rgb(222, 112, 60, 0.4);
+  background: var(--clr-peach);
 `;
 
 const Wrapper = styled.section`
-  font-family: 'Nunito', sans-serif;
-  background: #2f3c4f;
+  background: var(--clr-darknavy);
   border-radius: 2.5em;
   padding: 2em 2.5em;
 `;
@@ -25,7 +23,7 @@ const Form = styled.form`
 
 const Label = styled.label`
   padding: 1.5em 0 0.5em;
-  color: #fff;
+  color: var(--clr-white);
 `;
 
 const InputContainer = styled.div`
@@ -38,32 +36,29 @@ const InputContainer = styled.div`
 
 const MessageButton = styled.div`
   flex: 1;
-  background: #fbb040;
-  border: 0.15em solid #fbb040;
+  background: var(-clr-yellow);
+  border: 0.15em solid var(-clr-yellow);
 `;
 
 const Input = styled.input`
+  outline: none;
   padding: 1.3em 1.5em;
   font-size: 1em;
   flex: 8;
   border-radius: 0.2em 0 0 0.2em;
   border: none;
-  background: ${(props) => (props.primary ? '#fff' : 'rgb(0, 0, 0, 0.1)')};
+  background: ${(props) =>
+    props.primary ? 'var(--clr-white)' : 'var(--clr-lightgrey)'};
   &:focus {
     outline: none;
   }
-`;
-
-const InputArea = styled.textarea`
-  padding: 1em 1.5em;
-  font-size: 1em;
-  border: none;
-  border-radius: 0.2em;
-  border: 0.15em solid rgb(80, 111, 134, 0.4);
+  &:invalid {
+    box-shadow: none;
+  }
 `;
 
 const Logo = styled.h2`
-  color: ${(props) => (props.primary ? '#fff' : '#2f3c4f')};
+  color: ${(props) => (props.primary ? 'var(--clr-white)' : 'var(--clr-navy)')};
   font-family: 'DM Serif Display', serif;
   text-align: ${(props) => (props.primary ? 'center' : 'start')};
   font-size: ${(props) => (props.primary ? '2.9em' : '2.25em')};
@@ -76,9 +71,12 @@ const ButtonContainer = styled.div`
 `;
 
 const ButtonStyle = styled.button`
-  background: ${(props) => (props.primary ? 'transparent' : '#fbb040')};
-  color: ${(props) => (props.primary ? '#fbb040' : '#2f3c4f')};
-  border: ${(props) => (props.primary ? '0.15em solid #fbb040' : '#2f3c4f')};
+  background: ${(props) =>
+    props.primary ? 'transparent' : 'var(--clr-yellow)'};
+  color: ${(props) =>
+    props.primary ? 'var(--clr-yellow)' : 'var(--clr-navy)'};
+  border: ${(props) =>
+    props.primary ? '0.15em solid var(--clr-yellow)' : 'var(--clr-navy)'};
   padding: ${(props) => (props.primary ? '1em 1.5em' : '1.15em 1.65em')};
   border-radius: 2px;
   cursor: pointer;
@@ -88,16 +86,17 @@ const ButtonStyle = styled.button`
   font-size: 1em;
 `;
 
-const SendButton = styled.button`
-  background: #fbb040;
-  color: #2f3c4f;
+const ChatSmallButton = styled.button`
+  background: var(--clr-yellow);
+  color: var(--clr-navy);
   border-radius: 2px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 1.15em 1.15em;
-  border: 0.15em solid #fbb040;
+  padding: ${(props) => (props.formButton ? '1em' : '1.15em 1.15em')};
+  border: 0.15em solid var(--clr-yellow);
+  font-size: 1em;
 `;
 
 const ButtonIconStyle = styled.div`
@@ -119,7 +118,7 @@ const RoomContainer = styled.div`
 
 const RoomIcon = styled.div`
   flex: 2;
-  fill: #2f3c4f;
+  fill: var(--clr-darknavy);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -134,8 +133,9 @@ const RoomText = styled.span`
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #2f3c4f;
-  font-weight: 800;
+  color: var(--clr-darknavy);
+  font-weight: 600;
+  font-size: 1.1em;
   text-transform: capitalize;
 `;
 
@@ -158,8 +158,8 @@ const RoomLabel = styled.label`
 
 const RoomButtonContainer = styled.div`
   flex: 1;
-  fill: #fff;
-  color: #fff;
+  fill: var(--clr-white);
+  color: var(--clr-white);
   border: none;
   width: 10em;
   height: 10em;
@@ -171,9 +171,10 @@ const RoomButtonContainer = styled.div`
   justify-content: center;
   cursor: pointer;
   transition: all 0.1s;
-  background: ${(props) => (props.selected ? '#fbb040' : 'rgb(80, 111, 134)')};
+  background: ${(props) =>
+    props.selected ? 'var(--clr-yellow)' : 'var(--clr-lightnavy)'};
   &:hover {
-    background: ${(props) => !props.selected && 'rgb(80, 147, 197)'};
+    background: ${(props) => !props.selected && 'var(--clr-brightblue)'};
   }
 `;
 
@@ -193,25 +194,24 @@ const RadioButton = styled.input.attrs({
 
 // Chat room part:
 const StyledLink = styled(Link)`
-  color: ${(props) => (props.primary ? '#2f3c4f' : '#fbb040')};
+  color: ${(props) =>
+    props.primary ? 'var(--clr-navy)' : 'var(--clr-yellow)'};
   text-decoration: none;
 `;
 
 const ChatRoom = styled.div`
-  font-family: 'Nunito', sans-serif;
   display: flex;
   width: 80vw;
   height: inherit;
   border-radius: 2.5em;
   height: 85vh;
 `;
-// flex-wrap: wrap;
 
 const UserWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  background: #2f3c4f;
+  background: var(--clr-darknavy);
   border-radius: 2.5em 0 0 2.5em;
   padding: 2em;
 `;
@@ -224,8 +224,8 @@ const ActiveRoomContainer = styled.div`
 const ActiveRoomWrapper = styled.div`
   display: flex;
   flex: auto;
-  fill: #fff;
-  color: #fff;
+  fill: var(--clr-white);
+  color: var(--clr-white);
   justify-content: space-between;
 `;
 
@@ -246,9 +246,8 @@ const ActiveRoomText = styled.div`
 
 const UsersContainer = styled.div`
   flex: 5.5;
-  overflow-y: scroll;
+  overflow-y: ${(props) => (props.scrollVisible ? 'scroll' : 'hidden')};
 `;
-// TODO: overflow-y: scroll should be visible, when the room users reach a number (something limit)
 
 const UserBox = styled.div`
   border-radius: 0.2em;
@@ -258,13 +257,13 @@ const UserBox = styled.div`
   text-align: center;
   font-weight: 600;
   margin-bottom: 1.3em;
-  padding: 1em 2.5em;
-  color: #ffffff;
-  background: rgb(80, 111, 134, 0.4);
-  margin-right: 2em;
+  // padding: 1em 2.5em;
+  padding: 2.25em 2.5em;
+  color: var(--clr-white);
+  background: var(--clr-navy);
+  margin-right: ${(props) => (props.scrollVisible ? '2em' : '0')};
   margin-top: 1.3em;
 `;
-// padding: 2.25em 2.5em;
 
 const MessageWrapper = styled.div`
   display: flex;
@@ -296,7 +295,7 @@ const MessageContainer = styled.div`
   overflow-y: scroll;
 `;
 
-const MessageRef = styled.div``;
+const Ref = styled.div``;
 
 const BubbleStyle = styled.div`
   display: flex;
@@ -305,7 +304,8 @@ const BubbleStyle = styled.div`
   overflow-wrap: break-word;
   border-radius: 0.2em;
   flex-direction: column;
-  background: rgb(80, 111, 134, 0.4);
+  background: ${(props) =>
+    props.chatBot ? 'var(--clr-lightblue)' : 'var(--clr-lightgrey)'};
   align-self: flex-start;
   width: fill-available;
   margin-right: 2em;
@@ -315,7 +315,6 @@ const MessageMeta = styled.div`
   display: flex;
   margin-bottom: 0.5em;
   overflow-wrap: break-word;
-  width: 19.15em;
   font-size: 0.9em;
 `;
 
@@ -342,11 +341,10 @@ export {
   Form,
   Label,
   Input,
-  InputArea,
   Logo,
   ButtonContainer,
   ButtonStyle,
-  SendButton,
+  ChatSmallButton,
   RoomContainer,
   RoomLabel,
   RoomButtonWrapper,
@@ -362,7 +360,7 @@ export {
   HeaderContainer,
   Header,
   MessageContainer,
-  MessageRef,
+  Ref,
   InputContainer,
   MessageButton,
   ActiveRoomContainer,

@@ -1,13 +1,13 @@
 import { UserBox } from '../../style';
 
 function User(props) {
-	const { username } = props;
+  const { username, scrollVisible } = props;
 
-	return (
-		<>
-			<UserBox>{username}</UserBox>
-		</>
-	);
+  return (
+    <>
+      <UserBox scrollVisible={scrollVisible}>{username}</UserBox>
+    </>
+  );
 }
 
 export default User;
