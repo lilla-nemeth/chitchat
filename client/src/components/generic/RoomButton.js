@@ -19,13 +19,13 @@ function RoomButton(props) {
     value,
     checked,
     onChange,
-    className,
+    selected,
   } = props;
 
   return (
     <>
       <RoomButtonWrapper>
-        <RoomButtonContainer>
+        <RoomButtonContainer selected={selected}>
           <RadioButton
             type={type}
             name={name}
@@ -34,7 +34,6 @@ function RoomButton(props) {
             checked={checked}
             defaultChecked={defaultChecked}
             onChange={onChange}
-            className={className}
           />
           <RoomLabel htmlFor={htmlFor}>
             <RoomIcon>{roomIcon}</RoomIcon>

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 // Global css variables?
 
@@ -99,8 +99,6 @@ const SendButton = styled.button`
   padding: 1.15em 1.15em;
   border: 0.15em solid #fbb040;
 `;
-//   font-size: 1em;
-//   border: ${(props) => (props.primary ? '0.15em solid #fbb040' : '#2f3c4f')};
 
 const ButtonIconStyle = styled.div`
   display: flex;
@@ -129,22 +127,6 @@ const RoomIcon = styled.div`
   width: 5em;
   height: 5em;
 `;
-//   &:hover {
-//     fill: #fff;
-//   }
-// fill: #fbb040;
-
-// ::before {
-//   background: rgba(242, 198, 177);
-// }
-// ::after {
-//   background: rgb(80, 147, 197);
-// }
-// &:hover {
-//   background: rgb(80, 147, 197);
-// }
-// background: rgb(60, 80, 101);
-// background: rgba(242, 198, 177);
 
 const RoomText = styled.span`
   flex: 1;
@@ -161,47 +143,6 @@ const RoomButtonWrapper = styled.div`
   display: flex;
 `;
 
-// fill: #fbb040;
-
-// width: 11em;
-// height: 11em;
-
-// transition: all 0.2s;
-// &:hover {
-//   fill: #fbb040;
-// }
-// &:checked {
-//   fill: #fbb040;
-// }
-// &:focus {
-//   fill: #fbb040;
-// }
-// &::before {
-//   transition: all 0.2s;
-// }
-
-// input[type='radio'] {
-//   position: absolute;
-//   opacity: 0;
-//   width: 11em;
-//   height: 11em;
-//   cursor: pointer;
-// }
-
-// input[type='radio'] + svg {
-//   transition: all 0.2s;
-// }
-
-// input[type='radio'] + input + svg {
-//   cursor: pointer;
-// }
-
-// input[class='rooms']:hover + svg,
-// input[class='rooms']:checked + svg,
-// input[class='rooms']:focus + svg {
-//   fill: rgb(0, 109, 217);
-// }
-
 const RoomLabel = styled.label`
   border: none;
   width: 10em;
@@ -217,7 +158,6 @@ const RoomLabel = styled.label`
 
 const RoomButtonContainer = styled.div`
   flex: 1;
-  background: rgb(80, 111, 134);
   fill: #fff;
   color: #fff;
   border: none;
@@ -231,8 +171,9 @@ const RoomButtonContainer = styled.div`
   justify-content: center;
   cursor: pointer;
   transition: all 0.1s;
+  background: ${(props) => (props.selected ? '#fbb040' : 'rgb(80, 111, 134)')};
   &:hover {
-    background: rgb(80, 147, 197);
+    background: ${(props) => !props.selected && 'rgb(80, 147, 197)'};
   }
 `;
 
@@ -250,13 +191,6 @@ const RadioButton = styled.input.attrs({
   height: 11em;
 `;
 
-// &:focus {
-//   background: olive;
-// }
-// ${RadioButton}:checked {
-//   background: #fff;
-// }
-
 // Chat room part:
 const StyledLink = styled(Link)`
   color: ${(props) => (props.primary ? '#2f3c4f' : '#fbb040')};
@@ -271,6 +205,7 @@ const ChatRoom = styled.div`
   border-radius: 2.5em;
   height: 85vh;
 `;
+// flex-wrap: wrap;
 
 const UserWrapper = styled.div`
   display: flex;
@@ -293,7 +228,6 @@ const ActiveRoomWrapper = styled.div`
   color: #fff;
   justify-content: space-between;
 `;
-//   border-bottom: 0.15em solid rgb(80, 111, 134, 0.4);
 
 const ActiveRoomIcon = styled.div`
   display: flex;
@@ -312,7 +246,25 @@ const ActiveRoomText = styled.div`
 
 const UsersContainer = styled.div`
   flex: 5.5;
+  overflow-y: scroll;
 `;
+// TODO: overflow-y: scroll should be visible, when the room users reach a number (something limit)
+
+const UserBox = styled.div`
+  border-radius: 0.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 1.3em;
+  padding: 1em 2.5em;
+  color: #ffffff;
+  background: rgb(80, 111, 134, 0.4);
+  margin-right: 2em;
+  margin-top: 1.3em;
+`;
+// padding: 2.25em 2.5em;
 
 const MessageWrapper = styled.div`
   display: flex;
@@ -382,20 +334,6 @@ const MessageText = styled.div`
   display: flex;
   font-weight: 600;
   line-height: 1.5;
-`;
-
-const UserBox = styled.div`
-  border-radius: 0.2em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-weight: 600;
-  margin-bottom: 1.3em;
-  margin-top: 1.3em;
-  padding: 2.25em 2.5em;
-  color: #ffffff;
-  background: rgb(80, 111, 134, 0.4);
 `;
 
 export {
