@@ -32,7 +32,6 @@ import SendIcon from '../assets/icons/SendIcon';
 import { addUser, addMessage } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
-import { getCurrentUserId } from '../utils/users';
 import { scrollToBottom } from '../utils/scroll';
 // uuid
 import { v4 as uuidv4 } from 'uuid';
@@ -49,21 +48,29 @@ const Chat = () => {
 
   const scrollRef = useRef(null);
   const { room_id, username } = useParams();
+  const navigate = useNavigate();
 
   const [messageInput, setMessageInput] = useState('');
+  const [socketId, setSocketId] = useState();
 
   const users = useSelector((state) => state.userReducer);
   const messages = useSelector((state) => state.messageReducer);
   const activeRoom = useSelector((state) =>
     state.roomReducer.rooms.find((room) => room.id === room_id)
   );
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch addUser action
     socket.on('connect', () => {
-      dispatch(addUser(socket.id, room_id, username, timestamp));
+      const id = socket.id;
+      // dispatch addUser action
+      dispatch(addUser(id, room_id, username, timestamp));
+
+      setSocketId(id);
+    });
+
+    socket.on('disconnect', () => {
+      navigate('/');
     });
   }, []);
 
@@ -71,23 +78,11 @@ const Chat = () => {
     scrollToBottom(scrollRef);
   }, [messages]);
 
-  useEffect(() => {
-    scrollToBottom(scrollRef);
-  }, [users]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // dispatch addMessage action
-    dispatch(
-      addMessage(
-        uuid,
-        getCurrentUserId(users, username),
-        messageInput,
-        username,
-        timestamp
-      )
-    );
+    dispatch(addMessage(uuid, socketId, messageInput, username, timestamp));
 
     setMessageInput('');
   };
@@ -114,12 +109,12 @@ const Chat = () => {
                 return (
                   <User
                     key={user.id}
+                    currentUser={user.id === socketId}
                     scrollVisible={users.length > 5}
                     username={user.username}
                   />
                 );
               })}
-            <Ref ref={scrollRef}></Ref>
           </UsersContainer>
         </UserWrapper>
         <MessageWrapper>

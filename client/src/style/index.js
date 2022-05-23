@@ -257,13 +257,14 @@ const UserBox = styled.div`
   text-align: center;
   font-weight: 600;
   margin-bottom: 1.3em;
-  // padding: 1em 2.5em;
   padding: 2.25em 2.5em;
   color: var(--clr-white);
-  background: var(--clr-navy);
+  background: ${(props) =>
+    props.currentUser ? 'var(--clr-lightnavy)' : 'var(--clr-navy)'};
   margin-right: ${(props) => (props.scrollVisible ? '2em' : '0')};
   margin-top: 1.3em;
 `;
+// padding: 1em 2.5em;
 
 const MessageWrapper = styled.div`
   display: flex;
@@ -277,7 +278,8 @@ const MessageWrapper = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   flex: 0.6;
-  padding-bottom: 1em;
+  // padding-bottom: 1em;
+  padding-bottom: 2.5em;
 `;
 
 const Header = styled.div`
