@@ -1,4 +1,5 @@
 import GlobalStyle from './style/globalStyles';
+import './App.css';
 import Home from './components/Home';
 import Chat from './components/Chat';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';

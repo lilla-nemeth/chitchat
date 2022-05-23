@@ -29,6 +29,7 @@ const botName = 'ChatBot';
 // Connects with client
 io.on('connection', (socket) => {
   // listens to addUser and updates the user list
+
   socket.on('ADD_USER', (...message) => {
     const id = message[0].id;
     const roomId = message[0].roomId;

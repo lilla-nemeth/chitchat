@@ -1,9 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
-    
     /* CSS Reset */
 
     html,
