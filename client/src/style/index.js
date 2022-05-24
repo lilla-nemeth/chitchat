@@ -1,29 +1,70 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { minSize, maxSize } from './deviceSizes';
+
+// Temporary cheatsheet (min- and max-width):
+// mobileXS: '280px',
+// mobileS: '320px',
+// mobileM: '375px',
+// mobileL: '435px',
+// tablet: '768px',
+// laptop: '1024px',
+// laptopM: 1280px,
+// laptopL: '1440px',
+// desktop: '2560px',
 
 const Main = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  width: 100vw;
+  padding: 2.5em 0 2.5em 0;
   background: var(--clr-peach);
+  @media ${maxSize.tablet} {
+    height: auto;
+  }
+  @media ${minSize.tablet} {
+    height: 100vh;
+  }
+  @media ${minSize.laptop} {
+    height: auto;
+  }
+  @media ${minSize.laptopL} {
+    height: 100vh;
+    padding: 0;
+  }
 `;
 
 const Wrapper = styled.section`
   background: var(--clr-darknavy);
   border-radius: 2.5em;
   padding: 2em 2.5em;
+  @media ${maxSize.laptopL} {
+    padding: 1em 1.25em;
+  }
+  @media ${maxSize.tablet} {
+    padding: 0;
+  }
 `;
 
 const Form = styled.form`
   padding: ${(props) => (props.primary ? '2em 2.5em' : 'none')};
   display: flex;
   flex-direction: column;
+  @media ${maxSize.laptopL} {
+    width: 60vw;
+  }
 `;
 
 const Label = styled.label`
   padding: 1.5em 0 0.5em;
   color: var(--clr-white);
+  @media ${maxSize.laptopL} {
+    margin: 0 1em 0 1em;
+  }
+  @media ${maxSize.mobileL} {
+    margin: 0;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -55,6 +96,15 @@ const Input = styled.input`
   &:invalid {
     box-shadow: none;
   }
+  @media ${maxSize.laptopL} {
+    margin: ${(props) => (props.primary ? '0 1em 0 1em' : 'none')};
+  }
+  @media ${maxSize.mobileL} {
+    min-width: 7em;
+  }
+  @media ${maxSize.mobileL} {
+    margin: 0;
+  }
 `;
 
 const Logo = styled.h2`
@@ -63,6 +113,9 @@ const Logo = styled.h2`
   text-align: ${(props) => (props.primary ? 'center' : 'start')};
   font-size: ${(props) => (props.primary ? '2.9em' : '2.25em')};
   padding: ${(props) => (props.primary ? '0.5em 0 0 0' : '0')};
+  @media ${maxSize.mobileL} {
+    font-size: 2.6em;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -84,6 +137,14 @@ const ButtonStyle = styled.button`
   justify-content: center;
   width: 100%;
   font-size: 1em;
+  @media ${maxSize.laptopL} {
+    margin: 0 1em 0 1em;
+    width: unset;
+    min-width: 10em;
+  }
+  @media ${maxSize.mobileL} {
+    margin: 0;
+  }
 `;
 
 const ChatSmallButton = styled.button`
@@ -114,6 +175,13 @@ const RoomContainer = styled.div`
   justify-content: space-between;
   padding: 0 0 2.5em;
   width: 60em;
+  margin: 0 -1em 0 -1em;
+  @media ${maxSize.laptopL} {
+    flex-wrap: wrap;
+    width: auto;
+    justify-content: start;
+    margin: 0;
+  }
 `;
 
 const RoomIcon = styled.div`
@@ -141,6 +209,7 @@ const RoomText = styled.span`
 
 const RoomButtonWrapper = styled.div`
   display: flex;
+  flex: fit-content;
 `;
 
 const RoomLabel = styled.label`
@@ -175,6 +244,13 @@ const RoomButtonContainer = styled.div`
     props.selected ? 'var(--clr-yellow)' : 'var(--clr-lightnavy)'};
   &:hover {
     background: ${(props) => !props.selected && 'var(--clr-brightblue)'};
+  }
+  margin: 1em;
+  @media ${maxSize.laptopL} {
+    margin: 1em;
+  }
+  @media ${maxSize.mobileL} {
+    margin: 1em 0 1em 0;
   }
 `;
 

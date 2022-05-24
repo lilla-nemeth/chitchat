@@ -130,7 +130,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     html {
-      overflow: auto;
+      // overflow: auto;
     }
 
     /* CSS Variables */
@@ -138,7 +138,6 @@ const GlobalStyle = createGlobalStyle`
     :root {
 
         /* Colors */
-
         --clr-white: rgb(255, 255, 255);
         --clr-lightgrey: rgb(235, 235, 235);
         --clr-lightblue: rgba(185, 197, 207);
@@ -148,6 +147,7 @@ const GlobalStyle = createGlobalStyle`
         --clr-darknavy: rgb(47, 60, 79);
         --clr-yellow: rgb(251, 176, 64);
         --clr-peach: rgba(242, 198, 177);
+
     }
 
     /* Scrollbar Styling */
