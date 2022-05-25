@@ -2,36 +2,33 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { minSize, maxSize } from './deviceSizes';
 
-// Temporary cheatsheet (min- and max-width):
-// mobileXS: '280px',
-// mobileS: '320px',
-// mobileM: '375px',
-// mobileL: '435px',
-// tablet: '768px',
-// laptop: '1024px',
-// laptopM: 1280px,
-// laptopL: '1440px',
-// desktop: '2560px',
-
 const Main = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100vw;
+  height: 100vh;
   padding: 2.5em 0 2.5em 0;
   background: var(--clr-peach);
-  @media ${maxSize.tablet} {
-    height: auto;
-  }
+
   @media ${minSize.tablet} {
-    height: 100vh;
+    height: ${(props) => (props.homeMain ? '100vh' : 'auto')};
+    height: ${(props) => (props.mainHeight ? '100vh' : '100vh')};
+  }
+  @media ${maxSize.tablet} {
+    height: ${(props) => (props.mainHeight ? 'auto' : '100vh')};
   }
   @media ${minSize.laptop} {
-    height: auto;
+    height: 100vh;
   }
   @media ${minSize.laptopL} {
-    height: 100vh;
     padding: 0;
+  }
+  @media ${maxSize.mobileL} {
+    height: ${(props) => (props.mainHeight ? 'auto' : '100vh')};
+  }
+  @media ${maxSize.mobileM} {
+    height: ${(props) => (props.mainHeight ? 'auto' : 'auto')};
   }
 `;
 
@@ -48,11 +45,11 @@ const Wrapper = styled.section`
 `;
 
 const Form = styled.form`
-  padding: ${(props) => (props.primary ? '2em 2.5em' : 'none')};
+  padding: ${(props) => (props.homeForm ? '2em 2.5em' : 'none')};
   display: flex;
   flex-direction: column;
   @media ${maxSize.laptopL} {
-    width: 60vw;
+    width: ${(props) => (props.homeForm ? '60vw' : 'none')};
   }
 `;
 
@@ -60,7 +57,7 @@ const Label = styled.label`
   padding: 1.5em 0 0.5em;
   color: var(--clr-white);
   @media ${maxSize.laptopL} {
-    margin: 0 1em 0 1em;
+    margin: ${(props) => (props.homeLabel ? '0 1em 0 1em' : '0')};
   }
   @media ${maxSize.mobileL} {
     margin: 0;
@@ -100,10 +97,11 @@ const Input = styled.input`
     margin: ${(props) => (props.primary ? '0 1em 0 1em' : 'none')};
   }
   @media ${maxSize.mobileL} {
-    min-width: 7em;
+    min-width: ${(props) => (props.primary ? '7em' : 'none')};
+    margin: 0em;
   }
-  @media ${maxSize.mobileL} {
-    margin: 0;
+  @media ${maxSize.desktop} {
+    min-width: ${(props) => (props.primary ? 'none' : '2em')};
   }
 `;
 
@@ -121,6 +119,9 @@ const Logo = styled.h2`
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
+  @media ${maxSize.laptopM} {
+    margin-top: 1em;
+  }
 `;
 
 const ButtonStyle = styled.button`
@@ -281,6 +282,10 @@ const ChatRoom = styled.div`
   height: inherit;
   border-radius: 2.5em;
   height: 85vh;
+  @media ${maxSize.laptopM} {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 const UserWrapper = styled.div`
@@ -290,6 +295,9 @@ const UserWrapper = styled.div`
   background: var(--clr-darknavy);
   border-radius: 2.5em 0 0 2.5em;
   padding: 2em;
+  @media ${maxSize.laptopM} {
+    border-radius: 2.5em 2.5em 0 0;
+  }
 `;
 
 const ActiveRoomContainer = styled.div`
@@ -340,7 +348,6 @@ const UserBox = styled.div`
   margin-right: ${(props) => (props.scrollVisible ? '2em' : '0')};
   margin-top: 1.3em;
 `;
-// padding: 1em 2.5em;
 
 const MessageWrapper = styled.div`
   display: flex;
@@ -349,13 +356,18 @@ const MessageWrapper = styled.div`
   background: white;
   border-radius: 0 2.5em 2.5em 0;
   padding: 2em;
+  @media ${maxSize.laptopM} {
+    border-radius: 0 0 2.5em 2.5em;
+  }
 `;
 
 const HeaderContainer = styled.div`
   display: flex;
   flex: 0.6;
-  // padding-bottom: 1em;
   padding-bottom: 2.5em;
+  @media ${maxSize.laptopM} {
+    flex-direction: column;
+  }
 `;
 
 const Header = styled.div`

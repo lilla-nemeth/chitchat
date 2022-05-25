@@ -92,7 +92,7 @@ const Chat = () => {
   };
 
   return (
-    <Main>
+    <Main homeMain={false} mainHeight={messages.length > 2}>
       <ChatRoom>
         <UserWrapper>
           <ActiveRoomContainer>
@@ -142,9 +142,10 @@ const Chat = () => {
             })}
             <Ref ref={scrollRef}></Ref>
           </MessageContainer>
-          <Form onSubmit={handleSubmit}>
+          <Form homeForm={false} onSubmit={handleSubmit}>
             <InputContainer>
               <TextInput
+                homeLabel={false}
                 primary={false}
                 name={'Message'}
                 value={messageInput}

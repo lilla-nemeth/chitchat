@@ -26,11 +26,12 @@ const Home = () => {
   };
 
   return (
-    <Main>
+    <Main homeMain={true} mainHeight={true}>
       <Wrapper primary>
         <Logo primary>ChitChat</Logo>
-        <Form primary onSubmit={handleSubmit}>
+        <Form homeForm={true} onSubmit={handleSubmit}>
           <TextInput
+            homeLabel={true}
             primary={true}
             name={'Username'}
             labelName={'Username'}
@@ -39,7 +40,7 @@ const Home = () => {
             onChange={(e) => setUsername(e.target.value)}
             required={true}
           />
-          <Label>Rooms</Label>
+          <Label homeLabel={true}>Rooms</Label>
           <RoomContainer>
             {rooms.map((room) => (
               <RoomButton
