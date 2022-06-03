@@ -140,6 +140,7 @@ const GlobalStyle = createGlobalStyle`
         /* Colors */
         --clr-white: rgb(255, 255, 255);
         --clr-lightgrey: rgb(235, 235, 235);
+        --clr-grey: rgb(160, 160, 160);
         --clr-lightblue: rgba(185, 197, 207);
         --clr-lightnavy: rgb(80, 111, 134);
         --clr-brightblue: rgb(80, 147, 197);

@@ -10,6 +10,7 @@ function TextInput(props) {
     required,
     primary,
     name,
+    replyMessage,
   } = props;
 
   return (
@@ -23,6 +24,7 @@ function TextInput(props) {
         onChange={onChange}
         placeholder={placeholder}
         required={required}
+        replyMessage={replyMessage}
       />
     </>
   );

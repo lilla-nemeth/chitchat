@@ -24,7 +24,7 @@ const PORT = 8080 || process.env.PORT;
 // TODO: use this for production:
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-const botName = 'ChatBot';
+const botName = '@ChatBot';
 
 // Connects with client
 io.on('connection', (socket) => {

@@ -25,9 +25,11 @@ import {
   Logo,
   StyledLink,
   ButtonContainer,
+  PreviousMessage,
 } from '../style';
-// icon
+// icons
 import SendIcon from '../assets/icons/SendIcon';
+import ReplyIcon from '../assets/icons/ReplyIcon';
 // redux actions
 import { addUser, addMessage } from '../actions';
 // helper functions
@@ -52,6 +54,9 @@ const Chat = () => {
 
   const [messageInput, setMessageInput] = useState('');
   const [socketId, setSocketId] = useState();
+  const [selectedReplyIcon, setSelectedReplyIcon] = useState(false);
+  const [selectedAuthor, setSelectedAuthor] = useState();
+  const [selectedMessage, setSelectedMessage] = useState();
 
   const users = useSelector((state) => state.userReducer);
   const messages = useSelector((state) => state.messageReducer);
@@ -90,6 +95,8 @@ const Chat = () => {
   const handleChange = (e) => {
     setMessageInput(e.target.value);
   };
+
+  console.log(selectedMessage);
 
   return (
     <Main homeMain={false} mainHeight={messages.length > 2}>
@@ -133,16 +140,27 @@ const Chat = () => {
               return (
                 <Message
                   key={msg.id}
-                  chatBot={msg.author === 'ChatBot'}
+                  chatBot={msg.author === '@ChatBot'}
                   username={msg.author}
                   timestamp={msg.timestamp}
                   text={msg.message}
+                  icon={<ReplyIcon />}
+                  onClick={() => {
+                    setSelectedReplyIcon(!selectedReplyIcon);
+                    setSelectedAuthor(msg.author);
+                    setSelectedMessage(msg.message);
+                  }}
                 ></Message>
               );
             })}
             <Ref ref={scrollRef}></Ref>
           </MessageContainer>
           <Form homeForm={false} onSubmit={handleSubmit}>
+            <PreviousMessage replyActive={selectedReplyIcon}>
+              {/* Style this part */}
+              {selectedAuthor}
+              <> {selectedMessage}</>
+            </PreviousMessage>
             <InputContainer>
               <TextInput
                 homeLabel={false}
