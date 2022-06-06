@@ -8,7 +8,7 @@ import TextInput from './generic/TextInput';
 // styled components
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../style';
 
-let DEBUG = true;
+// let DEBUG = true;
 
 const Home = () => {
   const rooms = useSelector((state) => state.roomReducer.rooms);

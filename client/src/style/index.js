@@ -74,15 +74,19 @@ const InputContainer = styled.div`
 
 const PreviousMessage = styled.div`
   z-index: 1;
-  height: 2.5em;
+  height: auto;
   width: auto;
   margin-bottom: -1em;
   border-radius: 0.2em 0.2em 0 0;
-  // color: var(--clr-white);
-  display: ${(props) => (!props.replyActive ? 'none' : 'block')};
   background: ${(props) =>
-    !props.replyActive ? 'none' : 'var(--clr-lightblue)'};
+    !props.replyActive ? 'var(--clr-white)' : 'var(--clr-lightblue)'};
+  display: ${(props) => (!props.replyActive ? 'none' : 'block')};
 `;
+// opacity: ${(props) => (!props.replyActive ? '0' : '1')};
+// display: block;
+// height: 2.5em;
+// color: var(--clr-white);
+
 const MessageButton = styled.div`
   flex: 1;
   background: var(-clr-yellow);
@@ -401,7 +405,8 @@ const Ref = styled.div``;
 
 const BubbleStyle = styled.div`
   display: flex;
-  padding: 2em 2.5em;
+  // padding: 2em 2.5em;
+  padding: 1.5em;
   margin-bottom: 2em;
   overflow-wrap: break-word;
   border-radius: 0.2em;
@@ -424,7 +429,7 @@ const ToolStyle = styled.div`
   position: absolute;
   zindex: 1;
   top: -0.15em;
-  fill: var(--clr-grey);
+  fill: var(--clr-darkgrey);
   width: 1.5em;
   right: 2.5em;
   cursor: pointer;

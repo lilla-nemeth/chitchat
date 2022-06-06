@@ -21,10 +21,11 @@ const { createTimestamp } = require('./utils/timestamp');
 
 const PORT = 8080 || process.env.PORT;
 
-// TODO: use this for production:
-app.use(express.static(path.join(__dirname, 'client/build')));
-
+const uuid = uuidv4();
 const botName = '@ChatBot';
+
+// TODO: use this for production:
+// app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Connects with client
 io.on('connection', (socket) => {
@@ -42,7 +43,7 @@ io.on('connection', (socket) => {
 
     socket.emit(
       'serverMessage',
-      uuidv4(),
+      uuid,
       null,
       `Welcome ${user.username}!`,
       botName,
@@ -53,7 +54,7 @@ io.on('connection', (socket) => {
       .to(user.roomId)
       .emit(
         'serverMessage',
-        uuidv4(),
+        uuid,
         null,
         `${user.username} has joined the room`,
         botName,
@@ -92,7 +93,7 @@ io.on('connection', (socket) => {
           .to(user.roomId)
           .emit(
             'serverMessage',
-            uuidv4(),
+            uuid,
             null,
             `${user.username} has left the room`,
             botName,

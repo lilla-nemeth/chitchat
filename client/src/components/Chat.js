@@ -7,6 +7,7 @@ import SmallButton from './generic/SmallButton';
 import TextInput from './generic/TextInput';
 import Message from './generic/Message';
 import ActiveRoomComponent from './generic/ActiveRoomComponent';
+import PreviousMessageContent from './generic/PreviousMessageContent';
 // styled components
 import {
   Main,
@@ -30,17 +31,19 @@ import {
 // icons
 import SendIcon from '../assets/icons/SendIcon';
 import ReplyIcon from '../assets/icons/ReplyIcon';
+import CloseIcon from '../assets/icons/CloseIcon';
 // redux actions
 import { addUser, addMessage } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
 import { scrollToBottom } from '../utils/scroll';
+import { checkMessageLength, compareMessageId } from '../utils/message';
 // uuid
 import { v4 as uuidv4 } from 'uuid';
 // socket
 import io from 'socket.io-client';
 
-let DEBUG = true;
+// let DEBUG = true;
 
 const Chat = () => {
   const socket = io('http://localhost:8080/');
@@ -54,9 +57,9 @@ const Chat = () => {
 
   const [messageInput, setMessageInput] = useState('');
   const [socketId, setSocketId] = useState();
-  const [selectedReplyIcon, setSelectedReplyIcon] = useState(false);
-  const [selectedAuthor, setSelectedAuthor] = useState();
-  const [selectedMessage, setSelectedMessage] = useState();
+  const [activeReply, setActiveReply] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState([]);
+  const [sentMessage, setSentMessage] = useState(selectedMessage);
 
   const users = useSelector((state) => state.userReducer);
   const messages = useSelector((state) => state.messageReducer);
@@ -90,13 +93,15 @@ const Chat = () => {
     dispatch(addMessage(uuid, socketId, messageInput, username, timestamp));
 
     setMessageInput('');
+
+    setActiveReply(false);
   };
 
   const handleChange = (e) => {
     setMessageInput(e.target.value);
   };
 
-  console.log(selectedMessage);
+  console.log(messages);
 
   return (
     <Main homeMain={false} mainHeight={messages.length > 2}>
@@ -145,10 +150,13 @@ const Chat = () => {
                   timestamp={msg.timestamp}
                   text={msg.message}
                   icon={<ReplyIcon />}
+                  sentMessage={sentMessage}
+                  compareMessageId={
+                    compareMessageId(sentMessage, msg.id) && sentMessage
+                  }
                   onClick={() => {
-                    setSelectedReplyIcon(!selectedReplyIcon);
-                    setSelectedAuthor(msg.author);
-                    setSelectedMessage(msg.message);
+                    setActiveReply(!activeReply);
+                    setSelectedMessage([msg]);
                   }}
                 ></Message>
               );
@@ -156,10 +164,21 @@ const Chat = () => {
             <Ref ref={scrollRef}></Ref>
           </MessageContainer>
           <Form homeForm={false} onSubmit={handleSubmit}>
-            <PreviousMessage replyActive={selectedReplyIcon}>
-              {/* Style this part */}
-              {selectedAuthor}
-              <> {selectedMessage}</>
+            <PreviousMessage replyActive={activeReply}>
+              {selectedMessage.map((msg) => {
+                return (
+                  <PreviousMessageContent
+                    key={msg.id}
+                    author={msg.author}
+                    message={checkMessageLength(msg.message, '100')}
+                    icon={<CloseIcon />}
+                    onClick={() => {
+                      setActiveReply(!activeReply);
+                      setSelectedMessage([]);
+                    }}
+                  ></PreviousMessageContent>
+                );
+              })}
             </PreviousMessage>
             <InputContainer>
               <TextInput
@@ -176,8 +195,7 @@ const Chat = () => {
                   formButton={true}
                   to={false}
                   isIcon={true}
-                  iconComponent={<SendIcon />}
-                  // name={'Send'}
+                  icon={<SendIcon />}
                 />
               </MessageButton>
             </InputContainer>
