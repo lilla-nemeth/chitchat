@@ -64,7 +64,42 @@ io.on('connection', (socket) => {
     io.to(user.roomId).emit('sendUsersList', getRoomUsers(user.roomId));
   });
 
-  // listen to addMessage and send message back with receivedMessage to other room users
+  socket.on('ADD_REPLY_MESSAGE', (...message) => {
+    const prevId = message[0].prevId;
+    const prevUserId = message[0].prevUserId;
+    const prevChatMessage = message[0].prevMessage;
+    const prevAuthor = message[0].author;
+    const prevTimestamp = message[0].timestamp;
+    const id = message[0].id;
+    const userId = message[0].userId;
+    const chatMessage = message[0].message;
+    const author = message[0].author;
+    const timestamp = message[0].timestamp;
+
+    console.log(message);
+
+    const user = getMessageSender(userId);
+
+    if (user) {
+      socket.broadcast
+        .to(user.roomId)
+        .emit(
+          'receiveReplyMessage',
+          prevId,
+          prevUserId,
+          prevChatMessage,
+          prevAuthor,
+          prevTimestamp,
+          id,
+          userId,
+          chatMessage,
+          author,
+          timestamp
+        );
+    }
+  });
+
+  // listen to addMessage and send message back with receiveMessage to other room users
   socket.on('ADD_MESSAGE', (...message) => {
     const id = message[0].id;
     const userId = message[0].userId;
@@ -74,10 +109,12 @@ io.on('connection', (socket) => {
 
     const user = getMessageSender(userId);
 
+    console.log(message);
+
     if (user) {
       socket.broadcast
         .to(user.roomId)
-        .emit('receivedMessage', id, userId, chatMessage, author, timestamp);
+        .emit('receiveMessage', id, userId, chatMessage, author, timestamp);
     }
   });
 

@@ -33,11 +33,11 @@ import SendIcon from '../assets/icons/SendIcon';
 import ReplyIcon from '../assets/icons/ReplyIcon';
 import CloseIcon from '../assets/icons/CloseIcon';
 // redux actions
-import { addUser, addMessage } from '../actions';
+import { addUser, addMessage, addReplyMessage } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
 import { scrollToBottom } from '../utils/scroll';
-import { checkMessageLength, compareMessageId } from '../utils/message';
+import { checkMessageLength } from '../utils/message';
 // uuid
 import { v4 as uuidv4 } from 'uuid';
 // socket
@@ -59,7 +59,7 @@ const Chat = () => {
   const [socketId, setSocketId] = useState();
   const [activeReply, setActiveReply] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState([]);
-  const [sentMessage, setSentMessage] = useState(selectedMessage);
+  // const [sentMessage, setSentMessage] = useState(selectedMessage);
 
   const users = useSelector((state) => state.userReducer);
   const messages = useSelector((state) => state.messageReducer);
@@ -89,8 +89,37 @@ const Chat = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // dispatch addMessage action
-    dispatch(addMessage(uuid, socketId, messageInput, username, timestamp));
+    if (selectedMessage.length) {
+      // dispatch addReplyMessage action
+
+      // selectedMessage.forEach((msg) => {
+      //    // msg.prevId,
+      //   // msg.prevUserId,
+      //   // msg.prevMessage,
+      //   // msg.prevAuthor,
+      //   // msg.prevTimestamp,
+      // });
+
+      // TODO: use the selectedMessage obj values, loop doesn't work with dispatch
+      // now the server recieves the hard coded strings (so the redux action works on both sides)
+      dispatch(
+        addReplyMessage(
+          'testId',
+          'testUserId',
+          'testMessage',
+          'testAuthor',
+          'testTimestamp',
+          uuid,
+          socketId,
+          messageInput,
+          username,
+          timestamp
+        )
+      );
+    } else {
+      // dispatch addMessage action
+      dispatch(addMessage(uuid, socketId, messageInput, username, timestamp));
+    }
 
     setMessageInput('');
 
@@ -101,7 +130,8 @@ const Chat = () => {
     setMessageInput(e.target.value);
   };
 
-  console.log(messages);
+  // console.log(messages);
+  console.log(selectedMessage);
 
   return (
     <Main homeMain={false} mainHeight={messages.length > 2}>
@@ -150,13 +180,9 @@ const Chat = () => {
                   timestamp={msg.timestamp}
                   text={msg.message}
                   icon={<ReplyIcon />}
-                  sentMessage={sentMessage}
-                  compareMessageId={
-                    compareMessageId(sentMessage, msg.id) && sentMessage
-                  }
                   onClick={() => {
                     setActiveReply(!activeReply);
-                    setSelectedMessage([msg]);
+                    setSelectedMessage(!selectedMessage.length ? [msg] : []);
                   }}
                 ></Message>
               );

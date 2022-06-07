@@ -40,29 +40,6 @@ function Message(props) {
           <MessageTimetamp>{timestamp}</MessageTimetamp>
         </MessageMeta>
         <BubbleStyle chatBot={chatBot}>
-          {/* {compareMessageId &&
-            sentMessage.map((prevMsg) => {
-              return (
-                <div key={prevMsg.id}>
-                  <div
-                    style={{
-                      padding: '0.1em',
-                      background: 'lightyellow',
-                    }}
-                  >
-                    {prevMsg.author}
-                  </div>
-                  <div
-                    style={{
-                      padding: '0.1em',
-                      background: 'lightyellow',
-                    }}
-                  >
-                    {prevMsg.message}
-                  </div>
-                </div>
-              );
-            })} */}
           <MessageText>{text}</MessageText>
         </BubbleStyle>
       </MessageSubContainer>

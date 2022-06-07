@@ -5,7 +5,3 @@ export const checkMessageLength = (msg, char) => {
     return msg;
   }
 };
-
-export const compareMessageId = (sentMsgArr, msgId) => {
-  return sentMsgArr.some((msg) => msg.id === msgId);
-};
