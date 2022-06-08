@@ -1,5 +1,3 @@
-// import {  } from '../../style';
-
 function SendIcon() {
   return (
     <svg

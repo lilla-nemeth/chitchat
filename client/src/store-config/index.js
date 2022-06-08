@@ -4,10 +4,15 @@ import allReducers from '../reducers';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import socketMiddleware from '../middleware';
 import * as types from '../constants/actionTypes';
-import { addMessage, receivedMessage, sendUsers } from '../actions';
+import {
+  addMessage,
+  receiveMessage,
+  receiveReplyMessage,
+  sendUsers,
+} from '../actions';
 // import logger from 'redux-logger';
 
-let DEBUG = true;
+// let DEBUG = true;
 
 const configureStore = () => {
   const store = createStore(
@@ -20,9 +25,15 @@ const configureStore = () => {
           listeners: [
             { message: 'sendUsersList', action: sendUsers },
             { message: 'serverMessage', action: addMessage },
-            { message: 'receivedMessage', action: receivedMessage },
+            { message: 'receiveReplyMessage', action: receiveReplyMessage },
+            { message: 'receiveMessage', action: receiveMessage },
           ],
-          subscribers: [types.ADD_USER, types.ADD_MESSAGE, types.GET_USER],
+          subscribers: [
+            types.ADD_USER,
+            types.ADD_REPLY_MESSAGE,
+            types.ADD_MESSAGE,
+            types.GET_USER,
+          ],
         })
       )
     )

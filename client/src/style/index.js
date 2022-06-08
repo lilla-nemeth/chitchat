@@ -72,6 +72,21 @@ const InputContainer = styled.div`
   justify-content: center;
 `;
 
+const PreviousMessage = styled.div`
+  z-index: 1;
+  height: auto;
+  width: auto;
+  margin-bottom: -1em;
+  border-radius: 0.2em 0.2em 0 0;
+  background: ${(props) =>
+    !props.replyActive ? 'var(--clr-white)' : 'var(--clr-lightblue)'};
+  display: ${(props) => (!props.replyActive ? 'none' : 'block')};
+`;
+// opacity: ${(props) => (!props.replyActive ? '0' : '1')};
+// display: block;
+// height: 2.5em;
+// color: var(--clr-white);
+
 const MessageButton = styled.div`
   flex: 1;
   background: var(-clr-yellow);
@@ -83,7 +98,7 @@ const Input = styled.input`
   padding: 1.3em 1.5em;
   font-size: 1em;
   flex: 8;
-  border-radius: 0.2em 0 0 0.2em;
+  border-radius: ${(props) => (props.primary ? '0.2em' : '0.2em 0 0 0.2em')};
   border: none;
   background: ${(props) =>
     props.primary ? 'var(--clr-white)' : 'var(--clr-lightgrey)'};
@@ -93,8 +108,9 @@ const Input = styled.input`
   &:invalid {
     box-shadow: none;
   }
+  margin: ${(props) => (props.primary ? '1em 0 1em 0' : 'none')};
   @media ${maxSize.laptopL} {
-    margin: ${(props) => (props.primary ? '0 1em 0 1em' : 'none')};
+    margin: ${(props) => (props.primary ? '1em' : 'none')};
   }
   @media ${maxSize.mobileL} {
     min-width: ${(props) => (props.primary ? '7em' : 'none')};
@@ -389,7 +405,8 @@ const Ref = styled.div``;
 
 const BubbleStyle = styled.div`
   display: flex;
-  padding: 2em 2.5em;
+  // padding: 2em 2.5em;
+  padding: 1.5em;
   margin-bottom: 2em;
   overflow-wrap: break-word;
   border-radius: 0.2em;
@@ -399,6 +416,26 @@ const BubbleStyle = styled.div`
   align-self: flex-start;
   width: fill-available;
   margin-right: 2em;
+`;
+
+const MessageSubWrapper = styled.div`
+  position: relative;
+`;
+
+const MessageSubContainer = styled.div``;
+
+const ToolStyle = styled.div`
+  width: 1em;
+  position: absolute;
+  zindex: 1;
+  top: -0.15em;
+  fill: var(--clr-darkgrey);
+  width: 1.5em;
+  right: 2.5em;
+  cursor: pointer;
+  &:hover {
+    fill: var(--clr-darknavy);
+  }
 `;
 
 const MessageMeta = styled.div`
@@ -451,6 +488,7 @@ export {
   Header,
   MessageContainer,
   Ref,
+  PreviousMessage,
   InputContainer,
   MessageButton,
   ActiveRoomContainer,
@@ -459,6 +497,9 @@ export {
   ActiveRoomText,
   UsersContainer,
   BubbleStyle,
+  ToolStyle,
+  MessageSubWrapper,
+  MessageSubContainer,
   MessageMeta,
   MessageUsername,
   MessageTimetamp,

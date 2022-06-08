@@ -4,9 +4,9 @@ import messageReducer from './messageReducer';
 import { combineReducers } from 'redux';
 
 const allReducers = combineReducers({
-	roomReducer,
-	messageReducer,
-	userReducer,
+  roomReducer,
+  messageReducer,
+  userReducer,
 });
 
 export default allReducers;

@@ -7,6 +7,7 @@ import SmallButton from './generic/SmallButton';
 import TextInput from './generic/TextInput';
 import Message from './generic/Message';
 import ActiveRoomComponent from './generic/ActiveRoomComponent';
+import PreviousMessageContent from './generic/PreviousMessageContent';
 // styled components
 import {
   Main,
@@ -25,20 +26,24 @@ import {
   Logo,
   StyledLink,
   ButtonContainer,
+  PreviousMessage,
 } from '../style';
-// icon
+// icons
 import SendIcon from '../assets/icons/SendIcon';
+import ReplyIcon from '../assets/icons/ReplyIcon';
+import CloseIcon from '../assets/icons/CloseIcon';
 // redux actions
-import { addUser, addMessage } from '../actions';
+import { addUser, addMessage, addReplyMessage } from '../actions';
 // helper functions
 import { createTimestamp } from '../utils/timestamp';
 import { scrollToBottom } from '../utils/scroll';
+import { checkMessageLength } from '../utils/message';
 // uuid
 import { v4 as uuidv4 } from 'uuid';
 // socket
 import io from 'socket.io-client';
 
-let DEBUG = true;
+// let DEBUG = true;
 
 const Chat = () => {
   const socket = io('http://localhost:8080/');
@@ -52,6 +57,9 @@ const Chat = () => {
 
   const [messageInput, setMessageInput] = useState('');
   const [socketId, setSocketId] = useState();
+  const [activeReply, setActiveReply] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState([]);
+  // const [sentMessage, setSentMessage] = useState(selectedMessage);
 
   const users = useSelector((state) => state.userReducer);
   const messages = useSelector((state) => state.messageReducer);
@@ -81,15 +89,49 @@ const Chat = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // dispatch addMessage action
-    dispatch(addMessage(uuid, socketId, messageInput, username, timestamp));
+    if (selectedMessage.length) {
+      // dispatch addReplyMessage action
+
+      // selectedMessage.forEach((msg) => {
+      //    // msg.prevId,
+      //   // msg.prevUserId,
+      //   // msg.prevMessage,
+      //   // msg.prevAuthor,
+      //   // msg.prevTimestamp,
+      // });
+
+      // TODO: use the selectedMessage obj values, loop doesn't work with dispatch
+      // now the server recieves the hard coded strings (so the redux action works on both sides)
+      dispatch(
+        addReplyMessage(
+          'testId',
+          'testUserId',
+          'testMessage',
+          'testAuthor',
+          'testTimestamp',
+          uuid,
+          socketId,
+          messageInput,
+          username,
+          timestamp
+        )
+      );
+    } else {
+      // dispatch addMessage action
+      dispatch(addMessage(uuid, socketId, messageInput, username, timestamp));
+    }
 
     setMessageInput('');
+
+    setActiveReply(false);
   };
 
   const handleChange = (e) => {
     setMessageInput(e.target.value);
   };
+
+  // console.log(messages);
+  console.log(selectedMessage);
 
   return (
     <Main homeMain={false} mainHeight={messages.length > 2}>
@@ -133,16 +175,37 @@ const Chat = () => {
               return (
                 <Message
                   key={msg.id}
-                  chatBot={msg.author === 'ChatBot'}
+                  chatBot={msg.author === '@ChatBot'}
                   username={msg.author}
                   timestamp={msg.timestamp}
                   text={msg.message}
+                  icon={<ReplyIcon />}
+                  onClick={() => {
+                    setActiveReply(!activeReply);
+                    setSelectedMessage(!selectedMessage.length ? [msg] : []);
+                  }}
                 ></Message>
               );
             })}
             <Ref ref={scrollRef}></Ref>
           </MessageContainer>
           <Form homeForm={false} onSubmit={handleSubmit}>
+            <PreviousMessage replyActive={activeReply}>
+              {selectedMessage.map((msg) => {
+                return (
+                  <PreviousMessageContent
+                    key={msg.id}
+                    author={msg.author}
+                    message={checkMessageLength(msg.message, '100')}
+                    icon={<CloseIcon />}
+                    onClick={() => {
+                      setActiveReply(!activeReply);
+                      setSelectedMessage([]);
+                    }}
+                  ></PreviousMessageContent>
+                );
+              })}
+            </PreviousMessage>
             <InputContainer>
               <TextInput
                 homeLabel={false}
@@ -158,8 +221,7 @@ const Chat = () => {
                   formButton={true}
                   to={false}
                   isIcon={true}
-                  iconComponent={<SendIcon />}
-                  // name={'Send'}
+                  icon={<SendIcon />}
                 />
               </MessageButton>
             </InputContainer>
