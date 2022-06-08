@@ -72,7 +72,7 @@ const InputContainer = styled.div`
   justify-content: center;
 `;
 
-const PreviousMessage = styled.div`
+const PrevMessageWrapper = styled.div`
   z-index: 1;
   height: auto;
   width: auto;
@@ -82,10 +82,36 @@ const PreviousMessage = styled.div`
     !props.replyActive ? 'var(--clr-white)' : 'var(--clr-lightblue)'};
   display: ${(props) => (!props.replyActive ? 'none' : 'block')};
 `;
-// opacity: ${(props) => (!props.replyActive ? '0' : '1')};
-// display: block;
-// height: 2.5em;
-// color: var(--clr-white);
+
+const PrevMessageContainer = styled.div`
+  padding: 1em 1.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: var(--clr-lightblue);
+  border-radius: 0.2em;
+`;
+
+const PrevContainer = styled.div``;
+
+const PrevAuthor = styled.div`
+  font-weight: 600;
+  font-size: 0.9em;
+`;
+
+const PrevText = styled.div`
+  font-weight: 500;
+  padding-top: 1em;
+`;
+
+const PrevTimestamp = styled.div`
+  font-size: 0.9em;
+`;
+
+const CloseButton = styled.div`
+  width: 1.2em;
+  cursor: pointer;
+`;
 
 const MessageButton = styled.div`
   flex: 1;
@@ -172,7 +198,7 @@ const ChatSmallButton = styled.button`
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: ${(props) => (props.formButton ? '1em' : '1.15em 1.15em')};
+  padding: 1em;
   border: 0.15em solid var(--clr-yellow);
   font-size: 1em;
 `;
@@ -292,7 +318,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const ChatRoom = styled.div`
+const ChatRoomContainer = styled.div`
   display: flex;
   width: 80vw;
   height: inherit;
@@ -319,6 +345,7 @@ const UserWrapper = styled.div`
 const ActiveRoomContainer = styled.div`
   display: flex;
   flex: 0.85;
+  margin-bottom: 3.1em;
 `;
 
 const ActiveRoomWrapper = styled.div`
@@ -357,12 +384,15 @@ const UserBox = styled.div`
   text-align: center;
   font-weight: 600;
   margin-bottom: 1.3em;
-  padding: 2.25em 2.5em;
+  // padding: 2.25em 2.5em;
+  padding: 1.5em;
   color: var(--clr-white);
   background: ${(props) =>
     props.currentUser ? 'var(--clr-lightnavy)' : 'var(--clr-navy)'};
   margin-right: ${(props) => (props.scrollVisible ? '2em' : '0')};
-  margin-top: 1.3em;
+  // margin-top: 1.5em;
+  // margin-top: 2.7em;
+  line-height: 1.5;
 `;
 
 const MessageWrapper = styled.div`
@@ -397,13 +427,13 @@ const MessageContainer = styled.div`
   display: flex;
   flex: 4;
   flex-direction: column;
-  margin-bottom: 1em;
+  // margin-bottom: 1em;
   overflow-y: scroll;
 `;
 
 const Ref = styled.div``;
 
-const BubbleStyle = styled.div`
+const Bubble = styled.div`
   display: flex;
   // padding: 2em 2.5em;
   padding: 1.5em;
@@ -412,7 +442,9 @@ const BubbleStyle = styled.div`
   border-radius: 0.2em;
   flex-direction: column;
   background: ${(props) =>
-    props.chatBot ? 'var(--clr-lightblue)' : 'var(--clr-lightgrey)'};
+    props.chatBot ? 'var(--clr-navy)' : 'var(--clr-lightgrey)'};
+  color: ${(props) =>
+    props.chatBot ? 'var(--clr-white)' : 'var(--clr-black)'};
   align-self: flex-start;
   width: fill-available;
   margin-right: 2em;
@@ -451,7 +483,7 @@ const MessageUsername = styled.div`
   font-weight: 600;
 `;
 
-const MessageTimetamp = styled.div`
+const MessageTimestamp = styled.div`
   display: flex;
   color: grey;
 `;
@@ -460,9 +492,16 @@ const MessageText = styled.div`
   display: flex;
   font-weight: 600;
   line-height: 1.5;
+  padding-top: ${(props) => (props.isPrevText ? '1em' : 'unset')};
 `;
 
+// TODO: Alphabetical order would be nice and/or break this file to smaller ones
 export {
+  ActiveRoomContainer,
+  ActiveRoomWrapper,
+  ActiveRoomIcon,
+  ActiveRoomText,
+  Bubble,
   Main,
   Wrapper,
   Form,
@@ -480,7 +519,7 @@ export {
   RoomText,
   RoomIcon,
   StyledLink,
-  ChatRoom,
+  ChatRoomContainer,
   UserWrapper,
   UserBox,
   MessageWrapper,
@@ -488,22 +527,23 @@ export {
   Header,
   MessageContainer,
   Ref,
-  PreviousMessage,
   InputContainer,
   MessageButton,
-  ActiveRoomContainer,
-  ActiveRoomWrapper,
-  ActiveRoomIcon,
-  ActiveRoomText,
   UsersContainer,
-  BubbleStyle,
   ToolStyle,
   MessageSubWrapper,
   MessageSubContainer,
   MessageMeta,
   MessageUsername,
-  MessageTimetamp,
+  MessageTimestamp,
   MessageText,
   ButtonIconStyle,
   RoomIconSVG,
+  PrevMessageWrapper,
+  PrevMessageContainer,
+  PrevContainer,
+  PrevAuthor,
+  PrevText,
+  PrevTimestamp,
+  CloseButton,
 };

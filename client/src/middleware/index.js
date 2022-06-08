@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-let DEBUG = true;
+// let DEBUG = true;
 
 const socketMiddleware = (config) => {
   const socket = io(config.url);
@@ -11,7 +11,7 @@ const socketMiddleware = (config) => {
     if (!arelistenersMapped) {
       config.listeners.map((listener) => {
         // listen to the action from the server
-        socket.on(listener.message, (...message) => {
+        return socket.on(listener.message, (...message) => {
           // dispatch action
           return store.dispatch(listener.action(...message));
         });

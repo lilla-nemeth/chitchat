@@ -25,14 +25,13 @@ const configureStore = () => {
           listeners: [
             { message: 'sendUsersList', action: sendUsers },
             { message: 'serverMessage', action: addMessage },
-            { message: 'receiveReplyMessage', action: receiveReplyMessage },
             { message: 'receiveMessage', action: receiveMessage },
+            { message: 'receiveReplyMessage', action: receiveReplyMessage },
           ],
           subscribers: [
             types.ADD_USER,
-            types.ADD_REPLY_MESSAGE,
             types.ADD_MESSAGE,
-            types.GET_USER,
+            types.ADD_REPLY_MESSAGE,
           ],
         })
       )

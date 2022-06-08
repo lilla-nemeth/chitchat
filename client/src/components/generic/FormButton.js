@@ -1,6 +1,6 @@
 import { ButtonStyle } from '../../style';
 
-function ButtonComponent(props) {
+function FormButton(props) {
   const { primary, name, onClick } = props;
 
   return (
@@ -18,4 +18,4 @@ function ButtonComponent(props) {
   );
 }
 
-export default ButtonComponent;
+export default FormButton;

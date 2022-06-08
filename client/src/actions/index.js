@@ -11,6 +11,14 @@ export const addUser = (id, roomId, username, timestamp) => ({
   },
 });
 
+// send user list
+export const sendUsers = (users) => ({
+  type: types.SEND_USERS,
+  payload: {
+    users,
+  },
+});
+
 // add message
 export const addMessage = (id, userId, message, author, timestamp) => ({
   type: types.ADD_MESSAGE,
@@ -90,21 +98,3 @@ export const receiveReplyMessage = (
     timestamp,
   },
 });
-
-// send user list
-export const sendUsers = (users) => ({
-  type: types.SEND_USERS,
-  payload: {
-    users,
-  },
-});
-
-// send user who leaves the room
-export const getUser = (users) => ({
-  type: types.GET_USER,
-  payload: {
-    users,
-  },
-});
-
-// TODO: check that are duplicates are necessary? sendMessage - receiveMessage or sendUser - getUser... test it

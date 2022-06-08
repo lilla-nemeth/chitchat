@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 // generic components
-import ButtonComponent from './generic/ButtonComponent';
+import FormButton from './generic/FormButton';
 import RoomButton from './generic/RoomButton';
 import TextInput from './generic/TextInput';
 // styled components
@@ -39,6 +39,7 @@ const Home = () => {
             placeholder={'Username'}
             onChange={(e) => setUsername(e.target.value)}
             required={true}
+            autoFocus={true}
           />
           <Label homeLabel={true}>Rooms</Label>
           <RoomContainer>
@@ -61,9 +62,9 @@ const Home = () => {
             ))}
           </RoomContainer>
           {disabled ? (
-            <ButtonComponent primary={true} name={'Join'} />
+            <FormButton primary={true} name={'Join'} />
           ) : (
-            <ButtonComponent primary={false} name={'Join'} />
+            <FormButton primary={false} name={'Join'} />
           )}
         </Form>
       </Wrapper>

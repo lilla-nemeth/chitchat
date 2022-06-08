@@ -1,6 +1,6 @@
 import { ActiveRoomWrapper, ActiveRoomIcon, ActiveRoomText } from '../../style';
 
-function ActiveRoomComponent(props) {
+function ChatRoom(props) {
   const { roomName, roomIcon } = props;
   return (
     <>
@@ -12,4 +12,4 @@ function ActiveRoomComponent(props) {
   );
 }
 
-export default ActiveRoomComponent;
+export default ChatRoom;
