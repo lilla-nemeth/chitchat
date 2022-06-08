@@ -3,16 +3,16 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // generic components
 import User from './generic/User';
-import SmallButton from './generic/SmallButton';
+import SmallFormButton from './generic/SmallFormButton';
 import TextInput from './generic/TextInput';
 import Message from './generic/Message';
-import ActiveRoomComponent from './generic/ActiveRoomComponent';
-import PreviousMessageContent from './generic/PreviousMessageContent';
+import ChatRoom from './generic/ChatRoom';
+import PrevMessage from './generic/PrevMessage';
 // styled components
 import {
   Main,
   Form,
-  ChatRoom,
+  ChatRoomContainer,
   UserWrapper,
   UsersContainer,
   ActiveRoomContainer,
@@ -26,7 +26,7 @@ import {
   Logo,
   StyledLink,
   ButtonContainer,
-  PreviousMessage,
+  PrevMessageWrapper,
 } from '../style';
 // icons
 import SendIcon from '../assets/icons/SendIcon';
@@ -52,6 +52,7 @@ const Chat = () => {
   // const timestamp = createTimestamp('%Y-%m-%d %r');
 
   const scrollRef = useRef(null);
+
   const { room_id, username } = useParams();
   const navigate = useNavigate();
 
@@ -59,7 +60,6 @@ const Chat = () => {
   const [socketId, setSocketId] = useState();
   const [activeReply, setActiveReply] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState([]);
-  // const [sentMessage, setSentMessage] = useState(selectedMessage);
 
   const users = useSelector((state) => state.userReducer);
   const messages = useSelector((state) => state.messageReducer);
@@ -89,26 +89,15 @@ const Chat = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (selectedMessage.length) {
+    if (selectedMessage.length && activeReply) {
       // dispatch addReplyMessage action
-
-      // selectedMessage.forEach((msg) => {
-      //    // msg.prevId,
-      //   // msg.prevUserId,
-      //   // msg.prevMessage,
-      //   // msg.prevAuthor,
-      //   // msg.prevTimestamp,
-      // });
-
-      // TODO: use the selectedMessage obj values, loop doesn't work with dispatch
-      // now the server recieves the hard coded strings (so the redux action works on both sides)
       dispatch(
         addReplyMessage(
-          'testId',
-          'testUserId',
-          'testMessage',
-          'testAuthor',
-          'testTimestamp',
+          selectedMessage[0].id,
+          selectedMessage[0].userId,
+          selectedMessage[0].message,
+          selectedMessage[0].author,
+          selectedMessage[0].timestamp,
           uuid,
           socketId,
           messageInput,
@@ -130,18 +119,15 @@ const Chat = () => {
     setMessageInput(e.target.value);
   };
 
-  // console.log(messages);
-  console.log(selectedMessage);
-
   return (
     <Main homeMain={false} mainHeight={messages.length > 2}>
-      <ChatRoom>
+      <ChatRoomContainer>
         <UserWrapper>
           <ActiveRoomContainer>
-            <ActiveRoomComponent
+            <ChatRoom
               roomIcon={activeRoom.icon}
               roomName={activeRoom.name}
-            ></ActiveRoomComponent>
+            ></ChatRoom>
           </ActiveRoomContainer>
           <UsersContainer scrollVisible={users.length > 5}>
             {users
@@ -166,7 +152,7 @@ const Chat = () => {
             </Header>
             <ButtonContainer>
               <StyledLink to={'/'} onClick={() => socket.end()}>
-                <SmallButton name={'Leave'} formButton={true} />
+                <SmallFormButton name={'Leave'} />
               </StyledLink>
             </ButtonContainer>
           </HeaderContainer>
@@ -182,18 +168,28 @@ const Chat = () => {
                   icon={<ReplyIcon />}
                   onClick={() => {
                     setActiveReply(!activeReply);
-                    setSelectedMessage(!selectedMessage.length ? [msg] : []);
+                    setSelectedMessage(!activeReply ? [msg] : []);
                   }}
+                  isResponseMessage={
+                    msg.prevId &&
+                    // msg.prevUserId
+                    msg.prevMessage &&
+                    msg.prevAuthor &&
+                    msg.prevTimestamp
+                  }
+                  prevMessage={msg.prevMessage}
+                  prevAuthor={msg.prevAuthor}
+                  prevTimestamp={msg.prevTimestamp}
                 ></Message>
               );
             })}
             <Ref ref={scrollRef}></Ref>
           </MessageContainer>
           <Form homeForm={false} onSubmit={handleSubmit}>
-            <PreviousMessage replyActive={activeReply}>
+            <PrevMessageWrapper replyActive={activeReply}>
               {selectedMessage.map((msg) => {
                 return (
-                  <PreviousMessageContent
+                  <PrevMessage
                     key={msg.id}
                     author={msg.author}
                     message={checkMessageLength(msg.message, '100')}
@@ -202,10 +198,10 @@ const Chat = () => {
                       setActiveReply(!activeReply);
                       setSelectedMessage([]);
                     }}
-                  ></PreviousMessageContent>
+                  ></PrevMessage>
                 );
               })}
-            </PreviousMessage>
+            </PrevMessageWrapper>
             <InputContainer>
               <TextInput
                 homeLabel={false}
@@ -215,19 +211,15 @@ const Chat = () => {
                 placeholder={'Type your message'}
                 onChange={handleChange}
                 required={true}
+                autoFocus={true}
               />
               <MessageButton>
-                <SmallButton
-                  formButton={true}
-                  to={false}
-                  isIcon={true}
-                  icon={<SendIcon />}
-                />
+                <SmallFormButton to={false} isIcon={true} icon={<SendIcon />} />
               </MessageButton>
             </InputContainer>
           </Form>
         </MessageWrapper>
-      </ChatRoom>
+      </ChatRoomContainer>
     </Main>
   );
 };

@@ -1,14 +1,13 @@
 import { ChatSmallButton, ButtonIconStyle } from '../../style';
 
-function SmallButton(props) {
-  const { formButton, primary, name, isIcon, icon, onClick } = props;
+function SmallFormButton(props) {
+  const { primary, name, isIcon, icon, onClick } = props;
 
   return (
     <>
       <ChatSmallButton
         onClick={onClick}
         primary={primary}
-        formButton={formButton}
         type='submit'
         value='submit'
         name='submit'
@@ -20,4 +19,4 @@ function SmallButton(props) {
   );
 }
 
-export default SmallButton;
+export default SmallFormButton;

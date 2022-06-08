@@ -149,6 +149,7 @@ const GlobalStyle = createGlobalStyle`
         --clr-darknavy: rgb(47, 60, 79);
         --clr-yellow: rgb(251, 176, 64);
         --clr-peach: rgba(242, 198, 177);
+        --clr-black: rgba(0, 0, 0);
 
     }
 
