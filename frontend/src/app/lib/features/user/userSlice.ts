@@ -13,7 +13,10 @@ const userSlice = createSlice({
 			state.users.push(action.payload);
 		},
 		sendUsers(state, action: PayloadAction<User[]>) {
-			state.users = action.payload;
+			return {
+				...state,
+				users: action.payload,
+			};
 		},
 	},
 });

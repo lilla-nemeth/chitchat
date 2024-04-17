@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 import User from '../../../../components/User';
 import SmallFormButton from '../../../../components/SmallFormButton';
@@ -45,7 +45,9 @@ const Chat = () => {
 
 	const router = useRouter();
 
-	const { roomId, username } = router.query;
+	const room_id = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('room_id') : '';
+	const username = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('username') : '';
+	// const { room_id, username } = router.query;
 
 	// if (!router) {
 	// 	return <div>Loading...</div>;
@@ -117,12 +119,12 @@ const Chat = () => {
 				<UserWrapper>
 					<ActiveRoomContainer>{/* <ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom> */}</ActiveRoomContainer>
 					<UsersContainer scrollVisible={users.length > 5}>
-						{users
+						{/* {users
 							.slice(0)
 							.reverse()
 							.map((user: any) => {
 								return <User key={user.id} currentUser={user.id === socketId} scrollVisible={users.length > 5} username={user.username} />;
-							})}
+							})} */}
 					</UsersContainer>
 				</UserWrapper>
 				<MessageWrapper>
@@ -137,7 +139,7 @@ const Chat = () => {
 						</ButtonContainer>
 					</HeaderContainer>
 					<MessageContainer>
-						{messages.map((msg: any) => {
+						{/* {messages.map((msg: any) => {
 							return (
 								<Message
 									key={msg.id}
@@ -163,7 +165,7 @@ const Chat = () => {
 								></Message>
 							);
 						})}
-						<Ref ref={scrollRef}></Ref>
+						<Ref ref={scrollRef}></Ref> */}
 					</MessageContainer>
 					<Form homeForm={false} onSubmit={handleSubmit}>
 						<PrevMessageWrapper replyActive={activeReply}>
