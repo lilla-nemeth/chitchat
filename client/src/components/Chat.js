@@ -192,7 +192,7 @@ const Chat = () => {
                   <PrevMessage
                     key={msg.id}
                     author={msg.author}
-                    message={checkMessageLength(msg.message, '100')}
+                    message={checkMessageLength(msg.message, 100)}
                     icon={<CloseIcon />}
                     onClick={() => {
                       setActiveReply(!activeReply);
