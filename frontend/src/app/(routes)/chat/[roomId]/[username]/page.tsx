@@ -1,17 +1,13 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
-// import { useParams, useNavigate } from 'react-router-dom';
 import { useRouter } from 'next/router';
-import { useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
-// generic components
 import User from '../../../../components/User';
 import SmallFormButton from '../../../../components/SmallFormButton';
 import TextInput from '../../../../components/TextInput';
 import Message from '../../../../components/Message';
 import ChatRoom from '../../../../components/ChatRoom';
 import PrevMessage from '../../../../components/PrevMessage';
-// styled components
 import {
 	Main,
 	Form,
@@ -31,22 +27,14 @@ import {
 	ButtonContainer,
 	PrevMessageWrapper,
 } from '../../../../styles';
-// icons
 import SendIcon from '../../../../assets/icons/SendIcon';
 import ReplyIcon from '../../../../assets/icons/ReplyIcon';
 import CloseIcon from '../../../../assets/icons/CloseIcon';
-// redux actions
-// import { addUser, addMessage, addReplyMessage } from '../../actions';
-// helper functions
 import { createTimestamp } from '../../../../utils/timestamp';
 import { scrollToBottom } from '../../../../utils/scroll';
 import { checkMessageLength } from '../../../../utils/message';
-// uuid
 import { v4 as uuidv4 } from 'uuid';
-// socket
 import io from 'socket.io-client';
-
-// let DEBUG = true;
 
 const Chat = () => {
 	const socket = io('http://localhost:8080/');
@@ -57,7 +45,6 @@ const Chat = () => {
 
 	const router = useRouter();
 
-	const searchParams = useSearchParams();
 	const { roomId, username } = router.query;
 
 	// if (!router) {
