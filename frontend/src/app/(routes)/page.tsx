@@ -10,7 +10,7 @@ import TextInput from '../components/TextInput';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../styles';
 
 const Home = () => {
-	const rooms = useAppSelector((state: any) => state.roomReducer.rooms);
+	const rooms = useAppSelector((state: any) => state.rooms.rooms);
 	//   const navigate = useNavigate();
 
 	const [username, setUsername] = useState('');

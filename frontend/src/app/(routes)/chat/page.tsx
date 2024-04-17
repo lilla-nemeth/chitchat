@@ -33,7 +33,7 @@ import SendIcon from '../../assets/icons/SendIcon';
 import ReplyIcon from '../../assets/icons/ReplyIcon';
 import CloseIcon from '../../assets/icons/CloseIcon';
 // redux actions
-import { addUser, addMessage, addReplyMessage } from '../../actions';
+// import { addUser, addMessage, addReplyMessage } from '../../actions';
 // helper functions
 import { createTimestamp } from '../../utils/timestamp';
 import { scrollToBottom } from '../../utils/scroll';
@@ -61,9 +61,9 @@ const Chat = () => {
 	const [activeReply, setActiveReply] = useState(false);
 	const [selectedMessage, setSelectedMessage] = useState<any>([]);
 
-	const users = useAppSelector((state: any) => state.userReducer);
-	const messages = useAppSelector((state: any) => state.messageReducer);
-	// const activeRoom = useAppSelector((state: any) => state.roomReducer.rooms.find((room: any) => room.id === room_id));
+	const users = useAppSelector((state: any) => state.users);
+	const messages = useAppSelector((state: any) => state.messages);
+	const activeRoom = useAppSelector((state: any) => state.rooms.rooms.find((room: any) => room.id === room_id));
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
