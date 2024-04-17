@@ -1,6 +1,6 @@
 import { PrevMessageContainer, PrevContainer, PrevAuthor, PrevText, CloseButton } from '../styles';
 
-function PrevMessage(props) {
+function PrevMessage(props: any) {
 	const { icon, author, message, onClick } = props;
 	return (
 		<PrevMessageContainer>

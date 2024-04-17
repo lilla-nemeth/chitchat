@@ -1,6 +1,6 @@
 import { ButtonStyle } from '../styles';
 
-function FormButton(props) {
+function FormButton(props: any) {
 	const { primary, name, onClick } = props;
 
 	return (

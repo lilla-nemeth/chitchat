@@ -1,6 +1,6 @@
 import { UserBox } from '../styles';
 
-function User(props) {
+function User(props: any) {
 	const { currentUser, username, scrollVisible } = props;
 
 	return (

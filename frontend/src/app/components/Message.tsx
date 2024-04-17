@@ -15,7 +15,7 @@ import {
 } from '../styles';
 import MessageTool from './MessageTool';
 
-function Message(props) {
+function Message(props: any) {
 	const { chatBot, timestamp, text, username, icon, onClick, isResponseMessage, prevMessage, prevAuthor, prevTimestamp } = props;
 
 	const [iconVisibility, setIconVisibility] = useState(false);

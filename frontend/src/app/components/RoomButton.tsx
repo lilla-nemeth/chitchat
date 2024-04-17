@@ -1,6 +1,6 @@
 import { RoomLabel, RadioButton, RoomIcon, RoomText, RoomButtonContainer, RoomButtonWrapper } from '../styles';
 
-function RoomButton(props) {
+function RoomButton(props: any) {
 	const { htmlFor, defaultChecked, type, roomName, roomIcon, id, name, value, checked, onChange, selected } = props;
 
 	return (

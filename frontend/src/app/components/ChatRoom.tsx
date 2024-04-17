@@ -1,6 +1,6 @@
 import { ActiveRoomWrapper, ActiveRoomIcon, ActiveRoomText } from '../styles';
 
-function ChatRoom(props) {
+function ChatRoom(props: any) {
 	const { roomName, roomIcon } = props;
 	return (
 		<>

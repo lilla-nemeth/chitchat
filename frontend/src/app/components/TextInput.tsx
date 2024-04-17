@@ -1,6 +1,6 @@
 import { Label, Input } from '../styles';
 
-function TextInput(props) {
+function TextInput(props: any) {
 	const { homeLabel, labelName, value, onChange, placeholder, required, primary, name, autoFocus } = props;
 
 	return (
