@@ -4,8 +4,8 @@ import userReducer from './features/user/userSlice';
 import messageReducer from './features/message/messageSlice';
 import socketMiddleware from './socketMiddleware';
 
-import { addMessage, addReplyMessage, receiveMessage, receiveReplyMessage } from './features/message/messageSlice';
-import { sendUsers, addUser } from './features/user/userSlice';
+import { addMessage, receiveMessage, receiveReplyMessage } from './features/message/messageSlice';
+import { sendUsers } from './features/user/userSlice';
 
 const socketConfig = {
 	url: 'http://localhost:8080/',
