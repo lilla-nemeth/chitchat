@@ -1,33 +1,23 @@
-import { Label, Input } from '../../style';
+import { Label, Input } from '../styles';
 
 function TextInput(props) {
-  const {
-    homeLabel,
-    labelName,
-    value,
-    onChange,
-    placeholder,
-    required,
-    primary,
-    name,
-    autoFocus,
-  } = props;
+	const { homeLabel, labelName, value, onChange, placeholder, required, primary, name, autoFocus } = props;
 
-  return (
-    <>
-      <Label homeLabel={homeLabel}>{labelName}</Label>
-      <Input
-        primary={primary}
-        type='text'
-        value={value}
-        name={name}
-        onChange={onChange}
-        placeholder={placeholder}
-        required={required}
-        autoFocus={autoFocus}
-      />
-    </>
-  );
+	return (
+		<>
+			<Label homeLabel={homeLabel}>{labelName}</Label>
+			<Input
+				primary={primary}
+				type='text'
+				value={value}
+				name={name}
+				onChange={onChange}
+				placeholder={placeholder}
+				required={required}
+				autoFocus={autoFocus}
+			/>
+		</>
+	);
 }
 
 export default TextInput;

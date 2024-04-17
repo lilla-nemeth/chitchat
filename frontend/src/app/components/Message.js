@@ -12,7 +12,7 @@ import {
 	PrevText,
 	PrevTimestamp,
 	PrevContainer,
-} from '../../style';
+} from '../styles';
 import MessageTool from './MessageTool';
 
 function Message(props) {

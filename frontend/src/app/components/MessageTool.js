@@ -1,10 +1,8 @@
-import { ToolStyle } from '../../style';
+import { ToolStyle } from '../styles';
 
 function MessageTool(props) {
-  const { iconVisibility, icon, onClick } = props;
-  return (
-    <>{iconVisibility && <ToolStyle onClick={onClick}>{icon}</ToolStyle>}</>
-  );
+	const { iconVisibility, icon, onClick } = props;
+	return <>{iconVisibility && <ToolStyle onClick={onClick}>{icon}</ToolStyle>}</>;
 }
 
 export default MessageTool;
