@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import StyledComponentsRegistry from '../lib/registry';
 
 export const metadata: Metadata = {
 	title: 'ChitChat App',
@@ -13,7 +14,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body>
-				<main>{children}</main>
+				<StyledComponentsRegistry>{children}</StyledComponentsRegistry>
 			</body>
 		</html>
 	);
