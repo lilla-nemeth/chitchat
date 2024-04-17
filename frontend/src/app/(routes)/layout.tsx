@@ -4,7 +4,7 @@ import GlobalStyle from '../styles/globalStyles';
 import { Provider } from 'react-redux';
 import { makeStore } from '../lib/store';
 import StyledComponentsRegistry from '../lib/registry';
-import '../styles/'
+import { nunito, abrilFatface } from '../styles/fonts';
 
 // export const metadata: Metadata = {
 // 	title: 'ChitChat App',
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<Provider store={store}>
-			<html lang='en'>
+			<html lang='en' className={`${nunito.className} ${abrilFatface.className}`}>
 				<body>
 					<StyledComponentsRegistry>
 						<GlobalStyle />
