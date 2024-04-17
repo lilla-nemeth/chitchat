@@ -2,14 +2,15 @@
 
 import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../lib/hooks';
+
 import FormButton from '../components/FormButton';
 import RoomButton from '../components/RoomButton';
 import TextInput from '../components/TextInput';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../styles';
 
 const Home = () => {
-	const rooms = useSelector((state: any) => state.roomReducer.rooms);
+	const rooms = useAppSelector((state: any) => state.roomReducer.rooms);
 	//   const navigate = useNavigate();
 
 	const [username, setUsername] = useState('');

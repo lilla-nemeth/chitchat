@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 // import { useParams, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 // generic components
 import User from '../../components/User';
 import SmallFormButton from '../../components/SmallFormButton';
@@ -61,10 +61,10 @@ const Chat = () => {
 	const [activeReply, setActiveReply] = useState(false);
 	const [selectedMessage, setSelectedMessage] = useState<any>([]);
 
-	const users = useSelector((state: any) => state.userReducer);
-	const messages = useSelector((state: any) => state.messageReducer);
-	// const activeRoom = useSelector((state: any) => state.roomReducer.rooms.find((room: any) => room.id === room_id));
-	const dispatch = useDispatch();
+	const users = useAppSelector((state: any) => state.userReducer);
+	const messages = useAppSelector((state: any) => state.messageReducer);
+	// const activeRoom = useAppSelector((state: any) => state.roomReducer.rooms.find((room: any) => room.id === room_id));
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		socket.on('connect', () => {
