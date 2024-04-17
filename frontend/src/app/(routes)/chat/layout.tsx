@@ -1,7 +1,7 @@
 export default function ChatLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<section>
-			{/* Place for share UI */}
+			{/* Place for shared UI */}
 			<nav></nav>
 			{children}
 		</section>
