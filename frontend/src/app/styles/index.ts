@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 // TODO: check if next/link works instead of react-router-dom
-// import { Link } from 'react-router-dom';
 import Link from 'next/link';
 import { minSize, maxSize } from './deviceSizes';
 import {

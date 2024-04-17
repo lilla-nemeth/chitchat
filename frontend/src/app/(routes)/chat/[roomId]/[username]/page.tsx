@@ -1,13 +1,16 @@
+'use client';
 import React, { useState, useRef, useEffect } from 'react';
 // import { useParams, useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 // generic components
-import User from '../../components/User';
-import SmallFormButton from '../../components/SmallFormButton';
-import TextInput from '../../components/TextInput';
-import Message from '../../components/Message';
-import ChatRoom from '../../components/ChatRoom';
-import PrevMessage from '../../components/PrevMessage';
+import User from '../../../../components/User';
+import SmallFormButton from '../../../../components/SmallFormButton';
+import TextInput from '../../../../components/TextInput';
+import Message from '../../../../components/Message';
+import ChatRoom from '../../../../components/ChatRoom';
+import PrevMessage from '../../../../components/PrevMessage';
 // styled components
 import {
 	Main,
@@ -27,17 +30,17 @@ import {
 	StyledLink,
 	ButtonContainer,
 	PrevMessageWrapper,
-} from '../../styles';
+} from '../../../../styles';
 // icons
-import SendIcon from '../../assets/icons/SendIcon';
-import ReplyIcon from '../../assets/icons/ReplyIcon';
-import CloseIcon from '../../assets/icons/CloseIcon';
+import SendIcon from '../../../../assets/icons/SendIcon';
+import ReplyIcon from '../../../../assets/icons/ReplyIcon';
+import CloseIcon from '../../../../assets/icons/CloseIcon';
 // redux actions
 // import { addUser, addMessage, addReplyMessage } from '../../actions';
 // helper functions
-import { createTimestamp } from '../../utils/timestamp';
-import { scrollToBottom } from '../../utils/scroll';
-import { checkMessageLength } from '../../utils/message';
+import { createTimestamp } from '../../../../utils/timestamp';
+import { scrollToBottom } from '../../../../utils/scroll';
+import { checkMessageLength } from '../../../../utils/message';
 // uuid
 import { v4 as uuidv4 } from 'uuid';
 // socket
@@ -49,12 +52,17 @@ const Chat = () => {
 	const socket = io('http://localhost:8080/');
 	const uuid = uuidv4();
 	const timestamp = createTimestamp('{time}');
-	// const timestamp = createTimestamp('%Y-%m-%d %r');
 
 	const scrollRef = useRef(null);
 
-	// const { room_id, username } = useParams();
-	// const navigate = useNavigate();
+	const router = useRouter();
+
+	const searchParams = useSearchParams();
+	const { roomId, username } = router.query;
+
+	// if (!router) {
+	// 	return <div>Loading...</div>;
+	// }
 
 	const [messageInput, setMessageInput] = useState('');
 	const [socketId, setSocketId] = useState();

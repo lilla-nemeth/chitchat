@@ -1,8 +1,7 @@
 'use client';
-
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../lib/hooks';
+import { useRouter } from 'next/navigation';
 
 import FormButton from '../components/FormButton';
 import RoomButton from '../components/RoomButton';
@@ -10,9 +9,9 @@ import TextInput from '../components/TextInput';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../styles';
 
 const Home = () => {
-	const rooms = useAppSelector((state: any) => state.rooms.rooms);
-	//   const navigate = useNavigate();
+	const router = useRouter();
 
+	const rooms = useAppSelector((state: any) => state.rooms.rooms);
 	const [username, setUsername] = useState('');
 	const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
 
@@ -21,7 +20,7 @@ const Home = () => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 
-		// navigate(`chat/${selectedRoom}/${username}`);
+		router.push(`chat/${selectedRoom}/${username}`);
 	};
 
 	return (
