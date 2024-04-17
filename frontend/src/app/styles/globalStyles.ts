@@ -2,7 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
     /* CSS Reset */
-
     html,
     body,
     div,
@@ -91,7 +90,6 @@ const GlobalStyle = createGlobalStyle`
       font: inherit;
       vertical-align: baseline;
     }
-
     article,
     aside,
     details,
@@ -129,14 +127,8 @@ const GlobalStyle = createGlobalStyle`
       border-spacing: 0;
     }
 
-    html {
-      // overflow: auto;
-    }
-
     /* CSS Variables */
-
     :root {
-
         /* Colors */
         --clr-white: rgb(255, 255, 255);
         --clr-lightgrey: rgb(235, 235, 235);
@@ -150,27 +142,22 @@ const GlobalStyle = createGlobalStyle`
         --clr-yellow: rgb(251, 176, 64);
         --clr-peach: rgba(242, 198, 177);
         --clr-black: rgba(0, 0, 0);
-
     }
 
     /* Scrollbar Styling */
-
     ::-webkit-scrollbar {
         width: 0.7em;
     }
-      
     ::-webkit-scrollbar-track {
         -webkit-border-radius: 1em;
         border-radius: 1em;
         background-color: var(--clr-lightgrey);
     }
-    
     ::-webkit-scrollbar-thumb {
         -webkit-border-radius: 1em;
         border-radius: 1em;
         background: var(--clr-navy);
     }
-
 `;
 
 export default GlobalStyle;

@@ -3,8 +3,23 @@ import styled from 'styled-components';
 // import { Link } from 'react-router-dom';
 import Link from 'next/link';
 import { minSize, maxSize } from './deviceSizes';
+import {
+	MainProps,
+	FormProps,
+	LabelProps,
+	PrevMessageWrapperProps,
+	InputProps,
+	LogoProps,
+	ButtonProps,
+	RoomButtonContainerProps,
+	StyledLinkProps,
+	UsersContainerProps,
+	UserBoxProps,
+	BubbleProps,
+	MessageTextProps,
+} from '../types/styleTypes';
 
-const Main = styled.main`
+const Main = styled.main<MainProps>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -46,7 +61,7 @@ const Wrapper = styled.section`
 	}
 `;
 
-const Form = styled.form`
+const Form = styled.form<FormProps>`
 	padding: ${(props) => (props.homeForm ? '2em 2.5em' : 'none')};
 	display: flex;
 	flex-direction: column;
@@ -55,7 +70,7 @@ const Form = styled.form`
 	}
 `;
 
-const Label = styled.label`
+const Label = styled.label<LabelProps>`
 	padding: 1.5em 0 0.5em;
 	color: var(--clr-white);
 	@media ${maxSize.laptopL} {
@@ -74,7 +89,7 @@ const InputContainer = styled.div`
 	justify-content: center;
 `;
 
-const PrevMessageWrapper = styled.div`
+const PrevMessageWrapper = styled.div<PrevMessageWrapperProps>`
 	z-index: 1;
 	height: auto;
 	width: auto;
@@ -120,7 +135,7 @@ const MessageButton = styled.div`
 	border: 0.15em solid var(-clr-yellow);
 `;
 
-const Input = styled.input`
+const Input = styled.input<InputProps>`
 	outline: none;
 	padding: 1.3em 1.5em;
 	font-size: 1em;
@@ -147,7 +162,7 @@ const Input = styled.input`
 	}
 `;
 
-const Logo = styled.h2`
+const Logo = styled.h2<LogoProps>`
 	color: ${(props) => (props.primary ? 'var(--clr-white)' : 'var(--clr-navy)')};
 	font-family: 'DM Serif Display', serif;
 	text-align: ${(props) => (props.primary ? 'center' : 'start')};
@@ -166,7 +181,7 @@ const ButtonContainer = styled.div`
 	}
 `;
 
-const ButtonStyle = styled.button`
+const ButtonStyle = styled.button<ButtonProps>`
 	background: ${(props) => (props.primary ? 'transparent' : 'var(--clr-yellow)')};
 	color: ${(props) => (props.primary ? 'var(--clr-yellow)' : 'var(--clr-navy)')};
 	border: ${(props) => (props.primary ? '0.15em solid var(--clr-yellow)' : 'var(--clr-navy)')};
@@ -265,7 +280,7 @@ const RoomLabel = styled.label`
 	cursor: pointer;
 `;
 
-const RoomButtonContainer = styled.div`
+const RoomButtonContainer = styled.div<RoomButtonContainerProps>`
 	flex: 1;
 	fill: var(--clr-white);
 	color: var(--clr-white);
@@ -308,7 +323,7 @@ const RadioButton = styled.input.attrs({
 `;
 
 // Chat room part:
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<StyledLinkProps>`
 	color: ${(props) => (props.primary ? 'var(--clr-navy)' : 'var(--clr-yellow)')};
 	text-decoration: none;
 `;
@@ -366,12 +381,12 @@ const ActiveRoomText = styled.div`
 	padding-left: 1em;
 `;
 
-const UsersContainer = styled.div`
+const UsersContainer = styled.div<UsersContainerProps>`
 	flex: 5.5;
 	overflow-y: ${(props) => (props.scrollVisible ? 'scroll' : 'hidden')};
 `;
 
-const UserBox = styled.div`
+const UserBox = styled.div<UserBoxProps>`
 	border-radius: 0.2em;
 	display: flex;
 	justify-content: center;
@@ -379,13 +394,10 @@ const UserBox = styled.div`
 	text-align: center;
 	font-weight: 600;
 	margin-bottom: 1.3em;
-	// padding: 2.25em 2.5em;
 	padding: 1.5em;
 	color: var(--clr-white);
 	background: ${(props) => (props.currentUser ? 'var(--clr-lightnavy)' : 'var(--clr-navy)')};
 	margin-right: ${(props) => (props.scrollVisible ? '2em' : '0')};
-	// margin-top: 1.5em;
-	// margin-top: 2.7em;
 	line-height: 1.5;
 `;
 
@@ -421,15 +433,13 @@ const MessageContainer = styled.div`
 	display: flex;
 	flex: 4;
 	flex-direction: column;
-	// margin-bottom: 1em;
 	overflow-y: scroll;
 `;
 
 const Ref = styled.div``;
 
-const Bubble = styled.div`
+const Bubble = styled.div<BubbleProps>`
 	display: flex;
-	// padding: 2em 2.5em;
 	padding: 1.5em;
 	margin-bottom: 2em;
 	overflow-wrap: break-word;
@@ -480,14 +490,13 @@ const MessageTimestamp = styled.div`
 	color: grey;
 `;
 
-const MessageText = styled.div`
+const MessageText = styled.div<MessageTextProps>`
 	display: flex;
 	font-weight: 600;
 	line-height: 1.5;
 	padding-top: ${(props) => (props.isPrevText ? '1em' : 'unset')};
 `;
 
-// TODO: Alphabetical order would be nice and/or break this file to smaller ones
 export {
 	ActiveRoomContainer,
 	ActiveRoomWrapper,
