@@ -12,4 +12,27 @@ interface RoomState {
 	rooms: Room[];
 }
 
-export { AppStore, RootState, AppDispatch, Room, RoomState };
+interface User {
+	id: string;
+	roomId: string;
+	username: string;
+	timestamp: number;
+}
+
+interface UserState {
+	users: User[];
+}
+
+interface Message {
+	id: string;
+	userId: string;
+	message: string;
+	author: string;
+	timestamp: number;
+}
+
+interface MessageState {
+	messages: Message[];
+}
+
+export { AppStore, RootState, AppDispatch, Room, RoomState, User, UserState, Message, MessageState };

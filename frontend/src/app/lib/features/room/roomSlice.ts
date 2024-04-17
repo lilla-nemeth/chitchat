@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { RootState, Room, RoomState } from '@/app/types/reduxTypes';
+import type { Room, RoomState } from '@/app/types/reduxTypes';
 
 import ChillIcon from '../../../assets/icons/ChillIcon';
 import DebateIcon from '../../../assets/icons/DebateIcon';
