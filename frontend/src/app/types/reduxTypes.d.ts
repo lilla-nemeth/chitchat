@@ -2,6 +2,11 @@ type AppStore = ReturnType<typeof makeStore>;
 type RootState = ReturnType<AppStore['getState']>;
 type AppDispatch = AppStore['dispatch'];
 
+interface Action {
+	type: string;
+	payload?: any;
+}
+
 interface Room {
 	id: string;
 	name: string;
@@ -35,4 +40,4 @@ interface MessageState {
 	messages: Message[];
 }
 
-export { AppStore, RootState, AppDispatch, Room, RoomState, User, UserState, Message, MessageState };
+export { AppStore, RootState, AppDispatch, Action, Room, RoomState, User, UserState, Message, MessageState };
