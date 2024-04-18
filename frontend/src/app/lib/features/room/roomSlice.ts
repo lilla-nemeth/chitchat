@@ -4,7 +4,7 @@ import type { Room, RoomState } from '@/app/types/reduxTypes';
 import ChillIcon from '../../../assets/icons/ChillIcon';
 import DebateIcon from '../../../assets/icons/DebateIcon';
 import TechIcon from '../../../assets/icons/TechIcon';
-import GameIcon from '../../../assets/icons/GameIcon';
+import GamesIcon from '../../../assets/icons/GamesIcon';
 import SportsIcon from '../../../assets/icons/SportsIcon';
 
 const initialRooms: Room[] = [
@@ -26,7 +26,7 @@ const initialRooms: Room[] = [
 	{
 		id: '4',
 		name: 'games',
-		icon: GameIcon,
+		icon: GamesIcon,
 	},
 	{
 		id: '5',
