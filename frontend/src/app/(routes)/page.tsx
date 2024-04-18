@@ -1,8 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+
+import React, { FormEvent, useState } from 'react';
+import { HandleNameChangeInterface } from '../../app/types/reactTypes';
 import { useAppSelector } from '../lib/hooks';
 import { useRouter } from 'next/navigation';
-
 import FormButton from '../components/FormButton';
 import RoomButton from '../components/RoomButton';
 import TextInput from '../components/TextInput';
@@ -10,17 +11,23 @@ import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../styles';
 
 const Home = () => {
 	const router = useRouter();
-
-	const rooms = useAppSelector((state: any) => state.rooms.rooms);
-	const [username, setUsername] = useState('');
-	const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
+	const rooms = useAppSelector((state) => state.rooms.rooms);
+	const [username, setUsername] = useState<string>('');
+	const [selectedRoom, setSelectedRoom] = useState<string>(rooms[0].id);
 
 	const disabled = !username;
 
-	const handleSubmit = (e: any) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
 		router.push(`chat/${selectedRoom}/${username}`);
+	};
+
+	const handleUsernameChange = (e: HandleNameChangeInterface) => {
+		setUsername(e.target.value);
+	};
+
+	const handleRoomChange = (e: HandleNameChangeInterface) => {
+		setSelectedRoom(e.target.value);
 	};
 
 	return (
@@ -35,7 +42,7 @@ const Home = () => {
 						labelName={'Username'}
 						value={username}
 						placeholder={'Username'}
-						onChange={(e: any) => setUsername(e.target.value)}
+						onChange={handleUsernameChange}
 						required={true}
 						autoFocus={true}
 					/>
@@ -53,9 +60,7 @@ const Home = () => {
 								value={room.id}
 								selected={room.id === selectedRoom}
 								defaultChecked={room.id === selectedRoom}
-								onChange={(e: any) => {
-									setSelectedRoom(e.target.value);
-								}}
+								onChange={handleRoomChange}
 							></RoomButton>
 						))}
 					</RoomContainer>

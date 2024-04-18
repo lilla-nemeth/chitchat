@@ -1,5 +1,6 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, FormEvent } from 'react';
+import { HandleNameChangeInterface } from '../../../../types/reactTypes';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 import User from '../../../../components/User';
@@ -81,7 +82,7 @@ const Chat = () => {
 		scrollToBottom(scrollRef);
 	}, [messages]);
 
-	const handleSubmit = (e: any) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (selectedMessage.length && activeReply) {
@@ -105,11 +106,10 @@ const Chat = () => {
 		}
 
 		setMessageInput('');
-
 		setActiveReply(false);
 	};
 
-	const handleChange = (e: any) => {
+	const handleChange = (e: HandleNameChangeInterface) => {
 		setMessageInput(e.target.value);
 	};
 
