@@ -1,11 +1,11 @@
 import { UserBox } from '../styles';
 
 function User(props: any) {
-	const { currentUser, username, scrollVisible } = props;
+	const { currentuser, username, scrollvisible } = props;
 
 	return (
 		<>
-			<UserBox currentUser={currentUser} scrollVisible={scrollVisible}>
+			<UserBox currentuser={currentuser} scrollvisible={scrollvisible}>
 				{username}
 			</UserBox>
 		</>

@@ -16,7 +16,7 @@ import {
 import MessageTool from './MessageTool';
 
 function Message(props: any) {
-	const { chatBot, timestamp, text, username, icon, onClick, isResponseMessage, prevMessage, prevAuthor, prevTimestamp } = props;
+	const { chatbot, timestamp, text, username, icon, onClick, isResponseMessage, prevMessage, prevAuthor, prevTimestamp } = props;
 
 	const [iconVisibility, setIconVisibility] = useState(false);
 
@@ -28,7 +28,7 @@ function Message(props: any) {
 					<MessageUsername>{username}</MessageUsername>
 					<MessageTimestamp>{timestamp}</MessageTimestamp>
 				</MessageMeta>
-				<Bubble chatBot={chatBot}>
+				<Bubble chatbot={chatbot}>
 					<PrevMessageContainer>
 						<PrevContainer>
 							<PrevAuthor>{prevAuthor}</PrevAuthor>
@@ -36,7 +36,7 @@ function Message(props: any) {
 						</PrevContainer>
 						<PrevTimestamp>{prevTimestamp}</PrevTimestamp>
 					</PrevMessageContainer>
-					<MessageText isPrevText={true}>{text}</MessageText>
+					<MessageText isprevtext={true}>{text}</MessageText>
 				</Bubble>
 			</MessageSubContainer>
 		</MessageSubWrapper>
@@ -48,8 +48,8 @@ function Message(props: any) {
 					<MessageUsername>{username}</MessageUsername>
 					<MessageTimestamp>{timestamp}</MessageTimestamp>
 				</MessageMeta>
-				<Bubble chatBot={chatBot}>
-					<MessageText isPrevText={false}>{text}</MessageText>
+				<Bubble chatbot={chatbot}>
+					<MessageText isprevtext={false}>{text}</MessageText>
 				</Bubble>
 			</MessageSubContainer>
 		</MessageSubWrapper>

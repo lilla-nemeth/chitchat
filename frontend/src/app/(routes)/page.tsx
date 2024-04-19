@@ -19,7 +19,6 @@ const Home = () => {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(rooms);
 		router.push(`chat/${selectedRoom}/${username}`);
 	};
 
@@ -32,13 +31,13 @@ const Home = () => {
 	};
 
 	return (
-		<Main homeMain={true} mainHeight={true}>
+		<Main homemain={true} mainheight={true}>
 			<Wrapper>
 				<Logo primary>ChitChat</Logo>
-				<Form homeForm={true} onSubmit={handleSubmit}>
+				<Form homeform={true} onSubmit={handleSubmit}>
 					<TextInput
-						homeLabel={true}
-						primary={true}
+						homelabel={true}
+						primary={'true'}
 						name={'Username'}
 						labelName={'Username'}
 						value={username}
@@ -47,7 +46,7 @@ const Home = () => {
 						required={true}
 						autoFocus={true}
 					/>
-					<Label homeLabel={true}>Rooms</Label>
+					<Label homelabel={true}>Rooms</Label>
 					<RoomContainer>
 						{rooms.map((room: any) => (
 							<RoomButton

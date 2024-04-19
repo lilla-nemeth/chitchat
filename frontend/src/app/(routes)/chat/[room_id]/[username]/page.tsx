@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect, FormEvent } from 'react';
 import { HandleNameChangeInterface } from '../../../../types/reactTypes';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
+import { addUser } from '@/app/lib/features/user/userSlice';
 import User from '../../../../components/User';
 import SmallFormButton from '../../../../components/SmallFormButton';
 import TextInput from '../../../../components/TextInput';
@@ -68,7 +69,8 @@ const Chat = () => {
 		socket.on('connect', () => {
 			const id = socket.id;
 			// dispatch addUser action
-			// dispatch(addUser(id, room_id, username, timestamp));
+			dispatch(addUser({ id, room_id, username, timestamp }));
+			console.log(users);
 
 			// setSocketId(id);
 		});
@@ -114,16 +116,23 @@ const Chat = () => {
 	};
 
 	return (
-		<Main homeMain={false} mainHeight={messages.length > 2}>
+		<Main homemain={false} mainheight={messages.length > 2}>
 			<ChatRoomContainer>
 				<UserWrapper>
 					<ActiveRoomContainer>{/* <ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom> */}</ActiveRoomContainer>
-					<UsersContainer scrollVisible={users.length > 5}>
+					<UsersContainer scrollvisible={users.length > 5 ? 'scroll' : 'hidden'}>
 						{/* {users
 							.slice(0)
 							.reverse()
 							.map((user: any) => {
-								return <User key={user.id} currentUser={user.id === socketId} scrollVisible={users.length > 5} username={user.username} />;
+								return (
+									<User
+										key={user.id}
+										currentuser={user.id === socketId}
+										scrollvisible={users.length > 5 ? 'true' : 'false'}
+										username={user.username}
+									/>
+								);
 							})} */}
 					</UsersContainer>
 				</UserWrapper>
@@ -143,7 +152,7 @@ const Chat = () => {
 							return (
 								<Message
 									key={msg.id}
-									chatBot={msg.author === '@ChatBot'}
+									chatbot={msg.author === '@chatbot'}
 									username={msg.author}
 									timestamp={msg.timestamp}
 									text={msg.message}
@@ -164,11 +173,11 @@ const Chat = () => {
 									prevTimestamp={msg.prevTimestamp}
 								></Message>
 							);
-						})}
-						<Ref ref={scrollRef}></Ref> */}
+						})} */}
+						<Ref ref={scrollRef}></Ref>
 					</MessageContainer>
-					<Form homeForm={false} onSubmit={handleSubmit}>
-						<PrevMessageWrapper replyActive={activeReply}>
+					<Form homeform={false} onSubmit={handleSubmit}>
+						<PrevMessageWrapper replyactive={activeReply}>
 							{selectedMessage.map((msg: any) => {
 								return (
 									<PrevMessage
@@ -186,7 +195,7 @@ const Chat = () => {
 						</PrevMessageWrapper>
 						<InputContainer>
 							<TextInput
-								homeLabel={false}
+								homelabel={false}
 								primary={false}
 								name={'Message'}
 								value={messageInput}

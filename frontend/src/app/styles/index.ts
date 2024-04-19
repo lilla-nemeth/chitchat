@@ -28,11 +28,11 @@ const Main = styled.main<MainProps>`
 	background: var(--clr-peach);
 
 	@media ${minSize.tablet} {
-		height: ${(props) => (props.homeMain ? '100vh' : 'auto')};
-		height: ${(props) => (props.mainHeight ? '100vh' : '100vh')};
+		height: ${(props) => (props.homemain ? '100vh' : 'auto')};
+		height: ${(props) => (props.mainheight ? '100vh' : '100vh')};
 	}
 	@media ${maxSize.tablet} {
-		height: ${(props) => (props.mainHeight ? 'auto' : '100vh')};
+		height: ${(props) => (props.mainheight ? 'auto' : '100vh')};
 	}
 	@media ${minSize.laptop} {
 		height: 100vh;
@@ -41,10 +41,10 @@ const Main = styled.main<MainProps>`
 		padding: 0;
 	}
 	@media ${maxSize.mobileL} {
-		height: ${(props) => (props.mainHeight ? 'auto' : '100vh')};
+		height: ${(props) => (props.mainheight ? 'auto' : '100vh')};
 	}
 	@media ${maxSize.mobileM} {
-		height: ${(props) => (props.mainHeight ? 'auto' : 'auto')};
+		height: ${(props) => (props.mainheight ? 'auto' : 'auto')};
 	}
 `;
 
@@ -61,11 +61,11 @@ const Wrapper = styled.section`
 `;
 
 const Form = styled.form<FormProps>`
-	padding: ${(props) => (props.homeForm ? '2em 2.5em' : 'none')};
+	padding: ${(props) => (props.homeform ? '2em 2.5em' : 'none')};
 	display: flex;
 	flex-direction: column;
 	@media ${maxSize.laptopL} {
-		width: ${(props) => (props.homeForm ? '60vw' : 'none')};
+		width: ${(props) => (props.homeform ? '60vw' : 'none')};
 	}
 `;
 
@@ -73,7 +73,7 @@ const Label = styled.label<LabelProps>`
 	padding: 1.5em 0 0.5em;
 	color: var(--clr-white);
 	@media ${maxSize.laptopL} {
-		margin: ${(props) => (props.homeLabel ? '0 1em 0 1em' : '0')};
+		margin: ${(props) => (props.homelabel ? '0 1em 0 1em' : '0')};
 	}
 	@media ${maxSize.mobileL} {
 		margin: 0;
@@ -94,8 +94,8 @@ const PrevMessageWrapper = styled.div<PrevMessageWrapperProps>`
 	width: auto;
 	margin-bottom: -1em;
 	border-radius: 0.2em 0.2em 0 0;
-	background: ${(props) => (!props.replyActive ? 'var(--clr-white)' : 'var(--clr-lightblue)')};
-	display: ${(props) => (!props.replyActive ? 'none' : 'block')};
+	background: ${(props) => (!props.replyactive ? 'var(--clr-white)' : 'var(--clr-lightblue)')};
+	display: ${(props) => (!props.replyactive ? 'none' : 'block')};
 `;
 
 const PrevMessageContainer = styled.div`
@@ -382,7 +382,7 @@ const ActiveRoomText = styled.div`
 
 const UsersContainer = styled.div<UsersContainerProps>`
 	flex: 5.5;
-	overflow-y: ${(props) => (props.scrollVisible ? 'scroll' : 'hidden')};
+	overflow-y: ${(props) => (props.scrollvisible ? 'scroll' : 'hidden')};
 `;
 
 const UserBox = styled.div<UserBoxProps>`
@@ -395,8 +395,8 @@ const UserBox = styled.div<UserBoxProps>`
 	margin-bottom: 1.3em;
 	padding: 1.5em;
 	color: var(--clr-white);
-	background: ${(props) => (props.currentUser ? 'var(--clr-lightnavy)' : 'var(--clr-navy)')};
-	margin-right: ${(props) => (props.scrollVisible ? '2em' : '0')};
+	background: ${(props) => (props.currentuser ? 'var(--clr-lightnavy)' : 'var(--clr-navy)')};
+	margin-right: ${(props) => (props.scrollvisible ? '2em' : '0')};
 	line-height: 1.5;
 `;
 
@@ -444,8 +444,8 @@ const Bubble = styled.div<BubbleProps>`
 	overflow-wrap: break-word;
 	border-radius: 0.2em;
 	flex-direction: column;
-	background: ${(props) => (props.chatBot ? 'var(--clr-navy)' : 'var(--clr-lightgrey)')};
-	color: ${(props) => (props.chatBot ? 'var(--clr-white)' : 'var(--clr-black)')};
+	background: ${(props) => (props.chatbot ? 'var(--clr-navy)' : 'var(--clr-lightgrey)')};
+	color: ${(props) => (props.chatbot ? 'var(--clr-white)' : 'var(--clr-black)')};
 	align-self: flex-start;
 	width: fill-available;
 	margin-right: 2em;
@@ -493,7 +493,7 @@ const MessageText = styled.div<MessageTextProps>`
 	display: flex;
 	font-weight: 600;
 	line-height: 1.5;
-	padding-top: ${(props) => (props.isPrevText ? '1em' : 'unset')};
+	padding-top: ${(props) => (props.isprevtext ? '1em' : 'unset')};
 `;
 
 export {

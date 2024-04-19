@@ -18,10 +18,10 @@ interface RoomState {
 }
 
 interface User {
-	id: string;
-	roomId: string;
-	username: string;
-	timestamp: number;
+	id: string | null | undefined;
+	room_id: string | null | undefined;
+	username: string | null | undefined;
+	timestamp: string;
 }
 
 interface UserState {

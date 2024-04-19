@@ -1,20 +1,20 @@
 type Primary = boolean;
 
 interface MainProps {
-	homeMain?: boolean;
-	mainHeight?: boolean;
+	homemain?: boolean;
+	mainheight?: boolean;
 }
 
 interface FormProps {
-	homeForm?: boolean;
+	homeform?: boolean;
 }
 
 interface LabelProps {
-	homeLabel?: boolean;
+	homelabel?: boolean;
 }
 
 interface PrevMessageWrapperProps {
-	replyActive?: boolean;
+	replyactive?: string;
 }
 
 interface InputProps {
@@ -38,20 +38,20 @@ interface StyledLinkProps {
 }
 
 interface UsersContainerProps {
-	scrollVisible?: boolean;
+	scrollvisible?: string;
 }
 
 interface UserBoxProps {
-	currentUser?: boolean;
-	scrollVisible?: boolean;
+	currentuser?: boolean;
+	scrollvisible?: string;
 }
 
 interface BubbleProps {
-	chatBot?: boolean;
+	chatbot?: boolean;
 }
 
 interface MessageTextProps {
-	isPrevText?: boolean;
+	isprevtext?: boolean;
 }
 
 export {
