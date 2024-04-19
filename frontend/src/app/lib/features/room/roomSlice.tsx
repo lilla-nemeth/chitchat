@@ -11,27 +11,27 @@ const initialRooms: Room[] = [
 	{
 		id: '1',
 		name: 'chill',
-		icon: ChillIcon,
+		icon: <ChillIcon />,
 	},
 	{
 		id: '2',
 		name: 'debate',
-		icon: DebateIcon,
+		icon: <DebateIcon />,
 	},
 	{
 		id: '3',
 		name: 'tech',
-		icon: TechIcon,
+		icon: <TechIcon />,
 	},
 	{
 		id: '4',
 		name: 'games',
-		icon: GamesIcon,
+		icon: <GamesIcon />,
 	},
 	{
 		id: '5',
 		name: 'sports',
-		icon: SportsIcon,
+		icon: <SportsIcon />,
 	},
 ];
 
