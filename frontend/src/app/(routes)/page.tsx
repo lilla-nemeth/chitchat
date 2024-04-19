@@ -9,25 +9,11 @@ import RoomButton from '../components/RoomButton';
 import TextInput from '../components/TextInput';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../styles';
 
-import ChillIcon from '../../app/assets/icons/ChillIcon';
-import DebateIcon from '../../app/assets/icons/DebateIcon';
-import TechIcon from '../../app/assets/icons/TechIcon';
-import GamesIcon from '../assets/icons/GamesIcon';
-import SportsIcon from '../../app/assets/icons/SportsIcon';
-
 const Home = () => {
 	const router = useRouter();
 	const rooms = useAppSelector((state) => state.rooms.rooms);
 	const [username, setUsername] = useState<string>('');
 	const [selectedRoom, setSelectedRoom] = useState<string>(rooms[0].id);
-
-	const icons = [
-		{ name: 'chill', icon: <ChillIcon /> },
-		{ name: 'debate', icon: <DebateIcon /> },
-		{ name: 'tech', icon: <TechIcon /> },
-		{ name: 'games', icon: <GamesIcon /> },
-		{ name: 'sports', icon: <SportsIcon /> },
-	];
 
 	const disabled = !username;
 
@@ -63,9 +49,6 @@ const Home = () => {
 					/>
 					<Label homeLabel={true}>Rooms</Label>
 					<RoomContainer>
-						{/* {icons.map((icon: any) => (
-							<div>{icon.icon}</div>
-						))} */}
 						{rooms.map((room: any) => (
 							<RoomButton
 								key={room.id}
