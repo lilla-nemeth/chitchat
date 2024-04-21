@@ -118,13 +118,13 @@ const Chat = () => {
 	};
 
 	return (
-		<Main homemain={false} mainheight={messages.length > 2}>
+		<Main $homemain={false} $mainheight={messages.length > 2}>
 			<ChatRoomContainer>
 				<UserWrapper>
 					<ActiveRoomContainer>
 						<ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom>
 					</ActiveRoomContainer>
-					<UsersContainer scrollvisible={users.length > 5 ? 'true' : 'false'}>
+					<UsersContainer $scrollvisible={users.length > 5 ? 'true' : 'false'}>
 						{users
 							.slice(0)
 							.reverse()
@@ -132,8 +132,8 @@ const Chat = () => {
 								return (
 									<User
 										key={user.id}
-										currentuser={user.id === socketId}
-										scrollvisible={users.length > 5 ? 'true' : 'false'}
+										$currentuser={user.id === socketId}
+										$scrollvisible={users.length > 5 ? 'true' : 'false'}
 										username={user.username}
 									/>
 								);
@@ -156,7 +156,7 @@ const Chat = () => {
 							return (
 								<Message
 									key={msg.id}
-									chatbot={msg.author === '@chatbot'}
+									$chatbot={msg.author === '@$chatbot'}
 									username={msg.author}
 									timestamp={msg.timestamp}
 									text={msg.message}
@@ -180,8 +180,8 @@ const Chat = () => {
 						})}
 						<Ref ref={scrollRef}></Ref>
 					</MessageContainer>
-					<Form homeform={false} onSubmit={handleSubmit}>
-						<PrevMessageWrapper replyactive={activeReply}>
+					<Form $homeform={false} onSubmit={handleSubmit}>
+						<PrevMessageWrapper $replyactive={activeReply}>
 							{selectedMessage.map((msg) => {
 								return (
 									<PrevMessage
@@ -199,8 +199,8 @@ const Chat = () => {
 						</PrevMessageWrapper>
 						<InputContainer>
 							<TextInput
-								homelabel={false}
-								primary={'false'}
+								$homelabel={false}
+								$primary={'false'}
 								name={'Message'}
 								value={messageInput}
 								placeholder={'Type your message'}

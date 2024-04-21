@@ -12,11 +12,11 @@ const Main = styled.main`
 	background: var(--clr-peach);
 
 	@media ${minSize.tablet} {
-		height: ${(props) => (props.homemain ? '100vh' : 'auto')};
-		height: ${(props) => (props.mainheight ? '100vh' : '100vh')};
+		height: ${(props) => (props.$homemain ? '100vh' : 'auto')};
+		height: ${(props) => (props.$mainheight ? '100vh' : '100vh')};
 	}
 	@media ${maxSize.tablet} {
-		height: ${(props) => (props.mainheight ? 'auto' : '100vh')};
+		height: ${(props) => (props.$mainheight ? 'auto' : '100vh')};
 	}
 	@media ${minSize.laptop} {
 		height: 100vh;
@@ -25,10 +25,10 @@ const Main = styled.main`
 		padding: 0;
 	}
 	@media ${maxSize.mobileL} {
-		height: ${(props) => (props.mainheight ? 'auto' : '100vh')};
+		height: ${(props) => (props.$mainheight ? 'auto' : '100vh')};
 	}
 	@media ${maxSize.mobileM} {
-		height: ${(props) => (props.mainheight ? 'auto' : 'auto')};
+		height: ${(props) => (props.$mainheight ? 'auto' : 'auto')};
 	}
 `;
 
@@ -45,11 +45,11 @@ const Wrapper = styled.section`
 `;
 
 const Form = styled.form`
-	padding: ${(props) => (props.homeform ? '2em 2.5em' : 'none')};
+	padding: ${(props) => (props.$homeform ? '2em 2.5em' : 'none')};
 	display: flex;
 	flex-direction: column;
 	@media ${maxSize.laptopL} {
-		width: ${(props) => (props.homeform ? '60vw' : 'none')};
+		width: ${(props) => (props.$homeform ? '60vw' : 'none')};
 	}
 `;
 
@@ -57,7 +57,7 @@ const Label = styled.label`
 	padding: 1.5em 0 0.5em;
 	color: var(--clr-white);
 	@media ${maxSize.laptopL} {
-		margin: ${(props) => (props.homelabel ? '0 1em 0 1em' : '0')};
+		margin: ${(props) => (props.$homelabel ? '0 1em 0 1em' : '0')};
 	}
 	@media ${maxSize.mobileL} {
 		margin: 0;
@@ -78,8 +78,8 @@ const PrevMessageWrapper = styled.div`
 	width: auto;
 	margin-bottom: -1em;
 	border-radius: 0.2em 0.2em 0 0;
-	background: ${(props) => (!props.replyactive ? 'var(--clr-white)' : 'var(--clr-lightblue)')};
-	display: ${(props) => (!props.replyactive ? 'none' : 'block')};
+	background: ${(props) => (!props.$replyactive ? 'var(--clr-white)' : 'var(--clr-lightblue)')};
+	display: ${(props) => (!props.$replyactive ? 'none' : 'block')};
 `;
 
 const PrevMessageContainer = styled.div`
@@ -123,34 +123,34 @@ const Input = styled.input`
 	padding: 1.3em 1.5em;
 	font-size: 1em;
 	flex: 8;
-	border-radius: ${(props) => (props.primary ? '0.2em' : '0.2em 0 0 0.2em')};
+	border-radius: ${(props) => (props.$primary ? '0.2em' : '0.2em 0 0 0.2em')};
 	border: none;
-	background: ${(props) => (props.primary ? 'var(--clr-white)' : 'var(--clr-lightgrey)')};
+	background: ${(props) => (props.$primary ? 'var(--clr-white)' : 'var(--clr-lightgrey)')};
 	&:focus {
 		outline: none;
 	}
 	&:invalid {
 		box-shadow: none;
 	}
-	margin: ${(props) => (props.primary ? '1em 0 1em 0' : 'none')};
+	margin: ${(props) => (props.$primary ? '1em 0 1em 0' : 'none')};
 	@media ${maxSize.laptopL} {
-		margin: ${(props) => (props.primary ? '1em' : 'none')};
+		margin: ${(props) => (props.$primary ? '1em' : 'none')};
 	}
 	@media ${maxSize.mobileL} {
-		min-width: ${(props) => (props.primary ? '7em' : 'none')};
+		min-width: ${(props) => (props.$primary ? '7em' : 'none')};
 		margin: 0em;
 	}
 	@media ${maxSize.desktop} {
-		min-width: ${(props) => (props.primary ? 'none' : '2em')};
+		min-width: ${(props) => (props.$primary ? 'none' : '2em')};
 	}
 `;
 
 const Logo = styled.h2`
-	color: ${(props) => (props.primary ? 'var(--clr-white)' : 'var(--clr-navy)')};
+	color: ${(props) => (props.$primary ? 'var(--clr-white)' : 'var(--clr-navy)')};
 	font-family: 'DM Serif Display', serif;
-	text-align: ${(props) => (props.primary ? 'center' : 'start')};
-	font-size: ${(props) => (props.primary ? '2.9em' : '2.25em')};
-	padding: ${(props) => (props.primary ? '0.5em 0 0 0' : '0')};
+	text-align: ${(props) => (props.$primary ? 'center' : 'start')};
+	font-size: ${(props) => (props.$primary ? '2.9em' : '2.25em')};
+	padding: ${(props) => (props.$primary ? '0.5em 0 0 0' : '0')};
 	@media ${maxSize.mobileL} {
 		font-size: 2.6em;
 	}
@@ -165,10 +165,10 @@ const ButtonContainer = styled.div`
 `;
 
 const ButtonStyle = styled.button`
-	background: ${(props) => (props.primary ? 'transparent' : 'var(--clr-yellow)')};
-	color: ${(props) => (props.primary ? 'var(--clr-yellow)' : 'var(--clr-navy)')};
-	border: ${(props) => (props.primary ? '0.15em solid var(--clr-yellow)' : 'var(--clr-navy)')};
-	padding: ${(props) => (props.primary ? '1em 1.5em' : '1.15em 1.65em')};
+	background: ${(props) => (props.$primary ? 'transparent' : 'var(--clr-yellow)')};
+	color: ${(props) => (props.$primary ? 'var(--clr-yellow)' : 'var(--clr-navy)')};
+	border: ${(props) => (props.$primary ? '0.15em solid var(--clr-yellow)' : 'var(--clr-navy)')};
+	padding: ${(props) => (props.$primary ? '1em 1.5em' : '1.15em 1.65em')};
 	border-radius: 2px;
 	cursor: pointer;
 	display: flex;
@@ -278,9 +278,9 @@ const RoomButtonContainer = styled.div`
 	justify-content: center;
 	cursor: pointer;
 	transition: all 0.1s;
-	background: ${(props) => (props.selected ? 'var(--clr-yellow)' : 'var(--clr-lightnavy)')};
+	background: ${(props) => (props.$selected ? 'var(--clr-yellow)' : 'var(--clr-lightnavy)')};
 	&:hover {
-		background: ${(props) => !props.selected && 'var(--clr-brightblue)'};
+		background: ${(props) => !props.$selected && 'var(--clr-brightblue)'};
 	}
 	margin: 1em;
 	@media ${maxSize.laptopL} {
@@ -307,7 +307,7 @@ const RadioButton = styled.input.attrs({
 
 // Chat room part:
 const StyledLink = styled(Link)`
-	color: ${(props) => (props.primary ? 'var(--clr-navy)' : 'var(--clr-yellow)')};
+	color: ${(props) => (props.$primary ? 'var(--clr-navy)' : 'var(--clr-yellow)')};
 	text-decoration: none;
 `;
 
@@ -366,7 +366,7 @@ const ActiveRoomText = styled.div`
 
 const UsersContainer = styled.div`
 	flex: 5.5;
-	overflow-y: ${(props) => (props.scrollvisible ? 'scroll' : 'hidden')};
+	overflow-y: ${(props) => (props.$scrollvisible ? 'scroll' : 'hidden')};
 `;
 
 const UserBox = styled.div`
@@ -380,8 +380,8 @@ const UserBox = styled.div`
 	// padding: 2.25em 2.5em;
 	padding: 1.5em;
 	color: var(--clr-white);
-	background: ${(props) => (props.currentuser ? 'var(--clr-lightnavy)' : 'var(--clr-navy)')};
-	margin-right: ${(props) => (props.scrollvisible ? '2em' : '0')};
+	background: ${(props) => (props.$currentuser ? 'var(--clr-lightnavy)' : 'var(--clr-navy)')};
+	margin-right: ${(props) => (props.$scrollvisible ? '2em' : '0')};
 	// margin-top: 1.5em;
 	// margin-top: 2.7em;
 	line-height: 1.5;
@@ -433,8 +433,8 @@ const Bubble = styled.div`
 	overflow-wrap: break-word;
 	border-radius: 0.2em;
 	flex-direction: column;
-	background: ${(props) => (props.chatbot ? 'var(--clr-navy)' : 'var(--clr-lightgrey)')};
-	color: ${(props) => (props.chatbot ? 'var(--clr-white)' : 'var(--clr-black)')};
+	background: ${(props) => (props.$chatbot ? 'var(--clr-navy)' : 'var(--clr-lightgrey)')};
+	color: ${(props) => (props.$chatbot ? 'var(--clr-white)' : 'var(--clr-black)')};
 	align-self: flex-start;
 	width: fill-available;
 	margin-right: 2em;
@@ -482,7 +482,7 @@ const MessageText = styled.div`
 	display: flex;
 	font-weight: 600;
 	line-height: 1.5;
-	padding-top: ${(props) => (props.isprevtext ? '1em' : 'unset')};
+	padding-top: ${(props) => (props.$isprevtext ? '1em' : 'unset')};
 `;
 
 // TODO: Alphabetical order would be nice and/or break this file to smaller ones

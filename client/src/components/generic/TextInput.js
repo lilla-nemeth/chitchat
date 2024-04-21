@@ -1,13 +1,13 @@
 import { Label, Input } from '../../style';
 
 function TextInput(props) {
-	const { homelabel, labelName, value, onChange, placeholder, required, primary, name, autoFocus } = props;
+	const { $homelabel, labelName, value, onChange, placeholder, required, $primary, name, autoFocus } = props;
 
 	return (
 		<>
-			<Label homelabel={homelabel}>{labelName}</Label>
+			<Label $homelabel={$homelabel}>{labelName}</Label>
 			<Input
-				primary={primary}
+				$primary={$primary}
 				type='text'
 				value={value}
 				name={name}

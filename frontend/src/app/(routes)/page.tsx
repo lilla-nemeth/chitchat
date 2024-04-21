@@ -31,13 +31,13 @@ const Home = () => {
 	};
 
 	return (
-		<Main homemain={true} mainheight={true}>
+		<Main $homemain={'true'} $mainheight={'true'}>
 			<Wrapper>
-				<Logo primary>ChitChat</Logo>
-				<Form homeform={true} onSubmit={handleSubmit}>
+				<Logo $primary={'true'}>ChitChat</Logo>
+				<Form $homeform={'true'} onSubmit={handleSubmit}>
 					<TextInput
-						homelabel={true}
-						primary={'true'}
+						$homelabel={true}
+						$primary={true}
 						name={'Username'}
 						labelName={'Username'}
 						value={username}
@@ -46,7 +46,7 @@ const Home = () => {
 						required={true}
 						autoFocus={true}
 					/>
-					<Label homelabel={true}>Rooms</Label>
+					<Label $homelabel={'true'}>Rooms</Label>
 					<RoomContainer>
 						{rooms.map((room: any) => (
 							<RoomButton
@@ -58,13 +58,13 @@ const Home = () => {
 								htmlFor={room.name}
 								id={room.id}
 								value={room.id}
-								selected={room.id === selectedRoom}
+								$selected={room.id === selectedRoom}
 								defaultChecked={room.id === selectedRoom}
 								onChange={handleRoomChange}
 							></RoomButton>
 						))}
 					</RoomContainer>
-					{disabled ? <FormButton primary={true} name={'Join'} /> : <FormButton primary={false} name={'Join'} />}
+					{disabled ? <FormButton $primary={'true'} name={'Join'} /> : <FormButton $primary={'false'} name={'Join'} />}
 				</Form>
 			</Wrapper>
 		</Main>

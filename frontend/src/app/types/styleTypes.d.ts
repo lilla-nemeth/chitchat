@@ -1,57 +1,57 @@
-type Primary = boolean;
+type Primary = string;
 
 interface MainProps {
-	homemain?: boolean;
-	mainheight?: boolean;
+	$homemain?: strings;
+	$mainheight?: string;
 }
 
 interface FormProps {
-	homeform?: boolean;
+	$homeform?: string;
 }
 
 interface LabelProps {
-	homelabel?: boolean;
+	$homelabel?: string;
 }
 
 interface PrevMessageWrapperProps {
-	replyactive?: string;
+	$replyactive?: string;
 }
 
 interface InputProps {
-	primary?: Primary;
+	$primary?: Primary;
 }
 
 interface LogoProps {
-	primary?: Primary;
+	$primary?: Primary;
 }
 
 interface ButtonProps {
-	primary?: Primary;
+	$primary?: Primary;
 }
 
 interface RoomButtonContainerProps {
-	selected?: boolean;
+	$selected?: string;
 }
 
 interface StyledLinkProps {
-	primary?: Primary;
+	$primary?: Primary;
 }
 
 interface UsersContainerProps {
-	scrollvisible?: string;
+	$scrollvisible?: string;
 }
 
 interface UserBoxProps {
-	currentuser?: boolean;
-	scrollvisible?: string;
+	$currentuser?: string;
+	$scrollvisible?: string;
 }
 
 interface BubbleProps {
-	chatbot?: boolean;
+	$chatbot?: string;
 }
 
 interface MessageTextProps {
-	isprevtext?: boolean;
+	isprevtext?: string;
 }
 
 export {
