@@ -1,7 +1,9 @@
 'use client';
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
+import { socket } from '../../../socket';
 import { HandleNameChangeInterface } from '../../../../types/reactTypes';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 import { addUser } from '@/app/lib/features/user/userSlice';
 import User from '../../../../components/User';
@@ -39,7 +41,6 @@ import { v4 as uuidv4 } from 'uuid';
 import io from 'socket.io-client';
 
 const Chat = () => {
-	const socket = io('http://localhost:8080/');
 	const uuid = uuidv4();
 	const timestamp = createTimestamp('{time}');
 
@@ -49,14 +50,14 @@ const Chat = () => {
 
 	const room_id = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('room_id') : '';
 	const username = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('username') : '';
-	// const { room_id, username } = router.query;
 
-	// if (!router) {
-	// 	return <div>Loading...</div>;
-	// }
+	// checking status of connection
+	const [isConnected, setIsConnected] = useState<boolean>(false);
+	//  checking if socket.io has created HTTP long-polling first
+	const [transport, setTransport] = useState('N/A');
 
 	const [messageInput, setMessageInput] = useState('');
-	const [socketId, setSocketId] = useState();
+	const [socketId, setSocketId] = useState<string>();
 	const [activeReply, setActiveReply] = useState(false);
 	const [selectedMessage, setSelectedMessage] = useState<any>([]);
 
@@ -65,19 +66,54 @@ const Chat = () => {
 	const activeRoom = useAppSelector((state: any) => state.rooms.rooms.find((room: any) => room.id === room_id));
 	const dispatch = useAppDispatch();
 
+	const onConnect = () => {
+		setIsConnected(true);
+		setTransport(socket.io.engine.transport.name);
+
+		socket.io.engine.on('upgrade', (transport) => {
+			setTransport(transport.name);
+		});
+
+		const id = socket.id;
+		// dispatch addUser action
+		// dispatch(addUser({ id, room_id, username, timestamp }));
+
+		// console.log('users', users);
+
+		setSocketId(id);
+	};
+
+	const onDisconnect = () => {
+		setIsConnected(false);
+		setTransport('N/A');
+	};
+
 	useEffect(() => {
-		socket.on('connect', () => {
-			const id = socket.id;
-			// dispatch addUser action
-			dispatch(addUser({ id, room_id, username, timestamp }));
-			console.log(users);
+		if (socket.connected) {
+			onConnect();
+		}
 
-			// setSocketId(id);
-		});
+		socket.on('connect', onConnect);
+		socket.on('disconnect', onDisconnect);
 
-		socket.on('disconnect', () => {
-			// navigate('/');
-		});
+		return () => {
+			socket.off('connect', onConnect);
+			socket.off('disconnect', onDisconnect);
+		};
+
+		// socket.on('connect', () => {
+		// 	const id = socket.id;
+		// 	// dispatch addUser action
+		// 	dispatch(addUser({ id, room_id, username, timestamp }));
+
+		// 	console.log('users', users);
+
+		// 	setSocketId(id);
+		// });
+
+		// socket.on('disconnect', () => {
+		// 	navigate('/');
+		// });
 	}, []);
 
 	useEffect(() => {
@@ -126,12 +162,7 @@ const Chat = () => {
 							.reverse()
 							.map((user: any) => {
 								return (
-									<User
-										key={user.id}
-										$currentuser={user.id === socketId}
-										$scrollvisible={users.length > 5}
-										username={user.username}
-									/>
+									<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
 								);
 							})} */}
 					</UsersContainer>
@@ -142,9 +173,9 @@ const Chat = () => {
 							<Logo>ChitChat</Logo>
 						</Header>
 						<ButtonContainer>
-							{/* <StyledLink to={'/'} onClick={() => socket.end()}>
+							<StyledLink href={'/'} onClick={() => onDisconnect}>
 								<SmallFormButton name={'Leave'} />
-							</StyledLink> */}
+							</StyledLink>
 						</ButtonContainer>
 					</HeaderContainer>
 					<MessageContainer>
