@@ -8,7 +8,7 @@ import { addMessage, receiveMessage, receiveReplyMessage } from './features/mess
 import { sendUsers } from './features/user/userSlice';
 
 const socketConfig = {
-	url: '/',
+	url: 'http://localhost:8080/',
 	listeners: [
 		{ message: 'sendUsersList', action: sendUsers },
 		{ message: 'serverMessage', action: addMessage },
