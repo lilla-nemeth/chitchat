@@ -27,6 +27,9 @@ export const makeStore = () => {
 			users: userReducer,
 			messages: messageReducer,
 		},
-		middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(socketMiddlewareInstance),
+		middleware: (getDefaultMiddleware) =>
+			getDefaultMiddleware({
+				serializableCheck: false,
+			}).concat(socketMiddlewareInstance),
 	});
 };
