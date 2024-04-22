@@ -31,10 +31,10 @@ const Home = () => {
 	};
 
 	return (
-		<Main $homemain={'true'} $mainheight={'true'}>
+		<Main $homemain={true} $mainheight={true}>
 			<Wrapper>
-				<Logo $primary={'true'}>ChitChat</Logo>
-				<Form $homeform={'true'} onSubmit={handleSubmit}>
+				<Logo $primary={true}>ChitChat</Logo>
+				<Form $homeform={true} onSubmit={handleSubmit}>
 					<TextInput
 						$homelabel={true}
 						$primary={true}
@@ -46,7 +46,7 @@ const Home = () => {
 						required={true}
 						autoFocus={true}
 					/>
-					<Label $homelabel={'true'}>Rooms</Label>
+					<Label $homelabel={true}>Rooms</Label>
 					<RoomContainer>
 						{rooms.map((room: any) => (
 							<RoomButton
@@ -64,7 +64,7 @@ const Home = () => {
 							></RoomButton>
 						))}
 					</RoomContainer>
-					{disabled ? <FormButton $primary={'true'} name={'Join'} /> : <FormButton $primary={'false'} name={'Join'} />}
+					{disabled ? <FormButton $primary={true} name={'Join'} /> : <FormButton $primary={false} name={'Join'} />}
 				</Form>
 			</Wrapper>
 		</Main>

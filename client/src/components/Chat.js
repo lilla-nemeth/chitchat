@@ -124,18 +124,13 @@ const Chat = () => {
 					<ActiveRoomContainer>
 						<ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom>
 					</ActiveRoomContainer>
-					<UsersContainer $scrollvisible={users.length > 5 ? 'true' : 'false'}>
+					<UsersContainer $scrollvisible={users.length > 5}>
 						{users
 							.slice(0)
 							.reverse()
 							.map((user) => {
 								return (
-									<User
-										key={user.id}
-										$currentuser={user.id === socketId}
-										$scrollvisible={users.length > 5 ? 'true' : 'false'}
-										username={user.username}
-									/>
+									<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
 								);
 							})}
 					</UsersContainer>
@@ -200,7 +195,7 @@ const Chat = () => {
 						<InputContainer>
 							<TextInput
 								$homelabel={false}
-								$primary={'false'}
+								$primary={false}
 								name={'Message'}
 								value={messageInput}
 								placeholder={'Type your message'}

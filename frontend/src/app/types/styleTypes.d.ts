@@ -1,20 +1,20 @@
-type Primary = string;
+type Primary = boolean;
 
 interface MainProps {
-	$homemain?: strings;
-	$mainheight?: string;
+	$homemain?: booleans;
+	$mainheight?: boolean;
 }
 
 interface FormProps {
-	$homeform?: string;
+	$homeform?: boolean;
 }
 
 interface LabelProps {
-	$homelabel?: string;
+	$homelabel?: boolean;
 }
 
 interface PrevMessageWrapperProps {
-	$replyactive?: string;
+	$replyactive?: boolean;
 }
 
 interface InputProps {
@@ -30,7 +30,7 @@ interface ButtonProps {
 }
 
 interface RoomButtonContainerProps {
-	$selected?: string;
+	$selected?: boolean;
 }
 
 interface StyledLinkProps {
@@ -38,20 +38,20 @@ interface StyledLinkProps {
 }
 
 interface UsersContainerProps {
-	$scrollvisible?: string;
+	$scrollvisible?: boolean;
 }
 
 interface UserBoxProps {
-	$currentuser?: string;
-	$scrollvisible?: string;
+	$currentuser?: boolean;
+	$scrollvisible?: boolean;
 }
 
 interface BubbleProps {
-	$chatbot?: string;
+	$chatbot?: boolean;
 }
 
 interface MessageTextProps {
-	isprevtext?: string;
+	isprevtext?: boolean;
 }
 
 export {

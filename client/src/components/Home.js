@@ -32,7 +32,7 @@ const Home = () => {
 				<Form $homeform={true} onSubmit={handleSubmit}>
 					<TextInput
 						$homelabel={true}
-						$primary={'true'}
+						$primary={true}
 						name={'Username'}
 						labelName={'Username'}
 						value={username}
