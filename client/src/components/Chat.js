@@ -151,7 +151,7 @@ const Chat = () => {
 							return (
 								<Message
 									key={msg.id}
-									$chatbot={msg.author === '@$chatbot'}
+									$chatbot={msg.author === '@chatbot'}
 									username={msg.author}
 									timestamp={msg.timestamp}
 									text={msg.message}

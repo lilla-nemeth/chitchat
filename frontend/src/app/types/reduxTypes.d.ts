@@ -32,8 +32,8 @@ interface Message {
 	id: string;
 	userId: string;
 	message: string;
-	author: string;
-	timestamp: number;
+	author: string | string[];
+	timestamp: string;
 }
 
 interface MessageState {

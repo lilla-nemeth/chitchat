@@ -6,6 +6,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 import { addUser } from '@/app/lib/features/user/userSlice';
+import { addMessage, addReplyMessage } from '@/app/lib/features/message/messageSlice';
 import User from '../../../../components/User';
 import SmallFormButton from '../../../../components/SmallFormButton';
 import TextInput from '../../../../components/TextInput';
@@ -56,8 +57,8 @@ const Chat = () => {
 	//  checking if socket.io has created HTTP long-polling first
 	const [transport, setTransport] = useState('N/A');
 
-	const [messageInput, setMessageInput] = useState('');
-	const [socketId, setSocketId] = useState<string>();
+	const [message, setMessage] = useState<string>('');
+	const [socketId, setSocketId] = useState<any>();
 	const [activeReply, setActiveReply] = useState(false);
 	const [selectedMessage, setSelectedMessage] = useState<any>([]);
 
@@ -111,32 +112,37 @@ const Chat = () => {
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		const id = uuid;
+		const userId = socketId;
+		const author = username;
+
 		if (selectedMessage.length && activeReply) {
 			// dispatch addReplyMessage action
-			// dispatch();
-			// addReplyMessage(
-			// 	selectedMessage[0].id,
-			// 	selectedMessage[0].userId,
-			// 	selectedMessage[0].message,
-			// 	selectedMessage[0].author,
-			// 	selectedMessage[0].timestamp,
-			// 	uuid,
-			// 	socketId,
-			// 	messageInput,
-			// 	username,
-			// 	timestamp
-			// )
+			// dispatch(
+			// 	addReplyMessage(
+			// 		selectedMessage[0].id,
+			// 		selectedMessage[0].userId,
+			// 		selectedMessage[0].message,
+			// 		selectedMessage[0].author,
+			// 		selectedMessage[0].timestamp,
+			// 		uuid,
+			// 		socketId,
+			// 		message,
+			// 		username,
+			// 		timestamp
+			// 	)
+			// );
 		} else {
 			// dispatch addMessage action
-			// dispatch(addMessage(uuid, socketId, messageInput, username, timestamp));
+			dispatch(addMessage({ id, userId, message, author, timestamp }));
 		}
 
-		setMessageInput('');
+		setMessage('');
 		setActiveReply(false);
 	};
 
 	const handleChange = (e: HandleNameChangeInterface) => {
-		setMessageInput(e.target.value);
+		setMessage(e.target.value);
 	};
 
 	return (
@@ -144,7 +150,7 @@ const Chat = () => {
 			<ChatRoomContainer>
 				<UserWrapper>
 					<ActiveRoomContainer>{/* <ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom> */}</ActiveRoomContainer>
-					{/* <UsersContainer $scrollvisible={users.length > 5}>
+					<UsersContainer $scrollvisible={users.length > 5}>
 						{users
 							.slice(0)
 							.reverse()
@@ -153,7 +159,7 @@ const Chat = () => {
 									<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
 								);
 							})}
-					</UsersContainer> */}
+					</UsersContainer>
 				</UserWrapper>
 				<MessageWrapper>
 					<HeaderContainer>
@@ -167,11 +173,11 @@ const Chat = () => {
 						</ButtonContainer>
 					</HeaderContainer>
 					<MessageContainer>
-						{/* {messages.map((msg: any) => {
+						{messages.map((msg: any) => {
 							return (
 								<Message
 									key={msg.id}
-									$chatbot={msg.author === '@$chatbot'}
+									$chatbot={msg.author === '@chatbot'}
 									username={msg.author}
 									timestamp={msg.timestamp}
 									text={msg.message}
@@ -192,7 +198,7 @@ const Chat = () => {
 									prevTimestamp={msg.prevTimestamp}
 								></Message>
 							);
-						})} */}
+						})}
 						<Ref ref={scrollRef}></Ref>
 					</MessageContainer>
 					<Form $homeform={false} onSubmit={handleSubmit}>
@@ -217,7 +223,7 @@ const Chat = () => {
 								$homelabel={false}
 								$primary={false}
 								name={'Message'}
-								value={messageInput}
+								value={message}
 								placeholder={'Type your message'}
 								onChange={handleChange}
 								required={true}

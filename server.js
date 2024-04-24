@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
 
 	socket.on('users/addUser', (...message) => {
 		const id = message[0].id;
-		const roomId = message[0].roomId;
+		const roomId = message[0].room_id;
 		const username = message[0].username;
 		const timestamp = message[0].timestamp;
 
@@ -55,6 +55,7 @@ io.on('connection', (socket) => {
 		const user = getMessageSender(userId);
 
 		if (user) {
+			console.log(user);
 			socket.broadcast.to(user.roomId).emit('receiveMessage', id, userId, chatMessage, author, timestamp);
 		}
 	});
