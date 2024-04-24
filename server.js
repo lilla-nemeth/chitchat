@@ -25,7 +25,7 @@ const botName = '@chatbot';
 io.on('connection', (socket) => {
 	// listens to addUser and updates the user list
 
-	socket.on('ADD_USER', (...message) => {
+	socket.on('users/addUser', (...message) => {
 		const id = message[0].id;
 		const roomId = message[0].roomId;
 		const username = message[0].username;
@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
 	});
 
 	// listen to addMessage and send message back with receiveMessage to other room users
-	socket.on('ADD_MESSAGE', (...message) => {
+	socket.on('messages/addMessage', (...message) => {
 		const id = message[0].id;
 		const userId = message[0].userId;
 		const chatMessage = message[0].message;
@@ -59,7 +59,7 @@ io.on('connection', (socket) => {
 		}
 	});
 
-	socket.on('ADD_REPLY_MESSAGE', (...message) => {
+	socket.on('messages/addReplyMessage', (...message) => {
 		const prevId = message[0].prevId;
 		const prevUserId = message[0].prevUserId;
 		const prevChatMessage = message[0].prevMessage;
@@ -93,7 +93,7 @@ io.on('connection', (socket) => {
 	});
 
 	// Disconnecting
-	socket.on('ADD_USER', (...message) => {
+	socket.on('users/addUser', (...message) => {
 		const id = message[0].id;
 
 		socket.on('disconnect', () => {

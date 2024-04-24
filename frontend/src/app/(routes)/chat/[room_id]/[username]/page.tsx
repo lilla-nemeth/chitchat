@@ -61,7 +61,7 @@ const Chat = () => {
 	const [activeReply, setActiveReply] = useState(false);
 	const [selectedMessage, setSelectedMessage] = useState<any>([]);
 
-	const users = useAppSelector((state: any) => console.log(state.users.users));
+	const users = useAppSelector((state: any) => state.users.users);
 	const messages = useAppSelector((state: any) => state.messages.messages);
 	const activeRoom = useAppSelector((state: any) => state.rooms.rooms.find((room: any) => room.id === room_id));
 	const dispatch = useAppDispatch();
@@ -78,7 +78,7 @@ const Chat = () => {
 		// dispatch addUser action
 		dispatch(addUser({ id, room_id, username, timestamp }));
 
-		console.log('username', username);
+		console.log('users', users);
 
 		setSocketId(id);
 	};
