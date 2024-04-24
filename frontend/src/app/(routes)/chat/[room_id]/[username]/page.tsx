@@ -113,8 +113,6 @@ const Chat = () => {
 		const userId = socketId;
 		const author = username;
 
-		console.log(messages);
-
 		if (selectedMessage.length && activeReply) {
 			// dispatch addReplyMessage action
 			// dispatch(
@@ -170,7 +168,7 @@ const Chat = () => {
 							<Logo>ChitChat</Logo>
 						</Header>
 						<ButtonContainer>
-							<StyledLink href={'/'} onClick={() => socket.off('disconnect', onDisconnect)}>
+							<StyledLink href={'/'} onClick={() => socket.disconnect()}>
 								<SmallFormButton name={'Leave'} />
 							</StyledLink>
 						</ButtonContainer>
