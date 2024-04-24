@@ -19,8 +19,8 @@ interface RoomState {
 
 interface User {
 	id: string | null | undefined;
-	room_id: string | null | undefined;
-	username: string | null | undefined;
+	room_id: string | string[];
+	username: string | string[];
 	timestamp: string;
 }
 

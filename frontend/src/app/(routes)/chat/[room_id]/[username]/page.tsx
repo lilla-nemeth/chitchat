@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
 import { socket } from '../../../socket';
 import { HandleNameChangeInterface } from '../../../../types/reactTypes';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 import { addUser } from '@/app/lib/features/user/userSlice';
@@ -44,12 +44,12 @@ const Chat = () => {
 	const uuid = uuidv4();
 	const timestamp = createTimestamp('{time}');
 
+	const router = useRouter();
+	const params = useParams();
 	const scrollRef = useRef(null);
 
-	const router = useRouter();
-
-	const room_id = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('room_id') : '';
-	const username = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('username') : '';
+	const room_id: string | string[] = params.room_id;
+	const username: string | string[] = params.username;
 
 	// checking status of connection
 	const [isConnected, setIsConnected] = useState<boolean>(false);
@@ -61,8 +61,8 @@ const Chat = () => {
 	const [activeReply, setActiveReply] = useState(false);
 	const [selectedMessage, setSelectedMessage] = useState<any>([]);
 
-	const users = useAppSelector((state: any) => state.users);
-	const messages = useAppSelector((state: any) => state.messages);
+	const users = useAppSelector((state: any) => console.log(state.users.users));
+	const messages = useAppSelector((state: any) => state.messages.messages);
 	const activeRoom = useAppSelector((state: any) => state.rooms.rooms.find((room: any) => room.id === room_id));
 	const dispatch = useAppDispatch();
 
@@ -76,9 +76,9 @@ const Chat = () => {
 
 		const id = socket.id;
 		// dispatch addUser action
-		// dispatch(addUser({ id, room_id, username, timestamp }));
+		dispatch(addUser({ id, room_id, username, timestamp }));
 
-		// console.log('users', users);
+		console.log('username', username);
 
 		setSocketId(id);
 	};
@@ -86,6 +86,8 @@ const Chat = () => {
 	const onDisconnect = () => {
 		setIsConnected(false);
 		setTransport('N/A');
+
+		router.push('/');
 	};
 
 	useEffect(() => {
@@ -100,20 +102,6 @@ const Chat = () => {
 			socket.off('connect', onConnect);
 			socket.off('disconnect', onDisconnect);
 		};
-
-		// socket.on('connect', () => {
-		// 	const id = socket.id;
-		// 	// dispatch addUser action
-		// 	dispatch(addUser({ id, room_id, username, timestamp }));
-
-		// 	console.log('users', users);
-
-		// 	setSocketId(id);
-		// });
-
-		// socket.on('disconnect', () => {
-		// 	navigate('/');
-		// });
 	}, []);
 
 	useEffect(() => {
@@ -156,16 +144,16 @@ const Chat = () => {
 			<ChatRoomContainer>
 				<UserWrapper>
 					<ActiveRoomContainer>{/* <ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom> */}</ActiveRoomContainer>
-					<UsersContainer $scrollvisible={users.length > 5}>
-						{/* {users
+					{/* <UsersContainer $scrollvisible={users.length > 5}>
+						{users
 							.slice(0)
 							.reverse()
 							.map((user: any) => {
 								return (
 									<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
 								);
-							})} */}
-					</UsersContainer>
+							})}
+					</UsersContainer> */}
 				</UserWrapper>
 				<MessageWrapper>
 					<HeaderContainer>
