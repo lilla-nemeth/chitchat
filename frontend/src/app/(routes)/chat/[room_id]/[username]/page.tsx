@@ -39,7 +39,6 @@ import { createTimestamp } from '../../../../utils/timestamp';
 import { scrollToBottom } from '../../../../utils/scroll';
 import { checkMessageLength } from '../../../../utils/message';
 import { v4 as uuidv4 } from 'uuid';
-import io from 'socket.io-client';
 
 const Chat = () => {
 	const uuid = uuidv4();
@@ -79,8 +78,6 @@ const Chat = () => {
 		// dispatch addUser action
 		dispatch(addUser({ id, room_id, username, timestamp }));
 
-		console.log('users', users);
-
 		setSocketId(id);
 	};
 
@@ -107,7 +104,7 @@ const Chat = () => {
 
 	useEffect(() => {
 		scrollToBottom(scrollRef);
-	}, [messages]);
+	}, [messages.length]);
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -116,10 +113,12 @@ const Chat = () => {
 		const userId = socketId;
 		const author = username;
 
+		console.log(messages);
+
 		if (selectedMessage.length && activeReply) {
 			// dispatch addReplyMessage action
 			// dispatch(
-			// 	addReplyMessage(
+			// 	addReplyMessage({
 			// 		selectedMessage[0].id,
 			// 		selectedMessage[0].userId,
 			// 		selectedMessage[0].message,
@@ -130,8 +129,9 @@ const Chat = () => {
 			// 		message,
 			// 		username,
 			// 		timestamp
-			// 	)
+			// 	})
 			// );
+			// dispatch(addMessage({ id, userId, message, author, timestamp }));
 		} else {
 			// dispatch addMessage action
 			dispatch(addMessage({ id, userId, message, author, timestamp }));
@@ -146,7 +146,7 @@ const Chat = () => {
 	};
 
 	return (
-		<Main $homemain={false} $mainheight={messages.length > 2}>
+		<Main $homemain={false} $mainheight={messages?.length > 2}>
 			<ChatRoomContainer>
 				<UserWrapper>
 					<ActiveRoomContainer>{/* <ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom> */}</ActiveRoomContainer>
@@ -167,13 +167,13 @@ const Chat = () => {
 							<Logo>ChitChat</Logo>
 						</Header>
 						<ButtonContainer>
-							<StyledLink href={'/'} onClick={() => onDisconnect}>
+							<StyledLink href={'/'} onClick={() => socket.end()}>
 								<SmallFormButton name={'Leave'} />
 							</StyledLink>
 						</ButtonContainer>
 					</HeaderContainer>
 					<MessageContainer>
-						{messages.map((msg: any) => {
+						{messages?.map((msg: any) => {
 							return (
 								<Message
 									key={msg.id}
@@ -203,7 +203,7 @@ const Chat = () => {
 					</MessageContainer>
 					<Form $homeform={false} onSubmit={handleSubmit}>
 						<PrevMessageWrapper $replyactive={true}>
-							{selectedMessage.map((msg: any) => {
+							{selectedMessage?.map((msg: any) => {
 								return (
 									<PrevMessage
 										key={msg.id}

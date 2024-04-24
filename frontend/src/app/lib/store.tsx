@@ -4,7 +4,11 @@ import userReducer from './features/user/userSlice';
 import messageReducer from './features/message/messageSlice';
 import socketMiddleware from './socketMiddleware';
 
-import { addMessage, receiveMessage, receiveReplyMessage } from './features/message/messageSlice';
+import {
+	addMessage,
+	receiveMessage,
+	// receiveReplyMessage
+} from './features/message/messageSlice';
 import { sendUsers } from './features/user/userSlice';
 
 const socketConfig = {
@@ -13,9 +17,13 @@ const socketConfig = {
 		{ message: 'sendUsersList', action: sendUsers },
 		{ message: 'serverMessage', action: addMessage },
 		{ message: 'receiveMessage', action: receiveMessage },
-		{ message: 'receiveReplyMessage', action: receiveReplyMessage },
+		// { message: 'receiveReplyMessage', action: receiveReplyMessage },
 	],
-	subscribers: ['users/addUser', 'messages/addMessage', 'messages/addReplyMessage'],
+	subscribers: [
+		'users/addUser',
+		'messages/addMessage',
+		// 'messages/addReplyMessage'
+	],
 };
 
 const socketMiddlewareInstance: Middleware = socketMiddleware(socketConfig);
