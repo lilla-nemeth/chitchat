@@ -149,16 +149,19 @@ const Chat = () => {
 		<Main $homemain={false} $mainheight={messages?.length > 2}>
 			<ChatRoomContainer>
 				<UserWrapper>
-					<ActiveRoomContainer>{/* <ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom> */}</ActiveRoomContainer>
+					<ActiveRoomContainer>
+						<ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom>
+					</ActiveRoomContainer>
 					<UsersContainer $scrollvisible={users.length > 5}>
-						{users
-							.slice(0)
-							.reverse()
-							.map((user: any) => {
-								return (
-									<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
-								);
-							})}
+						{users &&
+							users
+								.slice(0)
+								.reverse()
+								.map((user: any) => {
+									return (
+										<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
+									);
+								})}
 					</UsersContainer>
 				</UserWrapper>
 				<MessageWrapper>
@@ -167,7 +170,7 @@ const Chat = () => {
 							<Logo>ChitChat</Logo>
 						</Header>
 						<ButtonContainer>
-							<StyledLink href={'/'} onClick={() => socket.end()}>
+							<StyledLink href={'/'} onClick={() => socket.off('disconnect', onDisconnect)}>
 								<SmallFormButton name={'Leave'} />
 							</StyledLink>
 						</ButtonContainer>
