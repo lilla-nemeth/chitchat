@@ -20,6 +20,7 @@
 	"dependencies": {
 		"cors": "^2.8.5",
 		"express": "^4.17.3",
+		"next": "^14.2.2",
 		"nodemon": "^2.0.15",
 		"socket.io": "^4.4.1",
 		"sugar": "^2.0.6",
@@ -28,8 +29,5 @@
 	"devDependencies": {
 		"react-router-dom": "^6.3.0"
 	},
-	"engines": {
-		"node": "16.15.0",
-		"npm": "8.3.0"
-	}
+	"type": "module"
 }
