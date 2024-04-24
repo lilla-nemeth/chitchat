@@ -12,14 +12,10 @@ const io = require('socket.io')(server, {
 const { v4: uuidv4 } = require('uuid');
 const { userJoin, getRoomUsers, getMessageSender, userLeave } = require('./utils/users');
 const { createTimestamp } = require('./utils/timestamp');
-// createTimestamp('%Y-%m-%d %r')
 
 const PORT = 8080 || process.env.PORT;
 
 const botName = '@chatbot';
-
-// for production...
-// app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Connects with client
 io.on('connection', (socket) => {
