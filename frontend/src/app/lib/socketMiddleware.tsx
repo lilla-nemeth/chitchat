@@ -20,7 +20,7 @@ const socketMiddleware = (config: SocketConfig): Middleware<RootState> => {
 			socket.emit(action.type, action.payload);
 		}
 
-		return next(action);
+		next(action);
 	};
 };
 
