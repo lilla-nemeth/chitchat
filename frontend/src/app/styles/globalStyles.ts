@@ -104,7 +104,6 @@ const GlobalStyle = createGlobalStyle`
       display: block;
     }
     body {
-      line-height: 1;
       font-family: 'Nunito', sans-serif;
     }
     ol,

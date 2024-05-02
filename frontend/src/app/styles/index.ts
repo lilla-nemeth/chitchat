@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// TODO: check if next/link works instead of react-router-dom
 import Link from 'next/link';
 import { minSize, maxSize } from './deviceSizes';
 import {
@@ -19,63 +18,35 @@ import {
 } from '../types/styleTypes';
 
 const Main = styled.main<MainProps>`
+	height: auto;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 100vw;
-	height: 100vh;
-	padding: 2.5em 0 2.5em 0;
 	background: var(--clr-peach);
-
-	@media ${minSize.tablet} {
-		height: ${(props) => (props.$homemain ? '100vh' : 'auto')};
-		height: ${(props) => (props.$mainheight ? '100vh' : '100vh')};
-	}
-	@media ${maxSize.tablet} {
-		height: ${(props) => (props.$mainheight ? 'auto' : '100vh')};
-	}
 	@media ${minSize.laptop} {
 		height: 100vh;
-	}
-	@media ${minSize.laptopL} {
-		padding: 0;
-	}
-	@media ${maxSize.mobileL} {
-		height: ${(props) => (props.$mainheight ? 'auto' : '100vh')};
-	}
-	@media ${maxSize.mobileM} {
-		height: ${(props) => (props.$mainheight ? 'auto' : 'auto')};
 	}
 `;
 
 const Wrapper = styled.section`
 	background: var(--clr-darknavy);
 	border-radius: 2.5em;
-	padding: 2em 2.5em;
-	@media ${maxSize.laptopL} {
-		padding: 1em 1.25em;
-	}
-	@media ${maxSize.tablet} {
-		padding: 0;
-	}
+
+	margin: 2.5em;
+	width: 80vw;
 `;
 
 const Form = styled.form<FormProps>`
 	padding: ${(props) => (props.$homeform ? '2em 2.5em' : 'none')};
 	display: flex;
 	flex-direction: column;
-	@media ${maxSize.laptopL} {
-		width: ${(props) => (props.$homeform ? '60vw' : 'none')};
-	}
 `;
 
 const Label = styled.label<LabelProps>`
-	padding: 1.5em 0 0.5em;
+	padding: 0.5em 0 0 0;
 	color: var(--clr-white);
-	@media ${maxSize.laptopL} {
-		margin: ${(props) => (props.$homelabel ? '0 1em 0 1em' : '0')};
-	}
-	@media ${maxSize.mobileL} {
+	@media ${maxSize.tablet} {
 		margin: 0;
 	}
 `;
@@ -149,9 +120,6 @@ const Input = styled.input<InputProps>`
 		box-shadow: none;
 	}
 	margin: ${(props) => (props.$primary ? '1em 0 1em 0' : 'none')};
-	@media ${maxSize.laptopL} {
-		margin: ${(props) => (props.$primary ? '1em' : 'none')};
-	}
 	@media ${maxSize.mobileL} {
 		min-width: ${(props) => (props.$primary ? '7em' : 'none')};
 		margin: 0em;
@@ -192,9 +160,9 @@ const ButtonStyle = styled.button<ButtonProps>`
 	width: 100%;
 	font-size: 1em;
 	@media ${maxSize.laptopL} {
-		margin: 0 1em 0 1em;
 		width: unset;
 		min-width: 10em;
+		margin: 0;
 	}
 	@media ${maxSize.mobileL} {
 		margin: 0;
@@ -226,15 +194,14 @@ const RoomContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: space-between;
-	padding: 0 0 2.5em;
 	width: 60em;
+	padding: 0 0 0.5em 0;
 	margin: 0 -1em 0 -1em;
-	@media ${maxSize.laptopL} {
+	@media ${maxSize.laptop} {
 		flex-wrap: wrap;
-		width: auto;
+		width: fit-content;
 		justify-content: start;
-		margin: 0;
+		margin: 0 -1em 0 -1em;
 	}
 `;
 
@@ -245,8 +212,8 @@ const RoomIcon = styled.div`
 	align-items: flex-end;
 	justify-content: center;
 	text-align: center;
-	width: 5em;
-	height: 5em;
+	width: 4em;
+	height: 4em;
 `;
 
 const RoomText = styled.span`
@@ -263,13 +230,10 @@ const RoomText = styled.span`
 
 const RoomButtonWrapper = styled.div`
 	display: flex;
-	flex: fit-content;
 `;
 
 const RoomLabel = styled.label`
 	border: none;
-	width: 10em;
-	height: 10em;
 	border-radius: 0.2em;
 	display: flex;
 	flex-direction: column;
@@ -277,6 +241,8 @@ const RoomLabel = styled.label`
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	width: 8em;
+	height: 8em;
 `;
 
 const RoomButtonContainer = styled.div<RoomButtonContainerProps>`
@@ -284,8 +250,8 @@ const RoomButtonContainer = styled.div<RoomButtonContainerProps>`
 	fill: var(--clr-white);
 	color: var(--clr-white);
 	border: none;
-	width: 10em;
-	height: 10em;
+	width: 8em;
+	height: 8em;
 	border-radius: 0.2em;
 	display: flex;
 	flex-direction: column;
@@ -294,11 +260,11 @@ const RoomButtonContainer = styled.div<RoomButtonContainerProps>`
 	justify-content: center;
 	cursor: pointer;
 	transition: all 0.1s;
+	margin: 1em;
 	background: ${(props) => (props.$selected ? 'var(--clr-yellow)' : 'var(--clr-lightnavy)')};
 	&:hover {
 		background: ${(props) => !props.$selected && 'var(--clr-brightblue)'};
 	}
-	margin: 1em;
 	@media ${maxSize.laptopL} {
 		margin: 1em;
 	}
@@ -329,11 +295,11 @@ const StyledLink = styled(Link)<StyledLinkProps>`
 
 const ChatRoomContainer = styled.div`
 	display: flex;
-	width: 80vw;
-	height: inherit;
 	border-radius: 2.5em;
 	height: 85vh;
-	@media ${maxSize.laptopM} {
+	margin: 2.5em;
+	width: 80vw;
+	@media ${maxSize.laptop} {
 		flex-direction: column;
 		height: auto;
 	}
@@ -346,7 +312,7 @@ const UserWrapper = styled.div`
 	background: var(--clr-darknavy);
 	border-radius: 2.5em 0 0 2.5em;
 	padding: 2em;
-	@media ${maxSize.laptopM} {
+	@media ${maxSize.laptop} {
 		border-radius: 2.5em 2.5em 0 0;
 	}
 `;
@@ -407,7 +373,7 @@ const MessageWrapper = styled.div`
 	background: white;
 	border-radius: 0 2.5em 2.5em 0;
 	padding: 2em;
-	@media ${maxSize.laptopM} {
+	@media ${maxSize.laptop} {
 		border-radius: 0 0 2.5em 2.5em;
 	}
 `;
@@ -416,7 +382,7 @@ const HeaderContainer = styled.div`
 	display: flex;
 	flex: 0.6;
 	padding-bottom: 2.5em;
-	@media ${maxSize.laptopM} {
+	@media ${maxSize.tablet} {
 		flex-direction: column;
 	}
 `;
