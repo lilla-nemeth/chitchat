@@ -7,22 +7,22 @@ import socketMiddleware from './socketMiddleware';
 import {
 	addMessage,
 	receiveMessage,
-	// receiveReplyMessage
+	receiveReplyMessage
 } from './features/message/messageSlice';
 import { sendUsers } from './features/user/userSlice';
 
 const socketConfig = {
 	url: 'http://localhost:8080/',
 	listeners: [
-		{ message: 'sendUsersList', action: sendUsers },
-		{ message: 'serverMessage', action: addMessage },
-		{ message: 'receiveMessage', action: receiveMessage },
-		// { message: 'receiveReplyMessage', action: receiveReplyMessage },
+		{ message: 'users/sendUsersList', action: sendUsers },
+		{ message: 'messages/serverMessage', action: addMessage },
+		{ message: 'messages/receiveMessage', action: receiveMessage },
+		{ message: 'messages/receiveReplyMessage', action: receiveReplyMessage },
 	],
 	subscribers: [
 		'users/addUser',
 		'messages/addMessage',
-		// 'messages/addReplyMessage'
+		'messages/addReplyMessage'
 	],
 };
 
