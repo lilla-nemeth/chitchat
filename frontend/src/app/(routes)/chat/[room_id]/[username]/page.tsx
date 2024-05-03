@@ -58,8 +58,8 @@ const Chat = () => {
 	const [transport, setTransport] = useState('N/A');
 
 	const [message, setMessage] = useState<string>('');
-	const [socketId, setSocketId] = useState<any>();
-	const [activeReply, setActiveReply] = useState(false);
+	const [socketId, setSocketId] = useState<string>('');
+	const [activeReply, setActiveReply] = useState<boolean>(false);
 	const [selectedMessage, setSelectedMessage] = useState<any>([]);
 
 	const users = useAppSelector((state: any) => state.users.users);
@@ -142,7 +142,7 @@ const Chat = () => {
 		}
 
 		setMessage('');
-		setActiveReply(!activeReply);
+		setActiveReply(false);
 	};
 
 	const handleChange = (e: HandleNameChangeInterface) => {
@@ -203,8 +203,8 @@ const Chat = () => {
 						<Ref ref={scrollRef}></Ref>
 					</MessageContainer>
 					<Form $homeform={false} onSubmit={handleSubmit}>
-						<PrevMessageWrapper $replyactive={true}>
-							{selectedMessage.map((msg: any) => {
+						<PrevMessageWrapper $replyactive={activeReply}>
+							{selectedMessage.map((msg: MessageType) => {
 								return (
 									<PrevMessage
 										key={msg.id}
