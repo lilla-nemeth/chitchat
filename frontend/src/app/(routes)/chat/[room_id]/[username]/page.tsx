@@ -149,94 +149,97 @@ const Chat = () => {
 	};
 
 	return (
-		<Main $homemain={false} $mainheight={messages?.length > 2}>
-			<ChatRoomContainer>
-				<UserWrapper>
-					<ActiveRoomContainer>
-						<ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom>
-					</ActiveRoomContainer>
-					<UsersContainer $scrollvisible={users.length > 5}>
-						{users.length &&
-							users
-								.slice(0)
-								.reverse()
-								.map((user: UserType) => {
-									return (
-										<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
-									);
-								})}
-					</UsersContainer>
-				</UserWrapper>
-				<MessageWrapper>
-					<HeaderContainer>
-						<Header>
-							<Logo>ChitChat</Logo>
-						</Header>
-						<ButtonContainer>
-							<StyledLink href={'/'} onClick={() => socket.close()}>
-								<SmallFormButton name={'Leave'} />
-							</StyledLink>
-						</ButtonContainer>
-					</HeaderContainer>
-					<MessageContainer>
-						{messages?.map((msg: MessageType) => {
-							return (
-								<Message
-									key={msg.id}
-									$chatbot={msg.author === '@chatbot'}
-									username={msg.author}
-									timestamp={msg.timestamp}
-									text={msg.message}
-									icon={<ReplyIcon />}
-									onClick={() => {
-										setActiveReply(!activeReply);
-										setSelectedMessage(!activeReply ? [msg] : []);
-									}}
-									isResponseMessage={msg.selectedMessageMsg}
-									prevMessage={msg.selectedMessageMsg}
-									prevAuthor={msg.selectedMessageAuthor}
-									prevTimestamp={msg.selectedMessageTimestamp}
-								></Message>
-							);
-						})}
-						<Ref ref={scrollRef}></Ref>
-					</MessageContainer>
-					<Form $homeform={false} onSubmit={handleSubmit}>
-						<PrevMessageWrapper $replyactive={activeReply}>
-							{selectedMessage.map((msg: MessageType) => {
+		<>
+			<Main $homemain={false} $mainheight={messages?.length > 2}>
+				<ChatRoomContainer>
+					<UserWrapper>
+						<ActiveRoomContainer>
+							<ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom>
+						</ActiveRoomContainer>
+						<UsersContainer $scrollvisible={users.length > 5}>
+							{users.length &&
+								users
+									.slice(0)
+									.reverse()
+									.map((user: UserType) => {
+										return (
+											<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
+										);
+									})}
+						</UsersContainer>
+					</UserWrapper>
+					<MessageWrapper>
+						<HeaderContainer>
+							<Header>
+								<Logo>ChitChat</Logo>
+							</Header>
+							<ButtonContainer>
+								{/* @ts-ignore */}
+								<StyledLink href={'/'} onClick={() => socket.end()}>
+									<SmallFormButton name={'Leave'} />
+								</StyledLink>
+							</ButtonContainer>
+						</HeaderContainer>
+						<MessageContainer>
+							{messages?.map((msg: MessageType) => {
 								return (
-									<PrevMessage
+									<Message
 										key={msg.id}
-										author={msg.author}
-										message={checkMessageLength(msg.message, 100)}
-										icon={<CloseIcon />}
+										$chatbot={msg.author === '@chatbot'}
+										username={msg.author}
+										timestamp={msg.timestamp}
+										text={msg.message}
+										icon={<ReplyIcon />}
 										onClick={() => {
 											setActiveReply(!activeReply);
-											setSelectedMessage([]);
+											setSelectedMessage(!activeReply ? [msg] : []);
 										}}
-									></PrevMessage>
+										isResponseMessage={msg.selectedMessageMsg}
+										prevMessage={msg.selectedMessageMsg}
+										prevAuthor={msg.selectedMessageAuthor}
+										prevTimestamp={msg.selectedMessageTimestamp}
+									></Message>
 								);
 							})}
-						</PrevMessageWrapper>
-						<InputContainer>
-							<TextInput
-								$homelabel={false}
-								$primary={false}
-								name={'Message'}
-								value={message}
-								placeholder={'Type your message'}
-								onChange={handleChange}
-								required={true}
-								autoFocus={true}
-							/>
-							<MessageButton>
-								<SmallFormButton to={false} isIcon={true} icon={<SendIcon />} />
-							</MessageButton>
-						</InputContainer>
-					</Form>
-				</MessageWrapper>
-			</ChatRoomContainer>
-		</Main>
+							<Ref ref={scrollRef}></Ref>
+						</MessageContainer>
+						<Form $homeform={false} onSubmit={handleSubmit}>
+							<PrevMessageWrapper $replyactive={activeReply}>
+								{selectedMessage.map((msg: MessageType) => {
+									return (
+										<PrevMessage
+											key={msg.id}
+											author={msg.author}
+											message={checkMessageLength(msg.message, 100)}
+											icon={<CloseIcon />}
+											onClick={() => {
+												setActiveReply(!activeReply);
+												setSelectedMessage([]);
+											}}
+										></PrevMessage>
+									);
+								})}
+							</PrevMessageWrapper>
+							<InputContainer>
+								<TextInput
+									$homelabel={false}
+									$primary={false}
+									name={'Message'}
+									value={message}
+									placeholder={'Type your message'}
+									onChange={handleChange}
+									required={true}
+									autoFocus={true}
+								/>
+								<MessageButton>
+									<SmallFormButton to={false} isIcon={true} icon={<SendIcon />} />
+								</MessageButton>
+							</InputContainer>
+						</Form>
+					</MessageWrapper>
+				</ChatRoomContainer>
+			</Main>
+		</>
 	);
 };
 
