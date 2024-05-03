@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
 import { socket } from '../../../socket';
 import { HandleNameChangeInterface } from '../../../../types/reactTypes';
-import { Message as MessageType } from '../../../../types/reduxTypes';
+import { Message as MessageType, User as UserType } from '../../../../types/reduxTypes';
 import { useRouter, useParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 import { addUser } from '@/app/lib/features/user/userSlice';
@@ -156,11 +156,11 @@ const Chat = () => {
 						<ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom>
 					</ActiveRoomContainer>
 					<UsersContainer $scrollvisible={users.length > 5}>
-						{users &&
+						{users.length &&
 							users
 								.slice(0)
 								.reverse()
-								.map((user: any) => {
+								.map((user: UserType) => {
 									return (
 										<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
 									);
@@ -173,7 +173,7 @@ const Chat = () => {
 							<Logo>ChitChat</Logo>
 						</Header>
 						<ButtonContainer>
-							<StyledLink href={'/'} onClick={() => socket.disconnect()}>
+							<StyledLink href={'/'} onClick={() => socket.close()}>
 								<SmallFormButton name={'Leave'} />
 							</StyledLink>
 						</ButtonContainer>
