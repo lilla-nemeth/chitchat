@@ -79,21 +79,18 @@ io.on('connection', (socket) => {
 		const user = getMessageSender(userId);
 
 		if (user) {
-			socket.broadcast
-				.to(user.roomId)
-				.emit(
-					'messages/receiveReplyMessage',
-					id,
-					userId,
-					selectedMessageId,
-					selectedMessageUserId,
-					selectedMessageMsg,
-					selectedMessageAuthor,
-					selectedMessageTimestamp,
-					chatMessage,
-					author,
-					timestamp
-				);
+			socket.broadcast.to(user.roomId).emit('messages/receiveReplyMessage', {
+				id,
+				userId,
+				selectedMessageId,
+				selectedMessageUserId,
+				selectedMessageMsg,
+				selectedMessageAuthor,
+				selectedMessageTimestamp,
+				message: chatMessage,
+				author,
+				timestamp,
+			});
 		}
 	});
 
