@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 			timestamp: createTimestamp('{time}'),
 		});
 
-		io.to(user.roomId).emit('users/sendUsersList', getRoomUsers(user.roomId));
+		io.to(user.roomId).emit('users/sendUsers', getRoomUsers(user.roomId));
 	});
 
 	// listen to addMessage and send message back with receiveMessage to other room users
@@ -115,7 +115,7 @@ io.on('connection', (socket) => {
 					timestamp: createTimestamp('{time}'),
 				});
 
-				io.to(user.roomId).emit('users/sendUsersList', getRoomUsers(user.roomId));
+				io.to(user.roomId).emit('users/sendUsers', getRoomUsers(user.roomId));
 			}
 		});
 	});
