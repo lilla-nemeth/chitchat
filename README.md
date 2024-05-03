@@ -8,7 +8,6 @@ ChitChat is a chat application made with rooms.
 
 ![ChitChat Rooms](https://raw.githubusercontent.com/lilla-nemeth/chitchat/main/client/src/assets/screenshots/app_screenshot_00.png)
 
-
 ## Installing, running locally
 
 Clone the repo
@@ -17,7 +16,7 @@ Clone the repo
 git clone https://github.com/lilla-nemeth/chitchat.git
 ```
 
-### Server
+### Backend
 
 Go to the project root directory
 
@@ -40,24 +39,24 @@ npm run dev
 Server is running on port 8080
 </br></br>
 
-### Client
+### Frontend
 
 Go to the client folder
 
 ```
-cd client
+cd frontend
 ```
 
 Install the dependencies
 
 ```
-npm install
+yarn install
 ```
 
-Start the client
+Start the frontend
 
 ```
-npm start
+yarn dev
 ```
 
 ## License
