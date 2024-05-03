@@ -157,15 +157,14 @@ const Chat = () => {
 							<ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom>
 						</ActiveRoomContainer>
 						<UsersContainer $scrollvisible={users.length > 5}>
-							{users.length &&
-								users
-									.slice(0)
-									.reverse()
-									.map((user: UserType) => {
-										return (
-											<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
-										);
-									})}
+							{users
+								.slice(0)
+								.reverse()
+								.map((user: UserType) => {
+									return (
+										<User key={user.id} $currentuser={user.id === socketId} $scrollvisible={users.length > 5} username={user.username} />
+									);
+								})}
 						</UsersContainer>
 					</UserWrapper>
 					<MessageWrapper>
