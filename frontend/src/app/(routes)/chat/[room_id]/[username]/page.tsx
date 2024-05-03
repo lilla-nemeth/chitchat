@@ -4,7 +4,6 @@ import { socket } from '../../../socket';
 import { HandleNameChangeInterface } from '../../../../types/reactTypes';
 import { Message as MessageType } from '../../../../types/reduxTypes';
 import { useRouter, useParams } from 'next/navigation';
-import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 import { addUser } from '@/app/lib/features/user/userSlice';
 import { addMessage, addReplyMessage } from '@/app/lib/features/message/messageSlice';
@@ -58,7 +57,7 @@ const Chat = () => {
 	const [transport, setTransport] = useState('N/A');
 
 	const [message, setMessage] = useState<string>('');
-	const [socketId, setSocketId] = useState<string>('');
+	const [socketId, setSocketId] = useState<string | undefined>('');
 	const [activeReply, setActiveReply] = useState<boolean>(false);
 	const [selectedMessage, setSelectedMessage] = useState<any>([]);
 
