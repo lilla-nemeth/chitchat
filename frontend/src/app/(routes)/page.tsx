@@ -31,43 +31,45 @@ const Home = () => {
 	};
 
 	return (
-		<Main $homemain={true} $mainheight={true}>
-			<Wrapper>
-				<Logo $primary={true}>ChitChat</Logo>
-				<Form $homeform={true} onSubmit={handleSubmit}>
-					<TextInput
-						$homelabel={true}
-						$primary={true}
-						name={'Username'}
-						labelName={'Username'}
-						value={username}
-						placeholder={'Username'}
-						onChange={handleUsernameChange}
-						required={true}
-						autoFocus={true}
-					/>
-					<Label $homelabel={true}>Rooms</Label>
-					<RoomContainer>
-						{rooms.map((room: any) => (
-							<RoomButton
-								key={room.id}
-								roomName={room.name}
-								roomIcon={room.icon}
-								type={'radio'}
-								name={'selectedRoom'}
-								htmlFor={room.name}
-								id={room.id}
-								value={room.id}
-								$selected={room.id === selectedRoom}
-								defaultChecked={room.id === selectedRoom}
-								onChange={handleRoomChange}
-							></RoomButton>
-						))}
-					</RoomContainer>
-					{disabled ? <FormButton $primary={true} name={'Join'} /> : <FormButton $primary={false} name={'Join'} />}
-				</Form>
-			</Wrapper>
-		</Main>
+		<>
+			<Main $homemain={true} $mainheight={true}>
+				<Wrapper>
+					<Logo $primary={true}>ChitChat</Logo>
+					<Form $homeform={true} onSubmit={handleSubmit}>
+						<TextInput
+							$homelabel={true}
+							$primary={true}
+							name={'Username'}
+							labelName={'Username'}
+							value={username}
+							placeholder={'Username'}
+							onChange={handleUsernameChange}
+							required={true}
+							autoFocus={true}
+						/>
+						<Label $homelabel={true}>Rooms</Label>
+						<RoomContainer>
+							{rooms.map((room: any) => (
+								<RoomButton
+									key={room.id}
+									roomName={room.name}
+									roomIcon={room.icon}
+									type={'radio'}
+									name={'selectedRoom'}
+									htmlFor={room.name}
+									id={room.id}
+									value={room.id}
+									$selected={room.id === selectedRoom}
+									defaultChecked={room.id === selectedRoom}
+									onChange={handleRoomChange}
+								></RoomButton>
+							))}
+						</RoomContainer>
+						{disabled ? <FormButton $primary={true} name={'Join'} /> : <FormButton $primary={false} name={'Join'} />}
+					</Form>
+				</Wrapper>
+			</Main>
+		</>
 	);
 };
 
