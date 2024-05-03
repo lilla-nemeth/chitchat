@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
 import { socket } from '../../../socket';
 import { HandleNameChangeInterface } from '../../../../types/reactTypes';
+import { Message as MessageType } from '../../../../types/reduxTypes';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
@@ -113,30 +114,35 @@ const Chat = () => {
 		const userId = socketId;
 		const author = username;
 
-		if (selectedMessage.length && activeReply) {
+		const selectedMessageId = selectedMessage[0]?.id;
+		const selectedMessageUserId = selectedMessage[0]?.userId;
+		const selectedMessageMsg = selectedMessage[0]?.message;
+		const selectedMessageAuthor = selectedMessage[0]?.author;
+		const selectedMessageTimestamp = selectedMessage[0]?.timestamp;
+
+		if (selectedMessage && activeReply) {
 			// dispatch addReplyMessage action
-			// dispatch(
-			// 	addReplyMessage({
-			// 		selectedMessage[0].id,
-			// 		selectedMessage[0].userId,
-			// 		selectedMessage[0].message,
-			// 		selectedMessage[0].author,
-			// 		selectedMessage[0].timestamp,
-			// 		uuid,
-			// 		socketId,
-			// 		message,
-			// 		username,
-			// 		timestamp
-			// 	})
-			// );
-			// dispatch(addMessage({ id, userId, message, author, timestamp }));
+			dispatch(
+				addReplyMessage({
+					id,
+					selectedMessageId,
+					selectedMessageUserId,
+					selectedMessageMsg,
+					selectedMessageAuthor,
+					selectedMessageTimestamp,
+					userId,
+					message,
+					author,
+					timestamp,
+				})
+			);
 		} else {
 			// dispatch addMessage action
 			dispatch(addMessage({ id, userId, message, author, timestamp }));
 		}
 
 		setMessage('');
-		setActiveReply(false);
+		setActiveReply(!activeReply);
 	};
 
 	const handleChange = (e: HandleNameChangeInterface) => {
@@ -174,7 +180,7 @@ const Chat = () => {
 						</ButtonContainer>
 					</HeaderContainer>
 					<MessageContainer>
-						{messages?.map((msg: any) => {
+						{messages?.map((msg: MessageType) => {
 							return (
 								<Message
 									key={msg.id}
@@ -187,16 +193,10 @@ const Chat = () => {
 										setActiveReply(!activeReply);
 										setSelectedMessage(!activeReply ? [msg] : []);
 									}}
-									isResponseMessage={
-										msg.prevId &&
-										// msg.prevUserId
-										msg.prevMessage &&
-										msg.prevAuthor &&
-										msg.prevTimestamp
-									}
-									prevMessage={msg.prevMessage}
-									prevAuthor={msg.prevAuthor}
-									prevTimestamp={msg.prevTimestamp}
+									isResponseMessage={msg.selectedMessageMsg}
+									prevMessage={msg.selectedMessageMsg}
+									prevAuthor={msg.selectedMessageAuthor}
+									prevTimestamp={msg.selectedMessageTimestamp}
 								></Message>
 							);
 						})}
@@ -204,7 +204,7 @@ const Chat = () => {
 					</MessageContainer>
 					<Form $homeform={false} onSubmit={handleSubmit}>
 						<PrevMessageWrapper $replyactive={true}>
-							{selectedMessage?.map((msg: any) => {
+							{selectedMessage.map((msg: any) => {
 								return (
 									<PrevMessage
 										key={msg.id}

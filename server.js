@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
 
 		socket.emit('messages/serverMessage', {
 			id: uuidv4(),
-			userId: user.id,
+			userId: null,
 			message: `Welcome ${user.username}!`,
 			author: botName,
 			timestamp: createTimestamp('{time}'),
@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
 
 		socket.broadcast.to(user.roomId).emit('messages/serverMessage', {
 			id: uuidv4(),
-			userId: user.id,
+			userId: null,
 			message: `${user.username} has joined the room`,
 			author: botName,
 			timestamp: createTimestamp('{time}'),
@@ -65,13 +65,13 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('messages/addReplyMessage', (...message) => {
-		const prevId = message[0].prevId;
-		const prevUserId = message[0].prevUserId;
-		const prevChatMessage = message[0].prevMessage;
-		const prevAuthor = message[0].prevAuthor;
-		const prevTimestamp = message[0].prevTimestamp;
 		const id = message[0].id;
 		const userId = message[0].userId;
+		const selectedMessageId = message[0].selectedMessageId;
+		const selectedMessageUserId = message[0].selectedMessageUserId;
+		const selectedMessageMsg = message[0].selectedMessageMsg;
+		const selectedMessageAuthor = message[0].selectedMessageAuthor;
+		const selectedMessageTimestamp = message[0].selectedMessageTimestamp;
 		const chatMessage = message[0].message;
 		const author = message[0].author;
 		const timestamp = message[0].timestamp;
@@ -83,13 +83,13 @@ io.on('connection', (socket) => {
 				.to(user.roomId)
 				.emit(
 					'messages/receiveReplyMessage',
-					prevId,
-					prevUserId,
-					prevChatMessage,
-					prevAuthor,
-					prevTimestamp,
 					id,
 					userId,
+					selectedMessageId,
+					selectedMessageUserId,
+					selectedMessageMsg,
+					selectedMessageAuthor,
+					selectedMessageTimestamp,
 					chatMessage,
 					author,
 					timestamp
@@ -98,12 +98,10 @@ io.on('connection', (socket) => {
 	});
 
 	// Disconnecting
-	// TODO: find a way to get user data without addUser - fetchUser?
 	socket.on('users/addUser', (...message) => {
 		const id = message[0].id;
 
 		socket.on('disconnect', () => {
-			console.log(message);
 			const user = userLeave(id);
 
 			if (user) {

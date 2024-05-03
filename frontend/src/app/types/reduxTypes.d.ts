@@ -28,9 +28,22 @@ interface UserState {
 	users: User[];
 }
 
+interface SelectedMessage {
+	id: string;
+	selectedMessageUserId: string | any;
+	selectedMessageMsg: string;
+	selectedMessageAuthor: string | string[];
+	selectedMessageTimestamp: string;
+}
+
 interface Message {
 	id: string;
 	userId: string;
+	selectedMessageId?: SelectedMessage['selectedMessageId'];
+	selectedMessageUserId?: SelectedMessage['selectedMessageUserId'];
+	selectedMessageMsg?: SelectedMessage['selectedMessageMsg'];
+	selectedMessageAuthor?: SelectedMessage['selectedMessageAuthor'];
+	selectedMessageTimestamp?: SelectedMessage['selectedMessageTimestamp'];
 	message: string;
 	author: string | string[];
 	timestamp: string;
