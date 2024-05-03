@@ -2,11 +2,16 @@
 
 ## Description
 
-ChitChat is a chat application made with rooms.
+ChitChat is a chat application with rooms.
 
-🛠 Created with JavaScript, React, Redux, Socket.io and Node.js. UI is made by custom design. For styling I used Styled Components.
+🛠 Created with JavaScript, TypeScript, React, Redux, Socket.io and Node.js. UI is made by custom design. For styling I used Styled Components.
 
-![ChitChat Rooms](https://raw.githubusercontent.com/lilla-nemeth/chitchat/main/client/src/assets/screenshots/app_screenshot_00.png)
+![ChitChat Rooms](https://raw.githubusercontent.com/lilla-nemeth/chitchat/main/frontend/src/assets/screenshots/app_screenshot_00.png)
+
+
+## Future of the App
+
+- Adding database to the backend to store data
 
 ## Installing, running locally
 
