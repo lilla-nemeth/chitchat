@@ -36,7 +36,7 @@ function Message(props: any) {
 						</PrevContainer>
 						<PrevTimestamp>{prevTimestamp}</PrevTimestamp>
 					</PrevMessageContainer>
-					<MessageText isprevtext={true}>{text}</MessageText>
+					<MessageText $isprevtext={true}>{text}</MessageText>
 				</Bubble>
 			</MessageSubContainer>
 		</MessageSubWrapper>
@@ -49,7 +49,7 @@ function Message(props: any) {
 					<MessageTimestamp>{timestamp}</MessageTimestamp>
 				</MessageMeta>
 				<Bubble $chatbot={$chatbot}>
-					<MessageText isprevtext={false}>{text}</MessageText>
+					<MessageText $isprevtext={false}>{text}</MessageText>
 				</Bubble>
 			</MessageSubContainer>
 		</MessageSubWrapper>

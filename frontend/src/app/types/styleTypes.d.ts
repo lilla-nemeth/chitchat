@@ -51,7 +51,7 @@ interface BubbleProps {
 }
 
 interface MessageTextProps {
-	isprevtext?: boolean;
+	$isprevtext?: boolean;
 }
 
 export {
