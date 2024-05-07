@@ -1,8 +1,8 @@
 'use client';
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
-import { socket } from '../../../socket';
+import socket from '../../../socket';
 import { HandleNameChangeInterface } from '../../../../types/reactTypes';
-import { Message as MessageType, User as UserType } from '../../../../types/reduxTypes';
+import { Message as MessageType, User as UserType, CustomRootState, Room } from '../../../../types/reduxTypes';
 import { useRouter, useParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 import { addUser } from '@/app/lib/features/user/userSlice';
@@ -56,14 +56,15 @@ const Chat = () => {
 	//  checking if socket.io has created HTTP long-polling first
 	const [transport, setTransport] = useState('N/A');
 
-	const [message, setMessage] = useState<string>('');
+	const [message, setMessage] = useState<MessageType['message']>('');
 	const [socketId, setSocketId] = useState<string | undefined>('');
 	const [activeReply, setActiveReply] = useState<boolean>(false);
 	const [selectedMessage, setSelectedMessage] = useState<any>([]);
 
-	const users = useAppSelector((state: any) => state.users.users);
-	const messages = useAppSelector((state: any) => state.messages.messages);
-	const activeRoom = useAppSelector((state: any) => state.rooms.rooms.find((room: any) => room.id === room_id));
+	const users = useAppSelector((state: CustomRootState) => state.users.users);
+	const messages = useAppSelector((state: CustomRootState) => state.messages.messages);
+	const activeRoom = useAppSelector((state: CustomRootState) => state.rooms.rooms.find((room: Room) => room.id === room_id));
+
 	const dispatch = useAppDispatch();
 
 	const onConnect = () => {
@@ -148,13 +149,20 @@ const Chat = () => {
 		setMessage(e.target.value);
 	};
 
+	const handleLeaveRoom = () => {
+		// @ts-ignore
+		socket.leave(room_id);
+
+		router.push('/');
+	};
+
 	return (
 		<>
 			<Main $homemain={false} $mainheight={messages?.length > 2}>
 				<ChatRoomContainer>
 					<UserWrapper>
 						<ActiveRoomContainer>
-							<ChatRoom roomIcon={activeRoom.icon} roomName={activeRoom.name}></ChatRoom>
+							<ChatRoom roomIcon={activeRoom?.icon} roomName={activeRoom?.name}></ChatRoom>
 						</ActiveRoomContainer>
 						<UsersContainer $scrollvisible={users.length > 5}>
 							{users
@@ -174,7 +182,7 @@ const Chat = () => {
 							</Header>
 							<ButtonContainer>
 								{/* @ts-ignore */}
-								<StyledLink href={'/'} onClick={() => socket.end()}>
+								<StyledLink href={'/'} onClick={handleLeaveRoom}>
 									<SmallFormButton name={'Leave'} />
 								</StyledLink>
 							</ButtonContainer>

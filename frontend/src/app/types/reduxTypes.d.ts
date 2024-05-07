@@ -53,4 +53,10 @@ interface MessageState {
 	messages: Message[];
 }
 
-export { AppStore, RootState, AppDispatch, Action, Room, RoomState, User, UserState, Message, MessageState };
+interface CustomRootState extends RootState {
+	users: UserState;
+	messages: MessageState;
+	rooms: RoomState;
+}
+
+export { AppStore, RootState, CustomRootState, AppDispatch, Action, Room, RoomState, User, UserState, Message, MessageState };
