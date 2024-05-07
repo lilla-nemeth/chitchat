@@ -2,16 +2,18 @@
 
 import React, { FormEvent, useState } from 'react';
 import { HandleNameChangeInterface } from '../../app/types/reactTypes';
+import { Room as RoomType, CustomRootState } from '../types/reduxTypes';
 import { useAppSelector } from '../lib/hooks';
 import { useRouter } from 'next/navigation';
 import FormButton from '../components/FormButton';
 import RoomButton from '../components/RoomButton';
 import TextInput from '../components/TextInput';
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../styles';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const Home = () => {
-	const router = useRouter();
-	const rooms = useAppSelector((state) => state.rooms.rooms);
+	const router: AppRouterInstance = useRouter();
+	const rooms = useAppSelector((state: CustomRootState) => state.rooms.rooms);
 	const [username, setUsername] = useState<string>('');
 	const [selectedRoom, setSelectedRoom] = useState<string>(rooms[0].id);
 
@@ -49,7 +51,7 @@ const Home = () => {
 						/>
 						<Label $homelabel={true}>Rooms</Label>
 						<RoomContainer>
-							{rooms.map((room: any) => (
+							{rooms.map((room: RoomType) => (
 								<RoomButton
 									key={room.id}
 									roomName={room.name}

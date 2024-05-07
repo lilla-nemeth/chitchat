@@ -39,12 +39,13 @@ import { createTimestamp } from '../../../../utils/timestamp';
 import { scrollToBottom } from '../../../../utils/scroll';
 import { checkMessageLength } from '../../../../utils/message';
 import { v4 as uuidv4 } from 'uuid';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const Chat = () => {
 	const uuid = uuidv4();
 	const timestamp = createTimestamp('{time}');
 
-	const router = useRouter();
+	const router: AppRouterInstance = useRouter();
 	const params = useParams();
 	const scrollRef = useRef(null);
 
