@@ -29,11 +29,11 @@ interface UserState {
 }
 
 interface SelectedMessage {
-	id: string;
-	selectedMessageUserId: string | undefined;
-	selectedMessageMsg: string;
-	selectedMessageAuthor: string | string[];
-	selectedMessageTimestamp: string;
+	id?: string;
+	selectedMessageUserId?: string | undefined;
+	selectedMessageMsg?: string;
+	selectedMessageAuthor?: string | string[];
+	selectedMessageTimestamp?: string;
 }
 
 interface Message {
@@ -59,4 +59,17 @@ interface CustomRootState extends RootState {
 	rooms: RoomState;
 }
 
-export { AppStore, RootState, CustomRootState, AppDispatch, Action, Room, RoomState, User, UserState, Message, MessageState };
+export {
+	AppStore,
+	RootState,
+	CustomRootState,
+	AppDispatch,
+	Action,
+	Room,
+	RoomState,
+	User,
+	UserState,
+	Message,
+	MessageState,
+	SelectedMessage,
+};

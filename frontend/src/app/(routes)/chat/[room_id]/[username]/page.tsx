@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
 import socket from '../../../socket';
 import { HandleNameChangeInterface } from '../../../../types/reactTypes';
-import { Message as MessageType, User as UserType, CustomRootState, Room } from '../../../../types/reduxTypes';
+import { Message as MessageType, User as UserType, CustomRootState, Room, SelectedMessage } from '../../../../types/reduxTypes';
 import { useRouter, useParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 import { addUser } from '@/app/lib/features/user/userSlice';
@@ -59,7 +59,7 @@ const Chat = () => {
 	const [message, setMessage] = useState<MessageType['message']>('');
 	const [socketId, setSocketId] = useState<string | undefined>('');
 	const [activeReply, setActiveReply] = useState<boolean>(false);
-	const [selectedMessage, setSelectedMessage] = useState<any>([]);
+	const [selectedMessage, setSelectedMessage] = useState<SelectedMessage[]>([]);
 
 	const users = useAppSelector((state: CustomRootState) => state.users.users);
 	const messages = useAppSelector((state: CustomRootState) => state.messages.messages);
@@ -115,10 +115,10 @@ const Chat = () => {
 		const author = username;
 
 		const selectedMessageId = selectedMessage[0]?.id;
-		const selectedMessageUserId = selectedMessage[0]?.userId;
-		const selectedMessageMsg = selectedMessage[0]?.message;
-		const selectedMessageAuthor = selectedMessage[0]?.author;
-		const selectedMessageTimestamp = selectedMessage[0]?.timestamp;
+		const selectedMessageUserId = selectedMessage[0]?.selectedMessageUserId;
+		const selectedMessageMsg = selectedMessage[0]?.selectedMessageMsg;
+		const selectedMessageAuthor = selectedMessage[0]?.selectedMessageAuthor;
+		const selectedMessageTimestamp = selectedMessage[0]?.selectedMessageTimestamp;
 
 		if (selectedMessage && activeReply) {
 			// dispatch addReplyMessage action
@@ -212,12 +212,12 @@ const Chat = () => {
 						</MessageContainer>
 						<Form $homeform={false} onSubmit={handleSubmit}>
 							<PrevMessageWrapper $replyactive={activeReply}>
-								{selectedMessage.map((msg: MessageType) => {
+								{selectedMessage.map((msg: SelectedMessage) => {
 									return (
 										<PrevMessage
 											key={msg.id}
-											author={msg.author}
-											message={checkMessageLength(msg.message, 100)}
+											author={msg.selectedMessageAuthor}
+											message={checkMessageLength(msg.selectedMessageMsg as string, 100)}
 											icon={<CloseIcon />}
 											onClick={() => {
 												setActiveReply(!activeReply);
