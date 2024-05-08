@@ -1,4 +1,4 @@
-import { ButtonProps, BubbleProps } from './styleTypes';
+import { ButtonProps, BubbleProps, RoomButtonContainerProps } from './styleTypes';
 import { Room as RoomType, Message as MessageType } from './reduxTypes';
 
 type MouseEventDiv = MouseEventHandler<HTMLDivElement>;
@@ -41,4 +41,17 @@ interface FormButtonProps {
 	name: string;
 }
 
-export { MessageProps, MessageToolProps, PrevMessageProps, ChatRoomProps, FormButtonProps };
+interface RoomButtonProps {
+	htmlFor: RoomType['name'];
+	defaultChecked: boolean;
+	type: 'radio';
+	roomName: RoomType['name'];
+	roomIcon: RoomType['icon'];
+	id: RoomType['id'];
+	name: RoomType['name'];
+	value: RoomType['id'];
+	onChange: ChangeEvent<HTMLInputElement>;
+	$selected: RoomButtonContainerProps['$selected'];
+}
+
+export { MessageProps, MessageToolProps, PrevMessageProps, ChatRoomProps, FormButtonProps, RoomButtonProps };
