@@ -39,6 +39,8 @@ const initialState: RoomState = {
 	rooms: initialRooms,
 };
 
+// Rooms currently don't have any reducers,
+// but gives the possibility to update room data in the future
 const roomSlice = createSlice({
 	name: 'rooms',
 	initialState,
