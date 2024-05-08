@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import {
 	Bubble,
 	MessageText,
@@ -17,8 +17,9 @@ import MessageTool from './MessageTool';
 import { MessageProps } from '../types/propTypes';
 
 function Message(props: MessageProps) {
-	const { $chatbot, timestamp, text, username, icon, onClick, prevMessage, prevAuthor, prevTimestamp, iconVisibility, setIconVisibility } =
-		props;
+	const { $chatbot, timestamp, text, username, icon, onClick, prevMessage, prevAuthor, prevTimestamp } = props;
+
+	const [iconVisibility, setIconVisibility] = useState<boolean>(false);
 
 	return (
 		<MessageSubWrapper>

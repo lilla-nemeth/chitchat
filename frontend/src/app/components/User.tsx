@@ -4,11 +4,9 @@ function User(props: any) {
 	const { $currentuser, username, $scrollvisible } = props;
 
 	return (
-		<>
-			<UserBox $currentuser={$currentuser} $scrollvisible={$scrollvisible}>
-				{username}
-			</UserBox>
-		</>
+		<UserBox $currentuser={$currentuser} $scrollvisible={$scrollvisible}>
+			{username}
+		</UserBox>
 	);
 }
 

@@ -12,8 +12,6 @@ interface MessageProps {
 	prevMessage: string | undefined;
 	prevAuthor: string | string[] | undefined;
 	prevTimestamp: string | undefined;
-	iconVisibility: any;
-	setIconVisibility: any;
 }
 
 interface ChatRoomProps {
