@@ -72,7 +72,7 @@ interface TextInputProps {
 	$homelabel: LabelProps['$homelabel'];
 	$primary: InputProps['$primary'];
 	onChange: InputChangeType;
-	labelName: string;
+	labelName?: string;
 	value: string;
 	placeholder: string;
 	name: string;

@@ -1,12 +1,26 @@
 'use client';
+// React, Next Navigation, Socket, UUID
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
-import socket from '../../../socket';
-import { HandleNameChangeInterface } from '../../../../types/reactTypes';
-import { Message as MessageType, User as UserType, CustomRootState, Room, SelectedMessage } from '../../../../types/reduxTypes';
 import { useRouter, useParams } from 'next/navigation';
+import socket from '../../../socket';
+import { v4 as uuidv4 } from 'uuid';
+// Types
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
+import { HandleNameChangeInterface } from '../../../../types/reactTypes';
+import {
+	Message as MessageType,
+	SelectedMessage as SelectedMessageType,
+	User as UserType,
+	CustomRootState,
+	Room as RoomType,
+	SelectedMessage,
+} from '../../../../types/reduxTypes';
+// Redux
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
 import { addUser } from '@/app/lib/features/user/userSlice';
 import { addMessage, addReplyMessage } from '@/app/lib/features/message/messageSlice';
+// Components
 import User from '../../../../components/User';
 import SmallFormButton from '../../../../components/SmallFormButton';
 import TextInput from '../../../../components/TextInput';
@@ -32,25 +46,25 @@ import {
 	ButtonContainer,
 	PrevMessageWrapper,
 } from '../../../../styles';
+// Assets
 import SendIcon from '../../../../assets/icons/SendIcon';
 import ReplyIcon from '../../../../assets/icons/ReplyIcon';
 import CloseIcon from '../../../../assets/icons/CloseIcon';
+// Helper Functions
 import { createTimestamp } from '../../../../utils/timestamp';
 import { scrollToBottom } from '../../../../utils/scroll';
 import { checkMessageLength } from '../../../../utils/message';
-import { v4 as uuidv4 } from 'uuid';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const Chat = () => {
 	const uuid = uuidv4();
 	const timestamp = createTimestamp('{time}');
 
 	const router: AppRouterInstance = useRouter();
-	const params = useParams();
+	const params: Params = useParams();
 	const scrollRef: React.MutableRefObject<null | HTMLDivElement> = useRef(null);
 
-	const room_id: string | string[] = params.room_id;
-	const username: string | string[] = params.username;
+	const room_id: RoomType['id'] = params.room_id;
+	const username: UserType['username'] = params.username;
 
 	// checking status of connection
 	const [isConnected, setIsConnected] = useState<boolean>(false);
@@ -64,11 +78,11 @@ const Chat = () => {
 
 	const users = useAppSelector((state: CustomRootState) => state.users.users);
 	const messages = useAppSelector((state: CustomRootState) => state.messages.messages);
-	const activeRoom = useAppSelector((state: CustomRootState) => state.rooms.rooms.find((room: Room) => room.id === room_id));
+	const activeRoom = useAppSelector((state: CustomRootState) => state.rooms.rooms.find((room: RoomType) => room.id === room_id));
 
 	const dispatch = useAppDispatch();
 
-	const onConnect = () => {
+	const onConnect = (): void => {
 		setIsConnected(true);
 		setTransport(socket.io.engine.transport.name);
 
@@ -77,13 +91,13 @@ const Chat = () => {
 		});
 
 		const id = socket.id;
-		// dispatch addUser action
+
 		dispatch(addUser({ id, room_id, username, timestamp }));
 
 		setSocketId(id);
 	};
 
-	const onDisconnect = () => {
+	const onDisconnect = (): void => {
 		setIsConnected(false);
 		setTransport('N/A');
 
@@ -104,25 +118,23 @@ const Chat = () => {
 		};
 	}, []);
 
-	useEffect(() => {
+	useEffect((): void => {
 		scrollToBottom(scrollRef);
 	}, [messages.length]);
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-
+	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		const id = uuid;
 		const userId = socketId;
 		const author = username;
+		const selectedMessageId: SelectedMessageType['id'] = selectedMessage[0]?.id;
+		const selectedMessageUserId: SelectedMessageType['selectedMessageUserId'] = selectedMessage[0]?.selectedMessageUserId;
+		const selectedMessageMsg: SelectedMessageType['selectedMessageMsg'] = selectedMessage[0]?.selectedMessageMsg;
+		const selectedMessageAuthor: SelectedMessageType['selectedMessageAuthor'] = selectedMessage[0]?.selectedMessageAuthor;
+		const selectedMessageTimestamp: SelectedMessageType['selectedMessageTimestamp'] = selectedMessage[0]?.selectedMessageTimestamp;
 
-		const selectedMessageId = selectedMessage[0]?.id;
-		const selectedMessageUserId = selectedMessage[0]?.selectedMessageUserId;
-		const selectedMessageMsg = selectedMessage[0]?.selectedMessageMsg;
-		const selectedMessageAuthor = selectedMessage[0]?.selectedMessageAuthor;
-		const selectedMessageTimestamp = selectedMessage[0]?.selectedMessageTimestamp;
+		e.preventDefault();
 
 		if (selectedMessage && activeReply) {
-			// dispatch addReplyMessage action
 			dispatch(
 				addReplyMessage({
 					id,
@@ -138,7 +150,6 @@ const Chat = () => {
 				})
 			);
 		} else {
-			// dispatch addMessage action
 			dispatch(addMessage({ id, userId, message, author, timestamp }));
 		}
 
@@ -146,11 +157,12 @@ const Chat = () => {
 		setActiveReply(false);
 	};
 
-	const handleChange = (e: HandleNameChangeInterface) => {
+	const handleChange = (e: HandleNameChangeInterface): void => {
 		setMessage(e.target.value);
 	};
 
-	const handleLeaveRoom = () => {
+	const handleLeaveRoom = (): void => {
+		// socket.leave works, but not recognized as fn
 		// @ts-ignore
 		socket.leave(room_id);
 
