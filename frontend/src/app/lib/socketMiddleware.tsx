@@ -1,6 +1,6 @@
 import { Middleware } from '@reduxjs/toolkit';
 import io from 'socket.io-client';
-import { RootState, Action } from '../types/reduxTypes';
+import { RootState } from '../types/reduxTypes';
 import { SocketConfig } from '../types/socketTypes';
 
 const socketMiddleware = (config: SocketConfig): Middleware<RootState> => {
@@ -10,7 +10,7 @@ const socketMiddleware = (config: SocketConfig): Middleware<RootState> => {
 	return (store) => (next) => (action: any) => {
 		if (!areListenersMapped) {
 			config.listeners.forEach((listener) => {
-				socket.on(listener.message, (message: any) => {
+				socket.on(listener.message, (message: string) => {
 					return store.dispatch(listener.action(message));
 				});
 			});
