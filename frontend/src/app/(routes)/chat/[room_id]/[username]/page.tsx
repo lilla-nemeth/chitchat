@@ -66,11 +66,9 @@ const Chat = () => {
 	const room_id: RoomType['id'] = params.room_id;
 	const username: UserType['username'] = params.username;
 
-	// checking status of connection
+	// checking status of connection (isConnected) and if socket.io has created HTTP long-polling first (transport)
 	const [isConnected, setIsConnected] = useState<boolean>(false);
-	//  checking if socket.io has created HTTP long-polling first
 	const [transport, setTransport] = useState<string>('N/A');
-
 	const [message, setMessage] = useState<MessageType['message']>('');
 	const [socketId, setSocketId] = useState<string | undefined>('');
 	const [activeReply, setActiveReply] = useState<boolean>(false);
