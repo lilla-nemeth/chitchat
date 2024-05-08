@@ -1,11 +1,13 @@
-import { ButtonProps, BubbleProps, RoomButtonContainerProps } from './styleTypes';
-import { Room as RoomType, Message as MessageType } from './reduxTypes';
+import { ButtonProps, BubbleProps, RoomButtonContainerProps, UserBoxProps, LabelProps, InputProps } from './styleTypes';
+import { Room as RoomType, Message as MessageType, User as UserType } from './reduxTypes';
 
 type MouseEventDiv = MouseEventHandler<HTMLDivElement>;
-type ButtonType = 'button' | 'submit' | 'reset' | undefined;
+type SubmitButtonType = 'submit';
+type RadioButtonType = 'radio';
 type ButtonValue = string;
 type ButtonName = string;
 type ButtonText = string;
+type InputChangeType = ChangeEvent<HTMLInputElement>;
 
 interface MessageProps {
 	$chatbot: BubbleProps['$chatbot'];
@@ -40,7 +42,7 @@ interface ChatRoomProps {
 interface FormButtonProps {
 	$primary: ButtonProps['$primary'];
 	text: ButtonText;
-	type: ButtonType;
+	type: SubmitButtonType;
 	value: ButtonValue;
 	name: ButtonName;
 }
@@ -56,14 +58,42 @@ interface RoomButtonProps {
 	name: ButtonName;
 	htmlFor: RoomType['name'];
 	defaultChecked: boolean;
-	type: 'radio';
+	type: RadioButtonType;
 	roomName: RoomType['name'];
 	roomIcon: RoomType['icon'];
 	id: RoomType['id'];
 	name: RoomType['name'];
 	value: RoomType['id'];
-	onChange: ChangeEvent<HTMLInputElement>;
+	onChange: InputChangeType;
 	$selected: RoomButtonContainerProps['$selected'];
 }
 
-export { MessageProps, MessageToolProps, PrevMessageProps, ChatRoomProps, FormButtonProps, SmallFormButtonProps, RoomButtonProps };
+interface TextInputProps {
+	$homelabel: LabelProps['$homelabel'];
+	$primary: InputProps['$primary'];
+	onChange: InputChangeType;
+	labelName: string;
+	value: string;
+	placeholder: string;
+	name: string;
+	required: boolean;
+	autoFocus: boolean;
+}
+
+interface UserProps {
+	$currentuser: UserBoxProps['$currentuser'];
+	username: UserType['username'];
+	$scrollvisible: UserBoxProps['$scrollvisible'];
+}
+
+export {
+	MessageProps,
+	MessageToolProps,
+	PrevMessageProps,
+	ChatRoomProps,
+	FormButtonProps,
+	SmallFormButtonProps,
+	RoomButtonProps,
+	TextInputProps,
+	UserProps,
+};
