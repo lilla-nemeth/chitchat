@@ -9,8 +9,8 @@ interface Action {
 
 interface Room {
 	id: string;
-	name: string;
-	icon: JSX.Element;
+	name: string | undefined;
+	icon: JSX.Element | undefined;
 }
 
 interface RoomState {

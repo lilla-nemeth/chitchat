@@ -7,11 +7,18 @@ interface MessageProps {
 	timestamp: string;
 	text: string;
 	username: string | string[];
-	icon: any;
-	onClick: any;
+	icon: JSX.Element;
+	onClick: MouseEventHandler<HTMLDivElement>;
 	prevMessage: string | undefined;
 	prevAuthor: string | string[] | undefined;
 	prevTimestamp: string | undefined;
+}
+
+// TODO: change any type
+interface MessageToolProps {
+	iconVisibility: boolean;
+	icon: MessageProps['icon'];
+	onClick: MessageProps['onClick'];
 }
 
 interface ChatRoomProps {
@@ -27,4 +34,4 @@ interface FormButtonProps {
 	name: string;
 }
 
-export { MessageProps, ChatRoomProps, FormButtonProps };
+export { MessageProps, MessageToolProps, ChatRoomProps, FormButtonProps };
