@@ -21,4 +21,12 @@ interface ChatRoomProps {
 	roomIcon: RoomType['icon'];
 }
 
-export { MessageProps, ChatRoomProps };
+interface FormButtonProps {
+	$primary: boolean;
+	text: string;
+	type: 'button' | 'submit' | 'reset' | undefined;
+	value: string;
+	name: string;
+}
+
+export { MessageProps, ChatRoomProps, FormButtonProps };

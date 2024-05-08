@@ -67,7 +67,7 @@ const Home = () => {
 								></RoomButton>
 							))}
 						</RoomContainer>
-						{disabled ? <FormButton $primary={true} name={'Join'} /> : <FormButton $primary={false} name={'Join'} />}
+						<FormButton $primary={disabled ? true : false} text={'Join'} type={'submit'} name={'submit'} value={'submit'} />
 					</Form>
 				</Wrapper>
 			</Main>
