@@ -55,7 +55,7 @@ const Chat = () => {
 	// checking status of connection
 	const [isConnected, setIsConnected] = useState<boolean>(false);
 	//  checking if socket.io has created HTTP long-polling first
-	const [transport, setTransport] = useState('N/A');
+	const [transport, setTransport] = useState<string>('N/A');
 
 	const [message, setMessage] = useState<MessageType['message']>('');
 	const [socketId, setSocketId] = useState<string | undefined>('');
