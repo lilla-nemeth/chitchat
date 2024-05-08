@@ -1,12 +1,13 @@
 import { ChatSmallButton, ButtonIconStyle } from '../styles';
+import { SmallFormButtonProps } from '../types/propTypes';
 
-function SmallFormButton(props: any) {
-	const { $primary, name, isIcon, icon, onClick } = props;
+function SmallFormButton(props: SmallFormButtonProps) {
+	const { text, isIcon, icon } = props;
 
 	return (
-		<ChatSmallButton onClick={onClick} type='submit' value='submit' name='submit'>
+		<ChatSmallButton  type='submit' value='submit' name='submit'>
 			{isIcon && <ButtonIconStyle>{icon}</ButtonIconStyle>}
-			{name}
+			{text}
 		</ChatSmallButton>
 	);
 }

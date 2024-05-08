@@ -57,7 +57,7 @@ const Home = () => {
 									roomName={room.name}
 									roomIcon={room.icon}
 									type={'radio'}
-									name={room.name}
+									name={room.name as string}
 									htmlFor={room.name}
 									id={room.id}
 									value={room.id}

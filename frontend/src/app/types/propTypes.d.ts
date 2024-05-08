@@ -2,6 +2,10 @@ import { ButtonProps, BubbleProps, RoomButtonContainerProps } from './styleTypes
 import { Room as RoomType, Message as MessageType } from './reduxTypes';
 
 type MouseEventDiv = MouseEventHandler<HTMLDivElement>;
+type ButtonType = 'button' | 'submit' | 'reset' | undefined;
+type ButtonValue = string;
+type ButtonName = string;
+type ButtonText = string;
 
 interface MessageProps {
 	$chatbot: BubbleProps['$chatbot'];
@@ -35,13 +39,21 @@ interface ChatRoomProps {
 
 interface FormButtonProps {
 	$primary: ButtonProps['$primary'];
-	text: string;
-	type: 'button' | 'submit' | 'reset' | undefined;
-	value: string;
-	name: string;
+	text: ButtonText;
+	type: ButtonType;
+	value: ButtonValue;
+	name: ButtonName;
+}
+
+interface SmallFormButtonProps {
+	text?: ButtonText;
+	isIcon?: boolean;
+	icon?: Icon;
 }
 
 interface RoomButtonProps {
+	value: ButtonValue;
+	name: ButtonName;
 	htmlFor: RoomType['name'];
 	defaultChecked: boolean;
 	type: 'radio';
@@ -54,4 +66,4 @@ interface RoomButtonProps {
 	$selected: RoomButtonContainerProps['$selected'];
 }
 
-export { MessageProps, MessageToolProps, PrevMessageProps, ChatRoomProps, FormButtonProps, RoomButtonProps };
+export { MessageProps, MessageToolProps, PrevMessageProps, ChatRoomProps, FormButtonProps, SmallFormButtonProps, RoomButtonProps };

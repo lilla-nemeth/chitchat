@@ -183,7 +183,7 @@ const Chat = () => {
 							</Header>
 							<ButtonContainer>
 								<StyledLink href={'/'} onClick={handleLeaveRoom}>
-									<SmallFormButton name={'Leave'} />
+									<SmallFormButton text={'Leave'} />
 								</StyledLink>
 							</ButtonContainer>
 						</HeaderContainer>
@@ -238,7 +238,7 @@ const Chat = () => {
 									autoFocus={true}
 								/>
 								<MessageButton>
-									<SmallFormButton to={false} isIcon={true} icon={<SendIcon />} />
+									<SmallFormButton isIcon={true} icon={<SendIcon />} />
 								</MessageButton>
 							</InputContainer>
 						</Form>
