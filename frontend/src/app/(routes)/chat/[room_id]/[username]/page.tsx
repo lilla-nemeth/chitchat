@@ -193,9 +193,9 @@ const Chat = () => {
 									<Message
 										key={msg.id}
 										$chatbot={msg.author === '@chatbot'}
-										username={msg.author}
+										author={msg.author}
 										timestamp={msg.timestamp}
-										text={msg.message}
+										message={msg.message}
 										icon={<ReplyIcon />}
 										onClick={() => {
 											setActiveReply(!activeReply);

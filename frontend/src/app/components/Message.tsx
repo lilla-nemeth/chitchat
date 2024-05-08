@@ -17,7 +17,7 @@ import MessageTool from './MessageTool';
 import { MessageProps } from '../types/propTypes';
 
 function Message(props: MessageProps) {
-	const { $chatbot, timestamp, text, username, icon, onClick, prevMessage, prevAuthor, prevTimestamp } = props;
+	const { $chatbot, timestamp, message, author, icon, onClick, prevMessage, prevAuthor, prevTimestamp } = props;
 
 	const [iconVisibility, setIconVisibility] = useState<boolean>(false);
 
@@ -26,7 +26,7 @@ function Message(props: MessageProps) {
 			<MessageSubContainer onMouseOver={() => setIconVisibility(true)} onMouseLeave={() => setIconVisibility(false)}>
 				<MessageMeta>
 					<MessageTool iconVisibility={iconVisibility} icon={icon} onClick={onClick}></MessageTool>
-					<MessageUsername>{username}</MessageUsername>
+					<MessageUsername>{author}</MessageUsername>
 					<MessageTimestamp>{timestamp}</MessageTimestamp>
 				</MessageMeta>
 				{prevMessage ? (
@@ -38,11 +38,11 @@ function Message(props: MessageProps) {
 							</PrevContainer>
 							<PrevTimestamp>{prevTimestamp}</PrevTimestamp>
 						</PrevMessageContainer>
-						<MessageText $isprevtext={true}>{text}</MessageText>
+						<MessageText $isprevtext={true}>{message}</MessageText>
 					</Bubble>
 				) : (
 					<Bubble $chatbot={$chatbot}>
-						<MessageText $isprevtext={false}>{text}</MessageText>
+						<MessageText $isprevtext={false}>{message}</MessageText>
 					</Bubble>
 				)}
 			</MessageSubContainer>

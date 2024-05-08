@@ -1,20 +1,18 @@
 import { BubbleProps } from './styleTypes';
-import { Room as RoomType } from './reduxTypes';
+import { Room as RoomType, Message as MessageType } from './reduxTypes';
 
-// TODO: change any types, use type defintions from reduxTypes
 interface MessageProps {
 	$chatbot: BubbleProps['$chatbot'];
-	timestamp: string;
-	text: string;
-	username: string | string[];
-	icon: JSX.Element;
+	timestamp: MessageType['timestamp'];
+	message: MessageType['message'];
+	author: MessageType['author'];
+	icon: RoomType['icon'];
 	onClick: MouseEventHandler<HTMLDivElement>;
-	prevMessage: string | undefined;
-	prevAuthor: string | string[] | undefined;
-	prevTimestamp: string | undefined;
+	prevMessage: MessageType['selectedMessageMsg'];
+	prevAuthor: MessageType['selectedMessageAuthor'];
+	prevTimestamp: MessageType['selectedMessageTimestamp'];
 }
 
-// TODO: change any type
 interface MessageToolProps {
 	iconVisibility: boolean;
 	icon: MessageProps['icon'];
