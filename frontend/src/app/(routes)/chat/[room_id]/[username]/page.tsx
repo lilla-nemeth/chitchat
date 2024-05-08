@@ -47,7 +47,7 @@ const Chat = () => {
 
 	const router: AppRouterInstance = useRouter();
 	const params = useParams();
-	const scrollRef = useRef(null);
+	const scrollRef: React.MutableRefObject<null | HTMLDivElement> = useRef(null);
 
 	const room_id: string | string[] = params.room_id;
 	const username: string | string[] = params.username;
