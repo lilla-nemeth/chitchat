@@ -1,4 +1,5 @@
 import { BubbleProps } from './styleTypes';
+import { Room as RoomType } from './reduxTypes';
 
 // TODO: change any types, use type defintions from reduxTypes
 interface MessageProps {
@@ -15,4 +16,9 @@ interface MessageProps {
 	setIconVisibility: any;
 }
 
-export { MessageProps };
+interface ChatRoomProps {
+	roomName: RoomType['name'];
+	roomIcon: RoomType['icon'];
+}
+
+export { MessageProps, ChatRoomProps };
