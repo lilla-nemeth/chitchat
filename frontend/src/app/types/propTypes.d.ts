@@ -1,0 +1,18 @@
+import { BubbleProps } from './styleTypes';
+
+// TODO: change any types, use type defintions from reduxTypes
+interface MessageProps {
+	$chatbot: BubbleProps['$chatbot'];
+	timestamp: string;
+	text: string;
+	username: string | string[];
+	icon: any;
+	onClick: any;
+	prevMessage: string | undefined;
+	prevAuthor: string | string[] | undefined;
+	prevTimestamp: string | undefined;
+	iconVisibility: any;
+	setIconVisibility: any;
+}
+
+export { MessageProps };

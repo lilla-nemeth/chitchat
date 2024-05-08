@@ -14,13 +14,13 @@ import {
 	PrevContainer,
 } from '../styles';
 import MessageTool from './MessageTool';
+import { MessageProps } from '../types/propTypes';
 
-function Message(props: any) {
-	const { $chatbot, timestamp, text, username, icon, onClick, isResponseMessage, prevMessage, prevAuthor, prevTimestamp } = props;
+function Message(props: MessageProps) {
+	const { $chatbot, timestamp, text, username, icon, onClick, prevMessage, prevAuthor, prevTimestamp, iconVisibility, setIconVisibility } =
+		props;
 
-	const [iconVisibility, setIconVisibility] = useState(false);
-
-	return isResponseMessage ? (
+	return (
 		<MessageSubWrapper>
 			<MessageSubContainer onMouseOver={() => setIconVisibility(true)} onMouseLeave={() => setIconVisibility(false)}>
 				<MessageMeta>
@@ -28,29 +28,22 @@ function Message(props: any) {
 					<MessageUsername>{username}</MessageUsername>
 					<MessageTimestamp>{timestamp}</MessageTimestamp>
 				</MessageMeta>
-				<Bubble $chatbot={$chatbot}>
-					<PrevMessageContainer>
-						<PrevContainer>
-							<PrevAuthor>{prevAuthor}</PrevAuthor>
-							<PrevText>{prevMessage}</PrevText>
-						</PrevContainer>
-						<PrevTimestamp>{prevTimestamp}</PrevTimestamp>
-					</PrevMessageContainer>
-					<MessageText $isprevtext={true}>{text}</MessageText>
-				</Bubble>
-			</MessageSubContainer>
-		</MessageSubWrapper>
-	) : (
-		<MessageSubWrapper>
-			<MessageSubContainer onMouseOver={() => setIconVisibility(true)} onMouseLeave={() => setIconVisibility(false)}>
-				<MessageMeta>
-					<MessageTool iconVisibility={iconVisibility} icon={icon} onClick={onClick}></MessageTool>
-					<MessageUsername>{username}</MessageUsername>
-					<MessageTimestamp>{timestamp}</MessageTimestamp>
-				</MessageMeta>
-				<Bubble $chatbot={$chatbot}>
-					<MessageText $isprevtext={false}>{text}</MessageText>
-				</Bubble>
+				{prevMessage ? (
+					<Bubble $chatbot={$chatbot}>
+						<PrevMessageContainer>
+							<PrevContainer>
+								<PrevAuthor>{prevAuthor}</PrevAuthor>
+								<PrevText>{prevMessage}</PrevText>
+							</PrevContainer>
+							<PrevTimestamp>{prevTimestamp}</PrevTimestamp>
+						</PrevMessageContainer>
+						<MessageText $isprevtext={true}>{text}</MessageText>
+					</Bubble>
+				) : (
+					<Bubble $chatbot={$chatbot}>
+						<MessageText $isprevtext={false}>{text}</MessageText>
+					</Bubble>
+				)}
 			</MessageSubContainer>
 		</MessageSubWrapper>
 	);

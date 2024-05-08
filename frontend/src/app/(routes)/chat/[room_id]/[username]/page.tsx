@@ -61,6 +61,7 @@ const Chat = () => {
 	const [socketId, setSocketId] = useState<string | undefined>('');
 	const [activeReply, setActiveReply] = useState<boolean>(false);
 	const [selectedMessage, setSelectedMessage] = useState<SelectedMessage[]>([]);
+	const [iconVisibility, setIconVisibility] = useState<boolean>(false);
 
 	const users = useAppSelector((state: CustomRootState) => state.users.users);
 	const messages = useAppSelector((state: CustomRootState) => state.messages.messages);
@@ -182,7 +183,6 @@ const Chat = () => {
 								<Logo>ChitChat</Logo>
 							</Header>
 							<ButtonContainer>
-								{/* @ts-ignore */}
 								<StyledLink href={'/'} onClick={handleLeaveRoom}>
 									<SmallFormButton name={'Leave'} />
 								</StyledLink>
@@ -192,6 +192,8 @@ const Chat = () => {
 							{messages?.map((msg: MessageType) => {
 								return (
 									<Message
+										setIconVisibility={setIconVisibility}
+										iconVisibility={iconVisibility}
 										key={msg.id}
 										$chatbot={msg.author === '@chatbot'}
 										username={msg.author}
@@ -202,7 +204,6 @@ const Chat = () => {
 											setActiveReply(!activeReply);
 											setSelectedMessage(!activeReply ? [msg] : []);
 										}}
-										isResponseMessage={msg.selectedMessageMsg}
 										prevMessage={msg.selectedMessageMsg}
 										prevAuthor={msg.selectedMessageAuthor}
 										prevTimestamp={msg.selectedMessageTimestamp}
