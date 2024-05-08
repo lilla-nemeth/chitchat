@@ -1,6 +1,7 @@
 type AppStore = ReturnType<typeof makeStore>;
 type RootState = ReturnType<AppStore['getState']>;
 type AppDispatch = AppStore['dispatch'];
+type Icon = JSX.Element;
 
 interface Action {
 	type: string;
@@ -10,7 +11,7 @@ interface Action {
 interface Room {
 	id: string;
 	name: string | undefined;
-	icon: JSX.Element | undefined;
+	icon: Icon | undefined;
 }
 
 interface RoomState {
@@ -65,6 +66,7 @@ export {
 	CustomRootState,
 	AppDispatch,
 	Action,
+	Icon,
 	Room,
 	RoomState,
 	User,
