@@ -125,10 +125,10 @@ const Chat = () => {
 		const userId = socketId;
 		const author = username;
 		const selectedMessageId: SelectedMessageType['id'] = selectedMessage[0]?.id;
-		const selectedMessageUserId: SelectedMessageType['selectedMessageUserId'] = selectedMessage[0]?.selectedMessageUserId;
-		const selectedMessageMsg: SelectedMessageType['selectedMessageMsg'] = selectedMessage[0]?.selectedMessageMsg;
-		const selectedMessageAuthor: SelectedMessageType['selectedMessageAuthor'] = selectedMessage[0]?.selectedMessageAuthor;
-		const selectedMessageTimestamp: SelectedMessageType['selectedMessageTimestamp'] = selectedMessage[0]?.selectedMessageTimestamp;
+		const selectedMessageUserId: SelectedMessageType['userId'] = selectedMessage[0]?.userId;
+		const selectedMessageMsg: SelectedMessageType['message'] = selectedMessage[0]?.message;
+		const selectedMessageAuthor: SelectedMessageType['author'] = selectedMessage[0]?.author;
+		const selectedMessageTimestamp: SelectedMessageType['timestamp'] = selectedMessage[0]?.timestamp;
 
 		e.preventDefault();
 
@@ -225,8 +225,8 @@ const Chat = () => {
 									return (
 										<PrevMessage
 											key={msg.id}
-											author={msg.selectedMessageAuthor}
-											message={checkMessageLength(msg.selectedMessageMsg as string, 100)}
+											author={msg.author}
+											message={checkMessageLength(msg.message as string, 100)}
 											icon={<CloseIcon />}
 											onClick={() => {
 												setActiveReply(!activeReply);

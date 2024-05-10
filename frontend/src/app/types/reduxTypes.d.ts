@@ -27,20 +27,20 @@ interface UserState {
 
 interface SelectedMessage {
 	id?: string;
-	selectedMessageUserId?: string | undefined;
-	selectedMessageMsg?: string;
-	selectedMessageAuthor?: string | string[];
-	selectedMessageTimestamp?: string;
+	userId?: string | undefined;
+	message?: string;
+	author?: string | string[];
+	timestamp?: string;
 }
 
 interface Message {
 	id: string;
 	userId: string | undefined;
-	selectedMessageId?: SelectedMessage['selectedMessageId'];
-	selectedMessageUserId?: SelectedMessage['selectedMessageUserId'];
-	selectedMessageMsg?: SelectedMessage['selectedMessageMsg'];
-	selectedMessageAuthor?: SelectedMessage['selectedMessageAuthor'];
-	selectedMessageTimestamp?: SelectedMessage['selectedMessageTimestamp'];
+	selectedMessageId?: SelectedMessage['id'];
+	selectedMessageUserId?: SelectedMessage['userId'];
+	selectedMessageMsg?: SelectedMessage['message'];
+	selectedMessageAuthor?: SelectedMessage['author'];
+	selectedMessageTimestamp?: SelectedMessage['timestamp'];
 	message: string;
 	author: string | string[];
 	timestamp: string;
