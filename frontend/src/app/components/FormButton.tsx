@@ -1,14 +1,13 @@
 import { ButtonStyle } from '../styles';
+import { FormButtonProps } from '../types/propTypes';
 
-function FormButton(props: any) {
-	const { $primary, name, onClick } = props;
+function FormButton(props: FormButtonProps) {
+	const { $primary, text, type, value, name } = props;
 
 	return (
-		<>
-			<ButtonStyle onClick={onClick} $primary={$primary} type='submit' value='submit' name='submit'>
-				{name}
-			</ButtonStyle>
-		</>
+		<ButtonStyle $primary={$primary} type={type} value={value} name={name}>
+			{text}
+		</ButtonStyle>
 	);
 }
 

@@ -1,17 +1,24 @@
 'use client';
-
+// React
 import React, { FormEvent, useState } from 'react';
+// Types
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { HandleNameChangeInterface } from '../../app/types/reactTypes';
+import { Room as RoomType, CustomRootState } from '../types/reduxTypes';
+// Redux Hooks
 import { useAppSelector } from '../lib/hooks';
+// Next Navigation
 import { useRouter } from 'next/navigation';
+// Components
 import FormButton from '../components/FormButton';
 import RoomButton from '../components/RoomButton';
 import TextInput from '../components/TextInput';
+// Styled-components Styles
 import { Main, Wrapper, Form, Logo, Label, RoomContainer } from '../styles';
 
 const Home = () => {
-	const router = useRouter();
-	const rooms = useAppSelector((state) => state.rooms.rooms);
+	const router: AppRouterInstance = useRouter();
+	const rooms = useAppSelector((state: CustomRootState) => state.rooms.rooms);
 	const [username, setUsername] = useState<string>('');
 	const [selectedRoom, setSelectedRoom] = useState<string>(rooms[0].id);
 
@@ -49,13 +56,13 @@ const Home = () => {
 						/>
 						<Label $homelabel={true}>Rooms</Label>
 						<RoomContainer>
-							{rooms.map((room: any) => (
+							{rooms.map((room: RoomType) => (
 								<RoomButton
 									key={room.id}
 									roomName={room.name}
 									roomIcon={room.icon}
 									type={'radio'}
-									name={'selectedRoom'}
+									name={room.name as string}
 									htmlFor={room.name}
 									id={room.id}
 									value={room.id}
@@ -65,7 +72,7 @@ const Home = () => {
 								></RoomButton>
 							))}
 						</RoomContainer>
-						{disabled ? <FormButton $primary={true} name={'Join'} /> : <FormButton $primary={false} name={'Join'} />}
+						<FormButton $primary={disabled ? true : false} text={'Join'} type={'submit'} name={'submit'} value={'submit'} />
 					</Form>
 				</Wrapper>
 			</Main>

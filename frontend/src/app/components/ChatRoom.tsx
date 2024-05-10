@@ -1,14 +1,13 @@
 import { ActiveRoomWrapper, ActiveRoomIcon, ActiveRoomText } from '../styles';
+import { ChatRoomProps } from '../types/propTypes';
 
-function ChatRoom(props: any) {
-	const { roomName, roomIcon } = props;
+function ChatRoom(props: ChatRoomProps) {
+	const { roomIcon, roomName } = props;
 	return (
-		<>
-			<ActiveRoomWrapper>
-				<ActiveRoomIcon>{roomIcon}</ActiveRoomIcon>
-				<ActiveRoomText>{roomName}</ActiveRoomText>
-			</ActiveRoomWrapper>
-		</>
+		<ActiveRoomWrapper>
+			<ActiveRoomIcon>{roomIcon}</ActiveRoomIcon>
+			<ActiveRoomText>{roomName}</ActiveRoomText>
+		</ActiveRoomWrapper>
 	);
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
 	Bubble,
 	MessageText,
@@ -14,43 +14,37 @@ import {
 	PrevContainer,
 } from '../styles';
 import MessageTool from './MessageTool';
+import { MessageProps } from '../types/propTypes';
 
-function Message(props: any) {
-	const { $chatbot, timestamp, text, username, icon, onClick, isResponseMessage, prevMessage, prevAuthor, prevTimestamp } = props;
+function Message(props: MessageProps) {
+	const { $chatbot, timestamp, message, author, icon, onClick, prevMessage, prevAuthor, prevTimestamp } = props;
 
-	const [iconVisibility, setIconVisibility] = useState(false);
+	const [iconVisibility, setIconVisibility] = useState<boolean>(false);
 
-	return isResponseMessage ? (
+	return (
 		<MessageSubWrapper>
 			<MessageSubContainer onMouseOver={() => setIconVisibility(true)} onMouseLeave={() => setIconVisibility(false)}>
 				<MessageMeta>
 					<MessageTool iconVisibility={iconVisibility} icon={icon} onClick={onClick}></MessageTool>
-					<MessageUsername>{username}</MessageUsername>
+					<MessageUsername>{author}</MessageUsername>
 					<MessageTimestamp>{timestamp}</MessageTimestamp>
 				</MessageMeta>
-				<Bubble $chatbot={$chatbot}>
-					<PrevMessageContainer>
-						<PrevContainer>
-							<PrevAuthor>{prevAuthor}</PrevAuthor>
-							<PrevText>{prevMessage}</PrevText>
-						</PrevContainer>
-						<PrevTimestamp>{prevTimestamp}</PrevTimestamp>
-					</PrevMessageContainer>
-					<MessageText $isprevtext={true}>{text}</MessageText>
-				</Bubble>
-			</MessageSubContainer>
-		</MessageSubWrapper>
-	) : (
-		<MessageSubWrapper>
-			<MessageSubContainer onMouseOver={() => setIconVisibility(true)} onMouseLeave={() => setIconVisibility(false)}>
-				<MessageMeta>
-					<MessageTool iconVisibility={iconVisibility} icon={icon} onClick={onClick}></MessageTool>
-					<MessageUsername>{username}</MessageUsername>
-					<MessageTimestamp>{timestamp}</MessageTimestamp>
-				</MessageMeta>
-				<Bubble $chatbot={$chatbot}>
-					<MessageText $isprevtext={false}>{text}</MessageText>
-				</Bubble>
+				{prevMessage ? (
+					<Bubble $chatbot={$chatbot}>
+						<PrevMessageContainer>
+							<PrevContainer>
+								<PrevAuthor>{prevAuthor}</PrevAuthor>
+								<PrevText>{prevMessage}</PrevText>
+							</PrevContainer>
+							<PrevTimestamp>{prevTimestamp}</PrevTimestamp>
+						</PrevMessageContainer>
+						<MessageText $isprevtext={true}>{message}</MessageText>
+					</Bubble>
+				) : (
+					<Bubble $chatbot={$chatbot}>
+						<MessageText $isprevtext={false}>{message}</MessageText>
+					</Bubble>
+				)}
 			</MessageSubContainer>
 		</MessageSubWrapper>
 	);
