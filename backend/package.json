@@ -1,0 +1,21 @@
+{
+	"name": "chitchat_backend",
+	"version": "1.0.0",
+	"description": "ChitChat Chat App (backend)",
+	"main": "backend/index.js",
+	"scripts": {
+		"start": "node server",
+		"dev": "nodemon server"
+	},
+	"repository": "https://github.com/lilla-nemeth/chitchat",
+	"author": "Lilla Németh",
+	"license": "MIT",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.19.2",
+		"nodemon": "^3.1.1",
+		"socket.io": "^4.7.5",
+		"sugar": "^2.0.6",
+		"uuid": "^9.0.1"
+	}
+}

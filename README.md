@@ -31,13 +31,13 @@ cd chitchat
 Install the dependencies
 
 ```
-npm install
+yarn install
 ```
 
 Run the server
 
 ```
-npm run dev
+yarn run dev
 ```
 
 Server is running on port 8080
@@ -60,7 +60,7 @@ yarn install
 Start the frontend
 
 ```
-yarn dev
+yarn run dev
 ```
 
 ## License

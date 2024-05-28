@@ -1,6 +1,6 @@
 {
 	"name": "chitchat_frontend",
-	"description": "ChitChat Chat App - Frontend",
+	"description": "ChitChat Chat App (frontend)",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
