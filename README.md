@@ -8,11 +8,7 @@ ChitChat is a chat application with rooms.
 
 ![ChitChat Rooms](https://raw.githubusercontent.com/lilla-nemeth/chitchat/main/frontend/src/app/assets/screenshots/app_screenshot_00.png)
 
-## Future of the App
-
-- Adding database to the backend to store data
-
-## Installing, running locally
+## Install, run locally
 
 Clone the repo
 
@@ -61,6 +57,24 @@ Start the frontend
 
 ```
 yarn run dev
+```
+
+## Add environment variables
+
+## Frontend
+
+The app uses NextAuth with Auth0 provider for authentication.
+To use Auth0, create your own account with an application on their website.
+After that, create a .env.local file (for local development) inside of the frontend folder, and add these variables with your credentials:
+
+```
+AUTH0_CLIENT_ID
+```
+
+and
+
+```
+AUTH0_CLIENT_SECRET
 ```
 
 ## License
