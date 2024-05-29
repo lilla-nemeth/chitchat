@@ -63,7 +63,7 @@ yarn run dev
 
 ## Frontend
 
-The app uses NextAuth with Auth0 provider for authentication.
+The app uses Auth.js with Auth0 provider for authentication.
 To use Auth0, create your own account with an application on their website.
 After that, create a .env.local file (for local development) inside of the frontend folder, and add these variables with your credentials:
 
