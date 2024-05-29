@@ -68,13 +68,13 @@ To use Auth0, create your own account with an application on their website.
 After that, create a .env.local file (for local development) inside of the frontend folder, and add these variables with your credentials:
 
 ```
-AUTH0_CLIENT_ID
+AUTH_AUTH0_ID
 ```
 
 and
 
 ```
-AUTH0_CLIENT_SECRET
+AUTH_AUTH0_SECRET
 ```
 
 ## License
