@@ -64,14 +64,22 @@ yarn run dev
 ## Frontend
 
 The app uses Auth.js with Auth0 provider for authentication.
-To use Auth0, create your own account with an application on their website.
-After that, create a .env.local file (for local development) inside of the frontend folder, and add these variables with your credentials:
+
+First, create a .env.local file (for local development) inside of the frontend folder.
+
+Generate AUTH_SECRET environment variable with
+
+```
+npx auth secret
+```
+
+and copy to the dotenv file.
+
+To use Auth0, create your own account with an application on their website, then add these variables with your credentials:
 
 ```
 AUTH_AUTH0_ID
 ```
-
-and
 
 ```
 AUTH_AUTH0_SECRET
