@@ -2,7 +2,7 @@
 
 ## Note
 
-The app is under construction, even works as intended. Initially it was just a test project to create a chat app quickly. Now I think that it deserves more e.g database with ORM, authentication and so on...
+The app is under construction, even works as intended. Initially, it was just a test project to create a chat app quickly. Now I think that it deserves more e.g database with ORM, authentication and so on...
 
 ## Description
 
