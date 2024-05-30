@@ -1,6 +1,6 @@
 # ChitChat
 
-## Note
+## Note (*Upcoming changes*)
 
 The app is under construction, even works as intended. Initially, it was just a test project to create a chat app quickly. Now I think that it deserves more e.g database with ORM, authentication and so on...
 
@@ -63,7 +63,7 @@ Start the frontend
 yarn run dev
 ```
 
-## Add environment variables
+## Add environment variables (*Upcoming changes*)
 
 ## Frontend
 
