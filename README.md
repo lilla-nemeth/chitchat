@@ -1,14 +1,10 @@
 # ChitChat
 
-## Note (*Upcoming changes*)
-
-The app is under construction, even works as intended. Initially, it was just a test project to create a chat app quickly. Now I think that it deserves more e.g database with ORM, authentication and so on...
-
 ## Description
 
-ChitChat is a chat application with rooms.
+ChitChat is a chat application with socket.io. Initially, it was just a test project to create a chat app quickly with rooms. Now I think it deserves a lot more. The updated version is coming soon (with database, authentication and so on...)
 
-🛠 Created with JavaScript, TypeScript, React, Next.js, Redux, Socket.io and Node.js. UI is made by custom design. For styling I used Styled Components.
+🛠 Technologies: JavaScript, TypeScript, React, Next.js, Redux, Socket.io and Node.js. UI is made by custom design. For styling I used Styled Components.
 
 ![ChitChat Rooms](https://raw.githubusercontent.com/lilla-nemeth/chitchat/main/frontend/src/app/assets/screenshots/app_screenshot_00.png)
 
@@ -61,40 +57,6 @@ Start the frontend
 
 ```
 yarn run dev
-```
-
-## Add environment variables (*Upcoming changes*)
-
-## Frontend
-
-The app uses Auth.js with Auth0 provider for authentication.
-
-First, create a .env.local file (for local development) inside of the frontend folder.
-
-Generate AUTH0_SECRET environment variable with
-
-```
-npx auth secret
-```
-
-and copy to the dotenv file.
-
-To use Auth0, create your own account with a Next.js application on their website, configure the Application URIs, then add these variables with your credentials:
-
-```
-AUTH0_BASE_URL
-```
-
-```
-AUTH0_ISSUER_BASE_URL
-```
-
-```
-AUTH_AUTH0_ID
-```
-
-```
-AUTH_AUTH0_SECRET
 ```
 
 ## License
