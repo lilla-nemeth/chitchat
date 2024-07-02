@@ -2,7 +2,7 @@
 
 ## Description
 
-ChitChat is a chat application with socket.io. Initially, it was just a test project to create a chat app quickly. Now I think it deserves a lot more. The updated version is coming soon (with database, authentication and so on...)
+ChitChat is a chat application with socket.io. Initially, it was just a test project to create a chat app quickly with rooms. Now I think it deserves a lot more. The updated version is coming soon (with database, authentication and so on...)
 
 🛠 Technologies: JavaScript, TypeScript, React, Next.js, Redux, Socket.io and Node.js. UI is made by custom design. For styling I used Styled Components.
 
